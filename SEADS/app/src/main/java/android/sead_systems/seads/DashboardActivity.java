@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class MainActivity extends AppCompatActivity {
+public class DashboardActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         //CustomList will be used when we put pictures with the text on the list, will have to redo adapter
 
         /*CustomList adapter1 = new
-        CustomList adapter1 = new CustomList(MainActivity.this,devices,R.drawable.test);
+        CustomList adapter1 = new CustomList(DashboardActivity.this,devices,R.drawable.test);
         list=(ListView)findViewById(R.id.list);
         list.setAdapter(adapter); */
     }
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 TextView textView = (TextView) viewClicked;
                 String clicked = textView.getText().toString();
                 //show which list item the user has clicked
-                Toast.makeText(MainActivity.this, clicked, Toast.LENGTH_SHORT).show();
+                Toast.makeText(DashboardActivity.this, clicked, Toast.LENGTH_SHORT).show();
 
 
             }

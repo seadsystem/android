@@ -10,9 +10,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO call this to move to next activity with proper .class
-
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, DashboardActivity.class);
         startActivity(intent);
         finish();
     }

@@ -45,7 +45,7 @@ public class TemperatureActivity extends AppCompatActivity {
      * @return String of currentTemp rounded to 1 decimal place
      */
     private String roundTemperature() {
-        String rounded = "";
+        String rounded;
         double toBeRounded = Math.round(currentTemp * decimalPlaces);
         toBeRounded /= decimalPlaces;
         rounded = Double.toString(toBeRounded);
@@ -53,8 +53,7 @@ public class TemperatureActivity extends AppCompatActivity {
     }
 
     /**
-     *  Converts the currentTemp from either Celsius -> Fahrenheit or Fahrenheit -> Celsius
-     *  depending on current state
+     * Converts the currentTemp from either Celsius -> Fahrenheit or Fahrenheit -> Celsius
      */
     private void convertTemperature() {
         if (isFahrenheit) {
