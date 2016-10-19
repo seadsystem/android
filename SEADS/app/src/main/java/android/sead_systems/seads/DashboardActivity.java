@@ -1,5 +1,6 @@
 package android.sead_systems.seads;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.sead_systems.seads.devices.DeviceListManager;
 import android.sead_systems.seads.devices.DeviceObject;
@@ -17,6 +18,19 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // FIXME: This is DEBUG code meant only for the demo. Remove this!
+        TextView textView = (TextView) findViewById(R.id.currentUsageTextbox);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), TemperatureActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+
         //get rid of title replace with seads logo
         setTitle("");
         // getSupportActionBar().setIcon(R.mipmap.logo);
@@ -41,7 +55,9 @@ public class DashboardActivity extends AppCompatActivity {
         list=(ListView)findViewById(R.id.list);
         list.setAdapter(adapter); */
     }
-public static int temp = 0;
+
+    // FIXME: This is DEBUG code!
+    static int temp = 0;
 
     //This function will be used to run an individual fragment based on which item was clicked
     private void registerOnClick() {
