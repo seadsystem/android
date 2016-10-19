@@ -6,8 +6,8 @@
 
     <item>
         <bitmap
-            android:gravity="center"
-            android:src="@mipmap/seads"/>
+            android:gravity="fill"
+            android:src="@mipmap/splash_logo"/>
     </item>
 
 </layer-list>
