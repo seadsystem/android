@@ -25,12 +25,21 @@
         android:dividerHeight="4px"
         android:background="@drawable/rounded_listview" />
 
-   <!-- <ImageView
-        android:layout_width="300dp"
-        android:layout_height="150dp"
-        app:srcCompat="@mipmap/meter"
-        android:id="@+id/imageView"
-        android:layout_marginTop="16dp"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/currentUsageTextbox"
+        android:layout_marginTop="71dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" /> -->
+        android:layout_centerHorizontal="true" />
+
+    <!-- <ImageView
+         android:layout_width="300dp"
+         android:layout_height="150dp"
+         app:srcCompat="@mipmap/meter"
+         android:id="@+id/imageView"
+         android:layout_marginTop="16dp"
+         android:layout_alignParentTop="true"
+         android:layout_centerHorizontal="true" /> -->
 </RelativeLayout>

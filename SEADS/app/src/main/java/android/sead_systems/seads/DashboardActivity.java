@@ -1,13 +1,14 @@
 package android.sead_systems.seads;
 
 import android.os.Bundle;
+import android.sead_systems.seads.devices.DeviceListManager;
+import android.sead_systems.seads.devices.DeviceObject;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class DashboardActivity extends AppCompatActivity {
@@ -18,7 +19,7 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //get rid of title replace with seads logo
         setTitle("");
-       // getSupportActionBar().setIcon(R.drawable.logo);
+        // getSupportActionBar().setIcon(R.mipmap.logo);
         populateListView();
         registerOnClick();
 
@@ -27,10 +28,12 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void populateListView() {
         //can adapt this list to be only which devices the user wants to see
-        String[] devices = {"Fridge", "Heater", "Electric Car", "Air Conditioning", "TV", "Computer", "Washer", "Drier", "Laptop Charging", "Microwave"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.devicelist, devices);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.devicelist, DeviceListManager.getInstance().generateListOfDevices() );
         ListView list = (ListView) findViewById(R.id.listView);
         list.setAdapter(adapter);
+
+        ((TextView) findViewById(R.id.currentUsageTextbox)).setText(String.valueOf(
+                DeviceListManager.getInstance().generateCurrentPowerUsage()));
         //CustomList will be used when we put pictures with the text on the list, will have to redo adapter
 
         /*CustomList adapter1 = new
@@ -38,7 +41,7 @@ public class DashboardActivity extends AppCompatActivity {
         list=(ListView)findViewById(R.id.list);
         list.setAdapter(adapter); */
     }
-
+public static int temp = 0;
 
     //This function will be used to run an individual fragment based on which item was clicked
     private void registerOnClick() {
@@ -47,12 +50,9 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             //put method to run graph fragment here
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
-                TextView textView = (TextView) viewClicked;
-                String clicked = textView.getText().toString();
-                //show which list item the user has clicked
-                Toast.makeText(DashboardActivity.this, clicked, Toast.LENGTH_SHORT).show();
-
-
+                // FIXME: This is strictly debug code and should be removed after testing/demo
+                DeviceListManager.getInstance().insertDevice(new DeviceObject(String.valueOf(temp++), false, 34));
+                populateListView();
             }
         });
     }
