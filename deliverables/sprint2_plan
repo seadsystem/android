@@ -1,0 +1,50 @@
+Sprint 1 Plan - SEADS Android
+CMPS 115 Fall 2016
+
+Sprint 1 ends on [11/04/2016]
+
+Sprint 1 Goal:
+
+    Build up a basic application which emulates the current iOS app. This is 
+    primarily focused on ensuring the functionality is first built; the 
+    remaining sprints will focus on improving the user experience.
+
+Task listing:
+
+    [8] As a user, I want to see my electricity usage in the form of a graph so that I can see how much energy I’m currently using.
+
+    	- [3] From the list of devices, sum the total electricity usage and display it
+    	      as an integer.
+    	- [5] Provide a guage (data visualization) which will show the total electricity
+    	      usage in an easy to read manner.
+
+	[8] As a user, I want to see a list of my devices and their status so that I can tell which devices are currently running and consuming power.
+
+		- [3] Create a dashboard activity composed of a listview fragment. This fragment
+		      will display an assortment of registered devices.
+		- [5] Sort the list so that only high priority (either starred or running)
+		      devices are displayed first.
+
+	[5] As a user, I want to be able to see the temperature inside my house so that I can determine if I need to heat or cool my house. 
+
+		- [1] Obtain the temperature information from the API.
+		- [4] Match the temperature to a specific animation on the thermometer.
+
+	[1] As a designer, I want a splash screen so that the user is not left starting at a black screen during a cold boot.
+
+		- [1] The initial activity should be the "splash screen". In it's onCreate()
+			  simply enter the login or dashboard activity based whether or not the user is logged in.
+
+
+Team Roles:
+
+	Product Owner/Sponsor: Ali Adabi
+	Scrum Master: Talal Abou Haiba 
+	Developer: Xing Cao
+	Developer: Christopher Persons
+	Developer: Cameron Wheeler
+
+
+Digital scrum board/burnup chart coming soon - currently on a whiteboard in E2.
+
+Scrum Times: Monday/Wednesday/Friday @ noon (immediately following lecture)
