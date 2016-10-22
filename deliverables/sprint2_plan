@@ -1,13 +1,13 @@
-Sprint 1 Plan - SEADS Android
+Sprint 2 Plan - SEADS Android
 CMPS 115 Fall 2016
 
-Sprint 1 ends on [11/04/2016]
+Sprint 2 ends on [11/04/2016]
 
-Sprint 1 Goal:
+Sprint 2 Goal:
 
-    Build up a basic application which emulates the current iOS app. This is 
-    primarily focused on ensuring the functionality is first built; the 
-    remaining sprints will focus on improving the user experience.
+    Continue building all of the primary fuctionalities of the application as planned.
+    First half of the sprint aims to incoporate and combine all of the data visualization 
+    aspects; remaining sprints will focus on linking with backend API to provide realtime data..
 
 Task listing:
 
@@ -18,33 +18,33 @@ Task listing:
     	- [5] Provide a guage (data visualization) which will show the total electricity
     	      usage in an easy to read manner.
 
-	[8] As a user, I want to see a list of my devices and their status so that I can tell which devices are currently running and consuming power.
+    [8] As a user, I want to see a list of my devices and their status so that I can tell which devices are currently running and consuming power.
 
-		- [3] Create a dashboard activity composed of a listview fragment. This fragment
+	- [3] Create a dashboard activity composed of a listview fragment. This fragment
 		      will display an assortment of registered devices.
-		- [5] Sort the list so that only high priority (either starred or running)
+	- [5] Sort the list so that only high priority (either starred or running)
 		      devices are displayed first.
 
-	[5] As a user, I want to be able to see the temperature inside my house so that I can determine if I need to heat or cool my house. 
+    [5] As a user, I want to be able to see the temperature inside my house so that I can determine if I need to heat or cool my house. 
 
-		- [1] Obtain the temperature information from the API.
-		- [4] Match the temperature to a specific animation on the thermometer.
+	- [1] Obtain the temperature information from the API.
+	- [4] Match the temperature to a specific animation on the thermometer.
 
-	[1] As a designer, I want a splash screen so that the user is not left starting at a black screen during a cold boot.
+    [8] As a user, I want to see real time data reflecting what is happening right now.
 
-		- [1] The initial activity should be the "splash screen". In it's onCreate()
-			  simply enter the login or dashboard activity based whether or not the user is logged in.
+	- [5] Obtain all relevant historical data from the API and provide visualization.
+        - [3] Regulate standarized interval for API calls to get real-time data and updates. 
 
 
 Team Roles:
 
 	Product Owner/Sponsor: Ali Adabi
-	Scrum Master: Talal Abou Haiba 
-	Developer: Xing Cao
+	Scrum Master: Xing Cao 
+	Developer: Talal Abou Haiba
 	Developer: Christopher Persons
 	Developer: Cameron Wheeler
 
 
-Digital scrum board/burnup chart coming soon - currently on a whiteboard in E2.
+Digital scrum board on Trello - physical board with conceptual planning work in E2 lab.
 
 Scrum Times: Monday/Wednesday/Friday @ noon (immediately following lecture)
