@@ -1,0 +1,58 @@
+Sprint 1 Report - SEADS Android
+CMPS 115 Fall 2016
+
+Sprint 1 ended on [10/19/2016]
+
+Actions to stop doing:
+
+	+
+
+Actions to start doing:
+
+	+ We should claim tasks earlier in the Sprint and only reallocate tasks if they are not going to be completed on time.
+
+	+ We should potentially set aside a few hours a week in which we will get together and work on the project simultaneously, so that we can avoid last-minute crunch time.
+
+Actions to keep doing:
+
+	+ We should continue meeting consistently for Scrum meetings every Monday/Wednesday/Friday, as it has helped us keep up to date with each others progress.
+
+	+ Continue communicating every time we push/merge on Slack, as it helps avoid bigger merge issues.
+
+Work completed:
+
+	+ As a designer, I want a splash screen so that the user is not left staring at a black screen during a cold boot.
+		- Create splash screen with a temporary icon as the image
+		- Update splash screen to use a more suitable image designed by the iOS team
+
+	+ As a user, I want to see a list of my devices and their status so that I can tell which devices are currently running and consuming power.
+		- Build a basic listview containing a list of device names
+		- Develop an efficient way of keeping all of the devices in memory
+		- Build a series of functions which allow the creation and modification of devices in the list
+		- Set up a dashboard (list takes up half screen, space for gauge on top) as a temporary fix until we build our fragments
+
+	+ As a user, I want to be able to see the temperature inside my house so that I can determine if I need to heat or cool my house.
+		- Build a basic backbone which allows for temperature conversions between C and F at the click of a button
+		- Research potential techniques which can let us create a thermometer on the screen
+
+	+ As a user, I want to see my electricity usage in the form of a graph so that I can see how much energy I’m currently using.
+		- Research data visualization in Android
+		- Build a demo app using some data visualization techniques
+		- From the list of devices, sum the total electricity usage and display it as an integer.
+
+Work not completed:
+
+	+ As a user, I want to see a list of my devices and their status so that I can tell which devices are currently running and consuming power.
+		- Sort the list based on a priority level given to each device
+		- Move the list into a fragment on the dashboard page
+		- Create a custom list which can support images
+
+	+ As a user, I want to be able to see the temperature inside my house so that I can determine if I need to heat or cool my house.
+		- Build a nice UI which displays the temperature in order to improve the user experience
+
+	+ As a user, I want to see my electricity usage in the form of a graph so that I can see how much energy I’m currently using.
+		- Provide a gauge (data visualization) which will show the total electricity usage in an easy to read manner.
+
+Work completion rate:
+
+	Out of a total of 16 tasks, our completion rate was: [11/16]. We completed ~68.75% of the tasks we set out to complete this sprint.
