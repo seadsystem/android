@@ -10,7 +10,7 @@ public class DeviceListManager {
 
     private HashMap<String, DeviceObject> mDeviceObjects;
 
-    private DeviceListManager() {
+    DeviceListManager() {
         mDeviceObjects = new HashMap<>();
 
         // FIXME: Debug code, only for demo!
@@ -40,13 +40,5 @@ public class DeviceListManager {
         return listOfDevices;
     }
 
-    private static DeviceListManager INSTANCE;
-
-    public static DeviceListManager getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new DeviceListManager();
-        }
-        return INSTANCE;
-    }
 
 }

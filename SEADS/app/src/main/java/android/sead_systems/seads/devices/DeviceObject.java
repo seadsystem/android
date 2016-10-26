@@ -10,15 +10,15 @@ public class DeviceObject {
     private String mDeviceName;
 
     private boolean mDeviceStatus;
-    private long mDeviceUsage;
+    private double mDeviceUsage;
 
-    public DeviceObject(String deviceName, boolean currentStatus, long usage) {
+    public DeviceObject(String deviceName, boolean currentStatus, double usage) {
         mDeviceName = deviceName;
         mDeviceStatus = currentStatus;
         mDeviceUsage = usage;
     }
 
-    public void updateDeviceUsage(long updatedUsage) {
+    public void updateDeviceUsage(double updatedUsage) {
         mDeviceUsage = updatedUsage;
     }
 
@@ -26,7 +26,7 @@ public class DeviceObject {
         mDeviceStatus = updatedStatus;
     }
 
-    public long getDeviceUsage() {
+    public double getDeviceUsage() {
         return mDeviceUsage;
     }
 
