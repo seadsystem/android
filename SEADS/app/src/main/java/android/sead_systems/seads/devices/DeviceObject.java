@@ -1,10 +1,10 @@
 package android.sead_systems.seads.devices;
 
-/** Created by talal.abouhaiba on 10/19/2016. */
-
 /**
  * A container for the attributes of a single device.
+ * @author Talal Abou Haiba
  */
+
 public class DeviceObject {
 
     private String mDeviceName;

@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/** Created by talal.abouhaiba on 10/19/2016. */
+/**
+ * DeviceListManager handles the storage of multiple {@link DeviceObject} instances.
+ * @author Talal Abou Haiba
+ */
 
 public class DeviceListManager {
 
@@ -12,33 +15,47 @@ public class DeviceListManager {
 
     DeviceListManager() {
         mDeviceObjects = new HashMap<>();
-
-        // FIXME: Debug code, only for demo!
-        insertDevice(new DeviceObject("Fridge", true, 23));
-        insertDevice(new DeviceObject("Laptop", false, 23));
-        insertDevice(new DeviceObject("Tesla", true, 23));
-        insertDevice(new DeviceObject("Microwave", true, 23));
     }
 
-    public void insertDevice(DeviceObject newObject) {
-        mDeviceObjects.put(newObject.toString(), newObject);
+    /**
+     * Allows the insertion of a new {@link DeviceObject}.
+     * @param newDevice which may not be null or named similarly to an already existing device.
+     */
+    public synchronized void insertDevice(DeviceObject newDevice) {
+        if (newDevice != null && !mDeviceObjects.containsKey(newDevice.toString())) {
+            mDeviceObjects.put(newDevice.toString(), newDevice);
+        } else {
+            throw new IllegalArgumentException("Cannot insert a null or duplicate device!");
+        }
     }
 
-    public long generateCurrentPowerUsage() {
-        long totalConsumption = 0;
+    /**
+     * Retrieves a {@link DeviceObject} using the device name
+     * @param deviceName to be retrieved
+     * @return the {@link DeviceObject} associated with the deviceName
+     */
+    public synchronized DeviceObject getDevice(String deviceName) {
+        return mDeviceObjects.get(deviceName);
+    }
+
+    /**
+     * Iterates over the current set of devices and sums up the total power usage as a double.
+     * @return a double containing the current power usage, or zero if there are no devices.
+     */
+    public double generateCurrentPowerUsage() {
+        double totalConsumption = 0;
         for (Object value : mDeviceObjects.values()) {
             totalConsumption += ((DeviceObject)value).getDeviceUsage();
         }
         return totalConsumption;
     }
 
+    /**
+     * Generates a list of device names.
+     * @return a list containing the names of all current DeviceObjects
+     */
     public List<String> generateListOfDevices() {
-        List<String> listOfDevices = new ArrayList<>();
-        for (Object value : mDeviceObjects.values()) {
-            listOfDevices.add(value.toString());
-        }
-        return listOfDevices;
+        return new ArrayList<>(mDeviceObjects.keySet());
     }
-
 
 }

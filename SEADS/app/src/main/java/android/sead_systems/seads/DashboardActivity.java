@@ -3,7 +3,6 @@ package android.sead_systems.seads;
 import android.content.Intent;
 import android.os.Bundle;
 import android.sead_systems.seads.devices.DeviceManagerFactory;
-import android.sead_systems.seads.devices.DeviceObject;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -39,7 +38,6 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
-
     private void populateListView() {
         //can adapt this list to be only which devices the user wants to see
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.devicelist, DeviceManagerFactory.getInstance().generateListOfDevices() );
@@ -56,9 +54,6 @@ public class DashboardActivity extends AppCompatActivity {
         list.setAdapter(adapter); */
     }
 
-    // FIXME: This is DEBUG code!
-    static int temp = 0;
-
     //This function will be used to run an individual fragment based on which item was clicked
     private void registerOnClick() {
         ListView list = (ListView) findViewById(R.id.listView);
@@ -66,9 +61,6 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             //put method to run graph fragment here
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
-                // FIXME: This is strictly debug code and should be removed after testing/demo
-                DeviceManagerFactory.getInstance().insertDevice(new DeviceObject(String.valueOf(temp++), false, 34));
-                populateListView();
             }
         });
     }
