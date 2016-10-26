@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Power Usage Summary"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:id="@+id/piegraph"></com.github.mikephil.charting.charts.PieChart>
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/bargraph"></com.github.mikephil.charting.charts.BarChart>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/linegraph"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+</LinearLayout>

@@ -26,6 +26,10 @@
             android:name=".DashboardActivity">
         </activity>
 
+        <activity
+            android:name=".graph.DemoActivity">
+        </activity>
+
     </application>
 
 </manifest>
