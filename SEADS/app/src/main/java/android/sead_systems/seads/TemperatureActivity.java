@@ -1,21 +1,35 @@
 package android.sead_systems.seads;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 
 public class TemperatureActivity extends AppCompatActivity {
 
     private static double decimalPlaces = 10.0;
     private double currentTemp = 100.0;
     private boolean isFahrenheit = true;
+    private String url = "http://db.sead.systems:8080/0000001?type=T&subset=1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temperature);
+
+        System.out.println("TESTING " + System.currentTimeMillis());
 
         final Button tempButton = (Button) findViewById(R.id.temperature_button);
         tempButton.setText(buildTemperatureString());
@@ -24,9 +38,78 @@ public class TemperatureActivity extends AppCompatActivity {
             public void onClick(View view) {
                 convertTemperature();
                 tempButton.setText(buildTemperatureString());
+                new JSONParse().execute();
             }
         });
+
+
     }
+
+    private class JSONParse extends AsyncTask<String, String, JSONObject> {
+        private ProgressDialog pDialog;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(TemperatureActivity.this);
+            pDialog.setMessage("Getting Data ...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... args) {
+            JSONObject jsonObject = new JSONObject();
+            try{
+                jsonObject = getJSONObjectFromURL(url);
+                return jsonObject;
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return jsonObject;
+        }
+        @Override
+        protected void onPostExecute(JSONObject json) {
+            pDialog.dismiss();
+        }
+    }
+
+
+    public static JSONObject getJSONObjectFromURL(String urlString) throws IOException, JSONException {
+        System.out.println("TemperatureActivity::getJSONObjectFromURL");
+        HttpURLConnection urlConnection = null;
+
+        URL url = new URL(urlString);
+
+        urlConnection = (HttpURLConnection) url.openConnection();
+
+        urlConnection.setRequestMethod("GET");
+        urlConnection.setReadTimeout(10000 /* milliseconds */);
+        urlConnection.setConnectTimeout(15000 /* milliseconds */);
+
+        urlConnection.setDoOutput(true);
+
+        urlConnection.connect();
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+
+        String jsonString = new String();
+
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = br.readLine()) != null) {
+            sb.append(line+"\n");
+        }
+        br.close();
+
+        jsonString = sb.toString();
+
+        System.out.println("JSON: " + jsonString);
+
+        return new JSONObject(jsonString);
+    } // end getJSONObjectFromURL
 
     /**
      * @return String of temperature in Fahrenheit or Celsius
@@ -67,3 +150,15 @@ public class TemperatureActivity extends AppCompatActivity {
         }
     }
 }
+
+/**
+ Usage: http://db.sead.systems:8080/(device id)['?' + '&'.join(.[[start_time=(start time as UTC unix timestamp)],
+ [end_time=(end time as UTC unix timestamp)], [type=(Sensor type code),[device=(seadplug for SEAD plug,
+ egauge or channel name for eGauge), granularity=(interval between data points in seconds of an energy list
+ query, must also include list_format=energy and type=P), [diff=(1 get the data differences instead of the data),
+ event=(threshold of event detection, must also include device and type=P and list_format=event)]]]],
+ [subset=(subsample result down to this many rows)], [list_format=(string representing what the json list entries
+ will look like)], [limit=(truncate result to this many rows)], [json=(1 get the result in pseudo JSON format)]]
+
+ http://db.sead.systems:8080/0000001?type=W&subset=5 returns Temperature for device 0000001
+ */
