@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,13 +14,15 @@
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/picture"
+        android:layout_centerInParent="@id/picture"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
         android:gravity="center"
         android:layout_gravity="bottom"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@color/primary_text_light_bckgrnd"
         android:background="#00000000"/>
 
-</FrameLayout>
+</RelativeLayout>

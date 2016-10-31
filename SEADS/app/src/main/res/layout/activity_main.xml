@@ -10,36 +10,19 @@
     <ImageView
         android:id="@+id/main_logo"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:src="@mipmap/seads"
+        android:layout_height="45sp"
+        android:src="@mipmap/logo2"
         android:background="@color/light_gray"
         android:layout_margin="5dp"></ImageView>
     <GridView
         android:id="@+id/gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:verticalSpacing="0dp"
-        android:horizontalSpacing="0dp"
+        android:horizontalSpacing="50sp"
+        android:layout_marginLeft="50sp"
+        android:layout_marginRight="50sp"
         android:stretchMode="columnWidth"
         android:numColumns="2"
-        android:paddingTop="50dp"
-        />
+        android:paddingTop="55sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/currentUsageTextbox"
-        android:layout_marginTop="71dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <!-- <ImageView
-         android:layout_width="300dp"
-         android:layout_height="150dp"
-         app:srcCompat="@mipmap/meter"
-         android:id="@+id/imageView"
-         android:layout_marginTop="16dp"
-         android:layout_alignParentTop="true"
-         android:layout_centerHorizontal="true" /> -->
 </FrameLayout>
