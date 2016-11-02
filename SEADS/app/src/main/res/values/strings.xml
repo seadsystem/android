@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SEADS</string>
+    <string name="action_settings">Options</string>
 </resources>
