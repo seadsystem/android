@@ -13,7 +13,7 @@ public class DeviceListManager {
 
     private HashMap<String, DeviceObject> mDeviceObjects;
 
-    DeviceListManager() {
+    public DeviceListManager() {
         mDeviceObjects = new HashMap<>();
     }
 
