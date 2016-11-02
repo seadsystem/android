@@ -14,4 +14,9 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    <style name="TextAppearence.TextInputLayout.White" parent="@android:style/TextAppearance">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
 </resources>

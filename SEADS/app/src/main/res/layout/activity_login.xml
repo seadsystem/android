@@ -9,7 +9,7 @@
         android:layout_height="60dp"
         android:text="Already have an account?"
         android:id="@+id/loginbutton"
-        android:layout_marginBottom="200dp"
+        android:layout_marginBottom="150dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

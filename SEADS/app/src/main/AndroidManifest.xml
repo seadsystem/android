@@ -23,6 +23,10 @@
         </activity>
 
         <activity
+            android:name=".SignUpActivity">
+        </activity>
+
+        <activity
             android:name=".TemperatureActivity">
         </activity>
 
