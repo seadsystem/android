@@ -1,0 +1,107 @@
+Sprint 2 Report - SEADS Android
+
+CMPS 115 Fall 2016
+
+
+
+Sprint 2 ended on [11/04/2016]
+
+
+
+Actions to stop doing:
+
+
+
+	+ We should stop all development on features not included in the designs agreed upon with the iOS team (Ex. Thermometer)
+
+
+
+Actions to start doing:
+
+
+
+	+ We should organize into sub-groups to tackle tasks that require coordination between multiple members.
+
+
+
+	+ We should contact Ali and Olexiy swiftly when we encounter API call problems.
+
+
+
+Actions to keep doing:
+
+
+
+	+ As usual, We should continue meeting consistently for Scrum meetings every Monday/Wednesday/Friday.
+
+
+
+	+ Continue to keep communication with the iOS team and coordinate the direction of the application.
+
+
+
+	+ Continue communicating every time we push/merge on Slack, as it helps avoid bigger merge issues.
+
+
+
+Work completed:
+
+
+
+	+ As a user, I want to see my electricity usage in the form of a graph so that I can see how much energy I’m currently using.
+
+		- Provide a guage (data visualization) which will show the total electricity usage in an easy to read manner.
+
+		- From the list of devices, sum the total electricity usage and display it as an integer.
+
+		- Provide alternative visualization in forms of bar chart, pie chart and line graph.
+
+
+
+	+ As a user, I want to see a list of my devices and their status so that I can tell which devices are currently running and consuming power.
+
+		- Create a dashboard activity composed of a listview fragment. This fragment will display an assortment of registered devices.
+
+		- Sort the list so that only high priority (either starred or running) devices are displayed first.
+
+		- Create a custom list which can support images
+
+
+
+	+ As a user, I want to be able to see the temperature inside my house so that I can determine if I need to heat or cool my house.
+
+		- Obtain the temperature information from the API.
+
+		- Match the temperature to a specific animation on the thermometer.
+
+
+
+	+ As a user, I want to see real time data reflecting what is happening right now.
+
+		- Complete first-stage API calls to successfully obtain data from server.
+
+
+
+Work not completed:
+
+
+
+	+ As a user, I want to see a list of my devices and their status so that I can tell which devices are currently running and consuming power.
+
+		- Sort the list based on a priority level given to each device
+
+
+
+	+ As a user, I want to see real time data reflecting what is happening right now.
+
+		- Obtain all relevant historical data from the API and provide visualization.
+
+		- Regulate standarized interval for API calls to get real-time data and updates.
+
+
+
+Work completion rate:
+
+
+
+	Out of a total of 16 tasks, our completion rate was: [9/12]. We completed ~75.00% of the tasks we set out to complete this sprint.
