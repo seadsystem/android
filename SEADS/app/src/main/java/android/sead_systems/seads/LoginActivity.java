@@ -40,6 +40,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        ServerHandler serverHandler = new ServerHandler(LoginActivity.this);
+        serverHandler.serverCall();
+
     }
 
 }

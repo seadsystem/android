@@ -22,7 +22,6 @@ public class TemperatureActivity extends AppCompatActivity {
     private static double decimalPlaces = 10.0;
     private double currentTemp = 100.0;
     private boolean isFahrenheit = true;
-    private String url = "http://db.sead.systems:8080/0000001?type=T&subset=1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,78 +37,11 @@ public class TemperatureActivity extends AppCompatActivity {
             public void onClick(View view) {
                 convertTemperature();
                 tempButton.setText(buildTemperatureString());
-                new JSONParse().execute();
             }
         });
 
 
     }
-
-    private class JSONParse extends AsyncTask<String, String, JSONObject> {
-        private ProgressDialog pDialog;
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(TemperatureActivity.this);
-            pDialog.setMessage("Getting Data ...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
-        }
-
-        @Override
-        protected JSONObject doInBackground(String... args) {
-            JSONObject jsonObject = new JSONObject();
-            try{
-                jsonObject = getJSONObjectFromURL(url);
-                return jsonObject;
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return jsonObject;
-        }
-        @Override
-        protected void onPostExecute(JSONObject json) {
-            pDialog.dismiss();
-        }
-    }
-
-
-    public static JSONObject getJSONObjectFromURL(String urlString) throws IOException, JSONException {
-        System.out.println("TemperatureActivity::getJSONObjectFromURL");
-        HttpURLConnection urlConnection = null;
-
-        URL url = new URL(urlString);
-
-        urlConnection = (HttpURLConnection) url.openConnection();
-
-        urlConnection.setRequestMethod("GET");
-        urlConnection.setReadTimeout(10000 /* milliseconds */);
-        urlConnection.setConnectTimeout(15000 /* milliseconds */);
-
-        urlConnection.setDoOutput(true);
-
-        urlConnection.connect();
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-
-        String jsonString = new String();
-
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = br.readLine()) != null) {
-            sb.append(line+"\n");
-        }
-        br.close();
-
-        jsonString = sb.toString();
-
-        System.out.println("JSON: " + jsonString);
-
-        return new JSONObject(jsonString);
-    } // end getJSONObjectFromURL
 
     /**
      * @return String of temperature in Fahrenheit or Celsius
