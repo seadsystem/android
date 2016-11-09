@@ -20,7 +20,7 @@
         android:text="Yesterday $21"
         android:layout_height="25dp"
         android:id="@+id/textView33"
-        android:background="@android:color/holo_orange_light"
+        android:background="@android:color/holo_red_light"
         android:layout_marginTop="150dp"
         android:textAppearance="@style/TextAppearence.TextInputLayout.White"
         android:textStyle="normal|bold"
@@ -33,7 +33,7 @@
     <TextView
         android:text="Last Week $25"
         android:id="@+id/textView31"
-        android:background="@android:color/holo_blue_light"
+        android:background="@android:color/holo_orange_light"
         android:textAppearance="@style/TextAppearence.TextInputLayout.White"
         android:textStyle="normal|bold"
         android:textAllCaps="true"

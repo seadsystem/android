@@ -12,7 +12,7 @@
 -->
 
     <TextView
-        android:text="Yesterday $21"
+        android:text="Yesterday $57"
         android:layout_height="25dp"
         android:id="@+id/textView13"
         android:background="@android:color/holo_orange_light"
@@ -33,7 +33,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Last Week $25"
+        android:text="Last Week $199"
         android:id="@+id/textView11"
         android:background="@android:color/holo_blue_light"
         android:textAppearance="@style/TextAppearence.TextInputLayout.White"
@@ -47,7 +47,7 @@
         android:layout_width="200dp" />
 
     <TextView
-        android:text="Daily Usage $19"
+        android:text="Daily Usage $54"
         android:layout_height="25dp"
         android:id="@+id/textView12"
         android:background="@android:color/holo_green_light"
