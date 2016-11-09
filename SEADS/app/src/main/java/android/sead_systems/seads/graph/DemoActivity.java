@@ -12,17 +12,17 @@ import android.view.MenuItem;
 
 public class DemoActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Daily Summary"));
-        tabLayout.addTab(tabLayout.newTab().setText("CO2 Footprint"));
-        tabLayout.addTab(tabLayout.newTab().setText("History"));
+        tabLayout.addTab(tabLayout.newTab().setText("Summary"));
+        tabLayout.addTab(tabLayout.newTab().setText("Details"));
+        tabLayout.addTab(tabLayout.newTab().setText("Devices"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);

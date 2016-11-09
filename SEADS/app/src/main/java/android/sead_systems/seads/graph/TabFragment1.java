@@ -11,6 +11,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -27,11 +29,13 @@ public class TabFragment1 extends Fragment {
             Color.rgb(38,40,53), Color.rgb(215,60,55)
     };
 
+    WebView mWebView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.tab_fragment_1, container, false);
-
+/*
         pieChart = (PieChart) v.findViewById(R.id.piegraph);
 
         ArrayList<PieEntry> entries = new ArrayList<>();
@@ -49,6 +53,11 @@ public class TabFragment1 extends Fragment {
         pieset.setColors(colors);
         PieData piedata = new PieData(pieset);
         pieChart.setData(piedata);
+*/
+        mWebView = (WebView) v.findViewById(R.id.webviewgauge);
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        mWebView.loadUrl("https://people.ucsc.edu/~okdogulu/gauge.html");
 
         return v;
     }

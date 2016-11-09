@@ -4,10 +4,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
+<!--
     <com.github.mikephil.charting.charts.PieChart
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:id="@+id/piegraph"></com.github.mikephil.charting.charts.PieChart>
+-->
 
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:id="@+id/webviewgauge"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
