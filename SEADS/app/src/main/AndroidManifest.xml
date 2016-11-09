@@ -23,7 +23,7 @@
         </activity>
 
         <activity
-            android:name=".SignUpActivity">
+            android:name=".SignupActivity">
         </activity>
 
         <activity
