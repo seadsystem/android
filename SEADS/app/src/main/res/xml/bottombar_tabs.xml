@@ -1,14 +1,14 @@
 <tabs>
     <tab
-        id="@+id/tab_favorites"
+        id="@+id/tab_left"
         icon="@mipmap/bottom_home"
         title="Home" />
     <tab
-        id="@+id/tab_nearby"
+        id="@+id/tab_center"
         icon="@mipmap/bottom_tips"
         title="Tips" />
     <tab
-        id="@+id/tab_friends"
+        id="@+id/tab_right"
         icon="@mipmap/bottom_settings"
         title="Settings" />
 </tabs>

@@ -53,9 +53,11 @@ public class DashboardActivity extends AppCompatActivity {
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
-                if (tabId == R.id.tab_favorites) {
-                    // The tab with id R.id.tab_favorites was selected,
-                    // change your content accordingly.
+                if (tabId == R.id.tab_left) {
+
+                } else if (tabId == R.id.tab_center) {
+
+                } else if (tabId == R.id.tab_right) {
 
                 }
             }
@@ -64,9 +66,12 @@ public class DashboardActivity extends AppCompatActivity {
         bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
             @Override
             public void onTabReSelected(@IdRes int tabId) {
-                if (tabId == R.id.tab_favorites) {
-                    // The tab with id R.id.tab_favorites was reselected,
-                    // change your content accordingly.
+                if (tabId == R.id.tab_left) {
+
+                } else if (tabId == R.id.tab_center) {
+
+                } else if (tabId == R.id.tab_right) {
+
                 }
             }
         });
