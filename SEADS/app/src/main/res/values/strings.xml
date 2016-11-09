@@ -1,4 +1,25 @@
 <resources>
     <string name="app_name">SEADS</string>
     <string name="action_settings">Options</string>
+
+    <!-- Welcome screen titles -->
+    <string name="welcome_p1_title">Welcome to SEADS</string>
+    <string name="welcome_p2_title">Save energy</string>
+    <string name="welcome_p3_title">Save money</string>
+    <string name="welcome_p4_title">Help the environment</string>
+
+    <!-- Welcome screen descriptions -->
+    <string name="welcome_p1_description">SEADS is an energy saving application which will help you
+     become a more efficient homeowner!</string>
+    <string name="welcome_p2_description">Keep track of the major applicances in your home!</string>
+    <string name="welcome_p3_description">Learn when the best time to run certain applicances is!</string>
+    <string name="welcome_p4_description">By being more mindful of our energy usage, we can reduce
+     our carbon footprint, save money, and protect the environment!</string>
+
+    <!-- Welcome activity buttons -->
+    <string name="welcome_button_continue">Continue</string>
+    <string name="welcome_button_next">Next</string>
+    <string name="welcome_button_skip">Skip</string>
+
+
 </resources>
