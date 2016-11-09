@@ -1,0 +1,14 @@
+<tabs>
+    <tab
+        id="@+id/tab_favorites"
+        icon="@mipmap/bottom_home"
+        title="Home" />
+    <tab
+        id="@+id/tab_nearby"
+        icon="@mipmap/bottom_tips"
+        title="Tips" />
+    <tab
+        id="@+id/tab_friends"
+        icon="@mipmap/bottom_settings"
+        title="Settings" />
+</tabs>

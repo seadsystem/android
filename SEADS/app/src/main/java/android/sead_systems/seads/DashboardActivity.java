@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.sead_systems.seads.graph.DemoActivity;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +17,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabReselectListener;
+import com.roughike.bottombar.OnTabSelectListener;
+
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -45,6 +49,27 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(@IdRes int tabId) {
+                if (tabId == R.id.tab_favorites) {
+                    // The tab with id R.id.tab_favorites was selected,
+                    // change your content accordingly.
+
+                }
+            }
+        });
+
+        bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
+            @Override
+            public void onTabReSelected(@IdRes int tabId) {
+                if (tabId == R.id.tab_favorites) {
+                    // The tab with id R.id.tab_favorites was reselected,
+                    // change your content accordingly.
+                }
+            }
+        });
     }
 
     private final class MyAdapter extends BaseAdapter {
@@ -53,6 +78,13 @@ public class DashboardActivity extends AppCompatActivity {
 
         public MyAdapter(Context context) {
             mInflater = LayoutInflater.from(context);
+            mItems.add(new Item("Master Bedroom",       R.mipmap.bedroom1));
+            mItems.add(new Item("Guest Bedroom",        R.mipmap.bedroom2));
+            mItems.add(new Item("Living Room ",         R.mipmap.livingroom));
+            mItems.add(new Item("Office",               R.mipmap.office));
+            mItems.add(new Item("Master Bathroom",      R.mipmap.bathroom));
+            mItems.add(new Item("Kitchen",              R.mipmap.kitchen));
+
             mItems.add(new Item("Master Bedroom",       R.mipmap.bedroom1));
             mItems.add(new Item("Guest Bedroom",        R.mipmap.bedroom2));
             mItems.add(new Item("Living Room ",         R.mipmap.livingroom));
