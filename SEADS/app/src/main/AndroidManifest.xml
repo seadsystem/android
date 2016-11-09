@@ -19,6 +19,10 @@
         </activity>
 
         <activity
+            android:name=".WelcomeActivity">
+        </activity>
+
+        <activity
             android:name=".LoginActivity">
         </activity>
 

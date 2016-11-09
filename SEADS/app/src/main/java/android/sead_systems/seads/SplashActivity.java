@@ -10,8 +10,12 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = new Intent(this, LoginActivity.class);
+        // If first time launch -> WelcomeActivity
+        Intent intent = new Intent(this, WelcomeActivity.class);
         startActivity(intent);
         finish();
+
+        // If not logged in -> LoginActivity
+        // If logged in -> DashboardActivity
     }
 }
