@@ -2,7 +2,9 @@ package android.sead_systems.seads.devices;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * DeviceListManager handles the storage of multiple {@link DeviceObject} instances.
@@ -56,6 +58,24 @@ public class DeviceListManager {
      */
     public List<String> generateListOfDevices() {
         return new ArrayList<>(mDeviceObjects.keySet());
+    }
+    public boolean[] generateListOfStatuses() {
+        int counter = mDeviceObjects.size();
+        Iterator it = mDeviceObjects.entrySet().iterator();
+
+        boolean[] Statuses = new boolean[counter];
+        List<String> Dev = generateListOfDevices();
+        for(int i = 0; i < counter; i++){
+            String curr = Dev.get(i);
+            Map.Entry device = (Map.Entry)it.next();
+            if(mDeviceObjects.get(curr).getDeviceStatus()) {
+                //DeviceObject curr = device.getKey();
+                Statuses[i] = true;
+            }else{
+                Statuses[i] = false;
+            }
+        }
+        return Statuses;
     }
 
 }
