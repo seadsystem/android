@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.sead_systems.seads.graph.DemoActivity;
 import android.support.annotation.IdRes;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -25,11 +28,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity {
+    GestureDetectorCompat gestureObject;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //begin swipe method
+        gestureObject = new GestureDetectorCompat(this, new LearnGesture());
 
         GridView gridView = (GridView) findViewById(R.id.gridview);
         gridView.setAdapter(new MyAdapter(this));
@@ -41,6 +47,8 @@ public class DashboardActivity extends AppCompatActivity {
                 Toast toast = Toast.makeText(getApplicationContext(), tv.getText(),
                         Toast.LENGTH_SHORT);
                 toast.show();
+
+
 
                 // TODO Need function to take the name and populate the next activity based off
                 // TODO the current item's name that is clicked.
@@ -76,6 +84,32 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        this.gestureObject.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
+
+    class LearnGesture extends GestureDetector.SimpleOnGestureListener {
+
+        @Override
+        public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY){
+            if (event2.getX() > event1.getX()) {
+                //left to right swipe
+
+            }else
+                if(event2.getX() < event1.getX()){
+                //right to left swipe
+                    Intent intent = new Intent(DashboardActivity.this, DeviceListActivity.class);
+                    finish();
+                    startActivity(intent);
+                }
+            return true;
+        }
+
+    }
+
 
     private final class MyAdapter extends BaseAdapter {
         private final List<Item> mItems = new ArrayList<Item>();
