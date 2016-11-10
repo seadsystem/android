@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 22
+    compileSdkVersion 23
     buildToolsVersion "21.1.2"
 
     defaultConfig {
         applicationId "android.sead_systems.seads"
         minSdkVersion 14
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
@@ -26,7 +26,8 @@ repositories {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:22.1.0'
+    compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.0'
-    compile 'com.android.support:design:22.2.1'
+    compile 'com.android.support:design:23.2.1'
+    compile 'com.roughike:bottom-bar:2.0.2'
 }
