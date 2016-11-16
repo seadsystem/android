@@ -72,7 +72,11 @@ public class DashboardActivity extends AppCompatActivity {
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         finish();
                     } else if (tabId == R.id.tab_right) {
-
+                        Intent intent = new Intent(getApplicationContext(),
+                                AddDevice.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        finish();
                     }
                 }
             });
@@ -91,7 +95,11 @@ public class DashboardActivity extends AppCompatActivity {
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         finish();
                     } else if (tabId == R.id.tab_right) {
-
+                        Intent intent = new Intent(getApplicationContext(),
+                                AddDevice.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        finish();
                     }
                 }
             });

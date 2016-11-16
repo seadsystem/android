@@ -48,7 +48,7 @@ public class DeviceListActivity extends AppCompatActivity {
                 String current_room = bundle.getString("Room");
                 //if the current room is not already in the room list insert the room
                 if(rooms.getRoom(current_room) == null){
-                    RoomObject new_room = new RoomObject(current_room);
+                    RoomObject new_room = new RoomObject(current_room, R.mipmap.bathroom);
                     rooms.insertRoom(new_room);
                     //insert the device into the newly made room object
                     rooms.getRoom(current_room).manageDevices().insertDevice(temp);
