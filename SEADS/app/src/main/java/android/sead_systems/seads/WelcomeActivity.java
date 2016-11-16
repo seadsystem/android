@@ -107,6 +107,9 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void launchHomeScreen() {
+        getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).edit().
+                putBoolean(getString(R.string.preference_first_time), false).apply();
+
         startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
         finish();
     }
