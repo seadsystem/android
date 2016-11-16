@@ -27,6 +27,7 @@
     <string name="title_activity_add_device">Sign in</string>
 
     <string name="deviceName"> Give the new device a name.</string>
+    <string name="roomName"> What room is this device in.</string>
     <string name="button_send"> Done</string>
 
     <!-- Strings related to login -->
