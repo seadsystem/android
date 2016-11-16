@@ -34,6 +34,7 @@ public class AddDevice extends AppCompatActivity {
        // intent.putExtra("New", devName);
         //intent.put
         startActivity(intent);
+        finish();
 
     }
 }

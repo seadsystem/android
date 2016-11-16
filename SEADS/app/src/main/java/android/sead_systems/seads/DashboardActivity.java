@@ -31,6 +31,7 @@ import java.util.List;
 public class DashboardActivity extends AppCompatActivity {
     GestureDetectorCompat gestureObject;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -72,10 +73,9 @@ public class DashboardActivity extends AppCompatActivity {
                         finish();
                     } else if (tabId == R.id.tab_right) {
                         Intent intent = new Intent(getApplicationContext(),
-                                AddDevice.class);
+                                SettingsActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                        finish();
                     }
                 }
             });
@@ -95,10 +95,9 @@ public class DashboardActivity extends AppCompatActivity {
                         finish();
                     } else if (tabId == R.id.tab_right) {
                         Intent intent = new Intent(getApplicationContext(),
-                                AddDevice.class);
+                                SettingsActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                        finish();
                     }
                 }
             });

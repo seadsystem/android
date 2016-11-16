@@ -14,9 +14,11 @@ import java.util.List;
 public class RoomListManager {
 
     private HashMap<String, RoomObject> mRoomObjects;
+    private List<String> mRoomOrdering;
 
     public RoomListManager() {
         mRoomObjects = new HashMap<>();
+        mRoomOrdering = new ArrayList<>();
         insertRoom(new RoomObject("Home", R.mipmap.bedroom1));
     }
 
@@ -27,6 +29,7 @@ public class RoomListManager {
     public synchronized void insertRoom(RoomObject newRoom) {
         if (newRoom != null && !mRoomObjects.containsKey(newRoom.toString())) {
             mRoomObjects.put(newRoom.toString(), newRoom);
+            mRoomOrdering.add(newRoom.toString());
         } else {
             throw new IllegalArgumentException("Cannot insert a null or duplicate room!");
         }
@@ -58,7 +61,11 @@ public class RoomListManager {
     }
 
     public List<RoomObject> generateListOfRoomObjects() {
-        return new ArrayList<>(mRoomObjects.values());
+        List<RoomObject> inOrderList = new ArrayList<>();
+        for (String room : mRoomOrdering) {
+            inOrderList.add(mRoomObjects.get(room));
+        }
+        return inOrderList;
     }
 
 }
