@@ -6,7 +6,7 @@
     <tab
         id="@+id/tab_center"
         icon="@mipmap/bottom_tips"
-        title="Tips" />
+        title="Cost" />
     <tab
         id="@+id/tab_right"
         icon="@mipmap/bottom_settings"
