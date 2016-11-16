@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.sead_systems.seads.graph.DemoActivity;
+import android.sead_systems.seads.rooms.RoomManagerFactory;
+import android.sead_systems.seads.rooms.RoomObject;
 import android.support.annotation.IdRes;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -124,24 +126,11 @@ public class DashboardActivity extends AppCompatActivity {
 
 
     private final class MyAdapter extends BaseAdapter {
-        private final List<Item> mItems = new ArrayList<Item>();
+        private final List<RoomObject> mItems = RoomManagerFactory.getInstance().generateListOfRoomObjects();
         private final LayoutInflater mInflater;
 
         public MyAdapter(Context context) {
             mInflater = LayoutInflater.from(context);
-            mItems.add(new Item("Master Bedroom",       R.mipmap.bedroom1));
-            mItems.add(new Item("Guest Bedroom",        R.mipmap.bedroom2));
-            mItems.add(new Item("Living Room ",         R.mipmap.livingroom));
-            mItems.add(new Item("Office",               R.mipmap.office));
-            mItems.add(new Item("Master Bathroom",      R.mipmap.bathroom));
-            mItems.add(new Item("Kitchen",              R.mipmap.kitchen));
-
-            mItems.add(new Item("Master Bedroom",       R.mipmap.bedroom1));
-            mItems.add(new Item("Guest Bedroom",        R.mipmap.bedroom2));
-            mItems.add(new Item("Living Room ",         R.mipmap.livingroom));
-            mItems.add(new Item("Office",               R.mipmap.office));
-            mItems.add(new Item("Master Bathroom",      R.mipmap.bathroom));
-            mItems.add(new Item("Kitchen",              R.mipmap.kitchen));
         }
 
         @Override
@@ -150,13 +139,13 @@ public class DashboardActivity extends AppCompatActivity {
         }
 
         @Override
-        public Item getItem(int i) {
+        public RoomObject getItem(int i) {
             return mItems.get(i);
         }
 
         @Override
         public long getItemId(int i) {
-            return mItems.get(i).drawableId;
+            return mItems.get(i).getImageId();
         }
 
         @Override
@@ -174,22 +163,13 @@ public class DashboardActivity extends AppCompatActivity {
             picture = (ImageView) v.getTag(R.id.picture);
             name = (TextView) v.getTag(R.id.text);
 
-            Item item = getItem(i);
+            RoomObject item = getItem(i);
 
-            picture.setImageResource(item.drawableId);
-            name.setText(item.name);
+            picture.setImageResource(item.getImageId());
+            name.setText(item.toString());
 
             return v;
         }
 
-        private class Item {
-            public final String name;
-            public final int drawableId;
-
-            Item(String name, int drawableId) {
-                this.name = name;
-                this.drawableId = drawableId;
-            }
-        }
     }
 }
