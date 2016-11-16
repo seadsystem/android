@@ -1,19 +1,16 @@
 package android.sead_systems.seads.graph;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.sead_systems.seads.DashboardActivity;
 import android.sead_systems.seads.R;
+import android.sead_systems.seads.TipsActivity;
 import android.support.annotation.IdRes;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowManager;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
@@ -27,8 +24,6 @@ public class DemoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Summary"));
         tabLayout.addTab(tabLayout.newTab().setText("Details"));
@@ -57,30 +52,21 @@ public class DemoActivity extends AppCompatActivity {
             }
         });
 
-
         BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
-        bottomBar.setActiveTabColor(getResources().getColor(R.color.bb_inActiveBottomBarItemColor));
-
         if (bottomBar != null) {
             bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
                 @Override
                 public void onTabSelected(@IdRes int tabId) {
                     if(!firstRunForBottomBar){
                         if (tabId == R.id.tab_left) {
-                            Intent intent = new Intent(getApplicationContext(),
-                                    DashboardActivity.class);
-                            startActivity(intent);
-                            finish();
+
                         } else if (tabId == R.id.tab_center) {
                             Intent intent = new Intent(getApplicationContext(),
-                                    DashboardActivity.class);
+                                    TipsActivity.class);
                             startActivity(intent);
                             finish();
                         } else if (tabId == R.id.tab_right) {
-                            Intent intent = new Intent(getApplicationContext(),
-                                    DashboardActivity.class);
-                            startActivity(intent);
-                            finish();
+
                         }
                     } else {
                         firstRunForBottomBar = false;
@@ -94,20 +80,14 @@ public class DemoActivity extends AppCompatActivity {
                 @Override
                 public void onTabReSelected(@IdRes int tabId) {
                     if (tabId == R.id.tab_left) {
-                        Intent intent = new Intent(getApplicationContext(),
-                                DashboardActivity.class);
-                        startActivity(intent);
-                        finish();
+
                     } else if (tabId == R.id.tab_center) {
                         Intent intent = new Intent(getApplicationContext(),
-                                DashboardActivity.class);
+                                TipsActivity.class);
                         startActivity(intent);
                         finish();
                     } else if (tabId == R.id.tab_right) {
-                        Intent intent = new Intent(getApplicationContext(),
-                                DashboardActivity.class);
-                        startActivity(intent);
-                        finish();
+
                     }
                 }
             });
