@@ -2,6 +2,11 @@
     <string name="app_name">SEADS</string>
     <string name="action_settings">Options</string>
 
+    <!-- Shared preferences -->
+    <string name="shared_preferences">SP</string>
+    <string name="preference_first_time">SP_FIRST_TIME</string>
+    <string name="preference_logged_in">SP_LOGGED_IN</string>
+
     <!-- Welcome screen titles -->
     <string name="welcome_p1_title">Welcome to SEADS</string>
     <string name="welcome_p2_title">Save energy</string>
@@ -27,6 +32,7 @@
     <string name="title_activity_add_device">Sign in</string>
 
     <string name="deviceName"> Give the new device a name.</string>
+    <string name="roomName"> What room is this device in.</string>
     <string name="button_send"> Done</string>
 
     <!-- Strings related to login -->

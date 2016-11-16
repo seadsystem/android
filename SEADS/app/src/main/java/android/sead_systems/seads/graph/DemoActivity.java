@@ -1,6 +1,7 @@
 package android.sead_systems.seads.graph;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.sead_systems.seads.DashboardActivity;
 import android.sead_systems.seads.R;
@@ -26,6 +27,7 @@ public class DemoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_demo);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Summary"));
+        tabLayout.addTab(tabLayout.newTab().setText("Breakdown"));
         tabLayout.addTab(tabLayout.newTab().setText("Details"));
         tabLayout.addTab(tabLayout.newTab().setText("Devices"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -92,6 +94,7 @@ public class DemoActivity extends AppCompatActivity {
                 }
             });
         }
+
     }
 
     @Override

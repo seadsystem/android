@@ -1,9 +1,5 @@
 package android.sead_systems.seads.graph;
 
-/**
- * Created by Bob on 11/1/16.
- */
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.sead_systems.seads.R;

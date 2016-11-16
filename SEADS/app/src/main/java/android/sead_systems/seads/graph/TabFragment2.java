@@ -1,8 +1,5 @@
 package android.sead_systems.seads.graph;
 
-/**
- * Created by Bob on 11/1/16.
- */
 
 import android.os.Bundle;
 import android.sead_systems.seads.R;
@@ -55,7 +52,6 @@ public class TabFragment2 extends Fragment {
         barChart.setDragEnabled(true);
         barChart.setScaleEnabled(true);
         barChart.setFitBars(true);
-        //barChart.setDescription("Last Week's Energy Use");
 
         return v;
     }

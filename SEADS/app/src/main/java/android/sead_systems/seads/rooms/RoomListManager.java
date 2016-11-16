@@ -1,5 +1,7 @@
 package android.sead_systems.seads.rooms;
 
+import android.sead_systems.seads.R;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +17,7 @@ public class RoomListManager {
 
     public RoomListManager() {
         mRoomObjects = new HashMap<>();
+        insertRoom(new RoomObject("Home", R.mipmap.bedroom1));
     }
 
     /**
@@ -52,6 +55,10 @@ public class RoomListManager {
 
     public List<String> generateListOfRooms() {
         return new ArrayList<>(mRoomObjects.keySet());
+    }
+
+    public List<RoomObject> generateListOfRoomObjects() {
+        return new ArrayList<>(mRoomObjects.values());
     }
 
 }

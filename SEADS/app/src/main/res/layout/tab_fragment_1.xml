@@ -4,13 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-<!--
-    <com.github.mikephil.charting.charts.PieChart
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:id="@+id/piegraph"></com.github.mikephil.charting.charts.PieChart>
--->
-
     <TextView
         android:text="Yesterday $57"
         android:layout_height="25dp"
@@ -22,11 +15,11 @@
         android:layout_below="@+id/textView12"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_width="200dp" />
+        android:layout_width="300dp" />
 
     <WebView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="700dp"
         android:id="@+id/webviewgauge"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
@@ -44,7 +37,7 @@
         android:layout_above="@+id/webviewgauge"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_width="200dp" />
+        android:layout_width="300dp" />
 
     <TextView
         android:text="Daily Usage $54"
@@ -58,5 +51,6 @@
         android:layout_alignBottom="@+id/textView11"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_width="200dp" />
+        android:layout_width="300dp" />
+
 </RelativeLayout>

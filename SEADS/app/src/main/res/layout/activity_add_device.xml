@@ -1,19 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:layout_height="match_parent">
+
     <EditText android:id="@+id/new_device"
-        android:layout_weight="1"
-        android:layout_width="0dp"
+
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/deviceName" />
+        android:hint="@string/deviceName"
+        android:layout_marginTop="46dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText android:id="@+id/new_room"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/roomName"
+        android:layout_marginTop="117dp"
+        android:layout_below="@+id/new_device"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_send"
-        android:onClick="onButtonPressed"/>
-</LinearLayout>
+        android:onClick="onButtonPressed"
+        android:id="@+id/button2"
+        android:layout_marginTop="122dp"
+        android:layout_below="@+id/new_room"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>

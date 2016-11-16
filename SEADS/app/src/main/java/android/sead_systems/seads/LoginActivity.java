@@ -44,8 +44,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        ServerHandler serverHandler = new ServerHandler(LoginActivity.this);
-        serverHandler.serverCall();
+//        ServerHandler serverHandler = new ServerHandler(LoginActivity.this);
+//        serverHandler.serverCall();
 
     }
 
@@ -69,6 +69,11 @@ public class LoginActivity extends AppCompatActivity {
         loginThread.start();
 
         progressDialog.dismiss();
+
+        // Assuming login is successful
+
+        getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).edit().
+                putBoolean(getString(R.string.preference_logged_in), true).apply();
 
         Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
         startActivity(intent);

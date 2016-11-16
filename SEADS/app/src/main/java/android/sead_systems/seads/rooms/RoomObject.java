@@ -10,16 +10,22 @@ import android.sead_systems.seads.devices.DeviceListManager;
 public class RoomObject {
 
     private String mRoomName;
+    private int mImageID;
 
     private DeviceListManager mDeviceListManager;
 
-    public RoomObject(String roomName) {
+    public RoomObject(String roomName, int imageId) {
         mDeviceListManager = new DeviceListManager();
         mRoomName = roomName;
+        mImageID = imageId;
     }
 
     public DeviceListManager manageDevices() {
         return mDeviceListManager;
+    }
+
+    public int getImageId() {
+        return mImageID;
     }
 
     @Override

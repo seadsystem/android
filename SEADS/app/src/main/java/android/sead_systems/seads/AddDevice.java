@@ -21,11 +21,18 @@ public class AddDevice extends AppCompatActivity {
     public void onButtonPressed(View view){
 
         EditText dev = (EditText)findViewById(R.id.new_device);
+        EditText room = (EditText)findViewById(R.id.new_room);
         String devName = dev.getText().toString();
+        String roomName = room.getText().toString();
 
         //Toast.makeText(AddDevice.this, devName, Toast.LENGTH_LONG).show();
         Intent intent = new Intent(AddDevice.this, DeviceListActivity.class );
-        intent.putExtra("New", devName);
+        Bundle extras = new Bundle();
+        extras.putString("New", devName);
+        extras.putString("Room", roomName);
+        intent.putExtras(extras);
+       // intent.putExtra("New", devName);
+        //intent.put
         startActivity(intent);
 
     }

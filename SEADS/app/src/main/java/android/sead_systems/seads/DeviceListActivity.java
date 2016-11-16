@@ -15,45 +15,57 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class DeviceListActivity extends AppCompatActivity {
 
 
-    public RoomListManager rooms = new RoomListManager();
-    public DeviceListManager devList = new DeviceListManager();
+    public RoomListManager rooms = RoomManagerFactory.getInstance();
+    public List<String> devList;
     public DeviceObject temp;
-    //first used to determine if a device has been added or not
-    public boolean first;
+    public RoomObject curr;
+
 
     public void onClick(View target){
         Intent intent = new Intent(DeviceListActivity.this, AddDevice.class);
-        first = true;
         startActivity(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_list);
             Intent intent = getIntent();
 
-        /***String name = "garage";
-        RoomObject garage = new RoomObject(name);
-        rooms.insertRoom(garage);
-***/
+       try{
+                Bundle bundle = intent.getExtras();
+                String dev = bundle.getString("New");
 
-        //add to dynamically change list
-           /** if(intent.getStringExtra("New") != null) {
-                String dev = intent.getStringExtra("New");
-                Toast.makeText(DeviceListActivity.this, dev, Toast.LENGTH_LONG).show();
                 temp = new DeviceObject(dev, false, 0);
-             //   RoomManagerFactory.getInstance().getRoom("garage").
-                devList.insertDevice(temp);
-            }  ***/
+                String current_room = bundle.getString("Room");
+                //if the current room is not already in the room list insert the room
+                if(rooms.getRoom(current_room) == null){
+                    RoomObject new_room = new RoomObject(current_room, R.mipmap.bathroom);
+                    rooms.insertRoom(new_room);
+                    //insert the device into the newly made room object
+                    rooms.getRoom(current_room).manageDevices().insertDevice(temp);
+                    curr = rooms.getRoom(current_room);
+                }
+                else{
+                    rooms.getRoom(current_room).manageDevices().insertDevice(temp);
+                    curr = rooms.getRoom(current_room);
+                }
+
+           populateListView();
+            } catch(NullPointerException e){
+           Toast.makeText(DeviceListActivity.this, "no items in list", Toast.LENGTH_LONG).show();
+       }
 
 
 
-        populateListView();
   /*      button = (Button)findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener()){
             public void onClick(View v) {
@@ -64,18 +76,15 @@ public class DeviceListActivity extends AppCompatActivity {
 
     private void populateListView() {
         //can adapt this list to be only which devices the user wants to see
-        //devList = new DeviceListManager();
+        //boolean [] stat = devList.generateListOfStatuses();
+        boolean [] stat = curr.manageDevices().generateListOfStatuses();
+        devList = curr.manageDevices().generateListOfDevices();
 
-        //
-       /** boolean [] stat = devList.generateListOfStatuses();**/
-
-        boolean[] stat = { true,false,false,true,true,false,false,false,true,false};
-        String[] devices = {"Fridge", "Heater", "Electric Car", "Air Conditioning", "TV", "Computer", "Washer", "Drier", "Laptop Charging", "Microwave"};
+                /*** boolean[] stat = { true,false,false,true,true,false,false,false,true,false};
+                 String[] devices = {"Fridge", "Heater", "Electric Car", "Air Conditioning", "TV", "Computer", "Washer", "Drier", "Laptop Charging", "Microwave"}; ***/
 
 
         Integer[] light = new Integer[stat.length];
-
-        //if(light[0] == null)  Toast.makeText(DeviceListActivity.this,"null", Toast.LENGTH_LONG).show();
         for (int i = 0 ; i < stat.length; i ++){
             if(stat[i]){
                 light[i] = R.drawable.device_on;
@@ -85,13 +94,14 @@ public class DeviceListActivity extends AppCompatActivity {
         }
 
         String [] deviceStrings = new String[stat.length];
+
         int index = 0;
-        deviceStrings = devices;
-        for(Object value : devList.generateListOfDevices()) {
-            if(devList.generateListOfDevices()!=null) {
+        //deviceStrings = devices;
+        for(Object value : devList) {
+            //if(devList!=null) {
                 deviceStrings[index] = (String) value;
                 index++;
-            }
+           // }
         }
 
        // Toast.makeText(DeviceListActivity.this,, Toast.LENGTH_LONG).show();
@@ -99,8 +109,8 @@ public class DeviceListActivity extends AppCompatActivity {
         ListView list = (ListView) findViewById(R.id.listView);
         list.setAdapter(adapter);
 
-        ((TextView) findViewById(R.id.currentUsageTextbox)).setText(String.valueOf(
-               devList.generateCurrentPowerUsage()));
+       /** ((TextView) findViewById(R.id.currentUsageTextbox)).setText(String.valueOf(
+               devList.generateCurrentPowerUsage())); **/
 
 
     }
