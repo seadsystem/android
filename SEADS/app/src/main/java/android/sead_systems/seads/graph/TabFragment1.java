@@ -31,29 +31,12 @@ public class TabFragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.tab_fragment_1, container, false);
-/*
-        pieChart = (PieChart) v.findViewById(R.id.piegraph);
 
-        ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(15.0f, "Car"));
-        entries.add(new PieEntry(12.0f, "Bike"));
-        entries.add(new PieEntry(15.8f, "Fridge"));
-        entries.add(new PieEntry(65.0f, "Tesla Cannon"));
-        entries.add(new PieEntry(11.2f, "TV"));
-
-        PieDataSet pieset = new PieDataSet(entries, "Usage Breakdown");
-
-        ArrayList<Integer> colors = new ArrayList<Integer>();
-        for (int c : MY_COLORS)
-            colors.add(c);
-        pieset.setColors(colors);
-        PieData piedata = new PieData(pieset);
-        pieChart.setData(piedata);
-*/
         mWebView = (WebView) v.findViewById(R.id.webviewgauge);
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         mWebView.loadUrl("https://people.ucsc.edu/~okdogulu/gauge.html");
+        mWebView.setVerticalScrollBarEnabled(false);
 
         return v;
     }

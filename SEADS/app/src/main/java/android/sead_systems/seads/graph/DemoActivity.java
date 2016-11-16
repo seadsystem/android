@@ -28,6 +28,7 @@ public class DemoActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Breakdown"));
         tabLayout.addTab(tabLayout.newTab().setText("Details"));
         tabLayout.addTab(tabLayout.newTab().setText("Devices"));
+        tabLayout.addTab(tabLayout.newTab().setText("RealTime"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);

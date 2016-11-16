@@ -26,7 +26,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Last Week $199"
+        android:text="Last Week $379"
         android:id="@+id/textView11"
         android:background="@android:color/holo_blue_light"
         android:textAppearance="@style/TextAppearence.TextInputLayout.White"
