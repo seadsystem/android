@@ -26,7 +26,6 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -67,7 +66,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                     } else if (tabId == R.id.tab_center) {
                         Intent intent = new Intent(getApplicationContext(),
-                                TipsActivity.class);
+                                CostActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         finish();
@@ -90,7 +89,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                     } else if (tabId == R.id.tab_center) {
                         Intent intent = new Intent(getApplicationContext(),
-                                TipsActivity.class);
+                                CostActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         finish();

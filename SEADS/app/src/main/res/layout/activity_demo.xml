@@ -29,7 +29,7 @@
         android:layout_height="45dp"
         android:src="@mipmap/logo2"
         android:background="@color/light_gray"
-        android:layout_margin="5dp"></ImageView>
+        android:layout_margin="5dp"/>
 
     <FrameLayout
         android:id="@+id/contentContainer"

@@ -36,8 +36,8 @@ public class ServerHandler {
     private String limit = "";
     // Reverse the result from the API
     private boolean reverse = false;
-    private String url = "http://api.eia.gov/series/?api_key=253F1DB6704D8ECBD3F06AA6E8A8DA8B&" +
-            "series_id=ELEC.PRICE.CA-RES.M&start=201608&end=201608";
+    private String url = "http://api.eia.gov/series/?api_key=YOUR_ID_HERE&" +
+            "series_id=ELEC.PRICE.CA-RES.M&start=201601&end=201608";
 
             //"http://db.sead.systems:8080/466419818?start_time=1478462587&" +
             //"end_time=1478548987&subset=10&type=P";
@@ -94,7 +94,7 @@ public class ServerHandler {
 
 
     public static JSONArray getJSONArrayFromURL(String urlString) throws IOException, JSONException {
-        System.out.println("TipsActivity::getJSONObjectFromURL");
+        System.out.println("CostActivity::getJSONObjectFromURL");
         HttpURLConnection urlConnection = null;
 
         URL url = new URL(urlString);
@@ -144,16 +144,14 @@ public class ServerHandler {
             JSONObject jsonObject = new JSONObject();
             try{
                 jsonObject = getJSONObjectFromURL(url);
-
                 // Gets pricePerKWHour in cents
-                JSONArray jArray = jsonObject.getJSONArray("series");
-                JSONArray ja, costJsonObject;
-                for(int i = 0; i < jArray.length(); i++) {
-                    costJsonObject = jArray.getJSONObject(i).getJSONArray("data");
-                    ja = costJsonObject.getJSONArray(0);
-                    TipsActivity.pricePerKWHour = ja.getString(1);
-                }
-
+//                JSONArray jArray = jsonObject.getJSONArray("series");
+//                JSONArray ja, costJsonObject;
+//                for(int i = 0; i < jArray.length(); i++) {
+//                    costJsonObject = jArray.getJSONObject(i).getJSONArray("data");
+//                    ja = costJsonObject.getJSONArray(0);
+//                    CostActivity.pricePerKWHour = ja.getString(1);
+//                }
                 return jsonObject;
             } catch (IOException e) {
                 e.printStackTrace();
