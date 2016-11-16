@@ -1,8 +1,5 @@
 package android.sead_systems.seads.graph;
 
-/**
- * Created by Bob on 11/1/16.
- */
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -40,15 +37,6 @@ public class TabFragment4 extends Fragment {
         radarEntries.add(new RadarEntry(2.7f, "Microwave"));
         radarEntries.add(new RadarEntry(5.1f, "Computer"));
         radarEntries.add(new RadarEntry(4.2f, "Dishwasher"));
-/*
-        ArrayList<String> labels = new ArrayList<String>();
-        labels.add("Lights");
-        labels.add("AC");
-        labels.add("Fridge");
-        labels.add("Microwave");
-        labels.add("Computer");
-        labels.add("Dishwasher");
-*/
 
         RadarDataSet radarDataSet =  new RadarDataSet(radarEntries, "Today");
         radarDataSet.setColor(Color.RED);
