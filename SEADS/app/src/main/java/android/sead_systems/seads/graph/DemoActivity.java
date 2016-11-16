@@ -26,6 +26,7 @@ public class DemoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_demo);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Summary"));
+        tabLayout.addTab(tabLayout.newTab().setText("Breakdown"));
         tabLayout.addTab(tabLayout.newTab().setText("Details"));
         tabLayout.addTab(tabLayout.newTab().setText("Devices"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
