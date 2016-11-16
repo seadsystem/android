@@ -41,5 +41,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+    <string name="electricity_cost">Electricity Cost Average</string>
     
 </resources>
