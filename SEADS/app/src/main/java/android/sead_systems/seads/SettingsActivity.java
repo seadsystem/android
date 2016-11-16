@@ -1,10 +1,15 @@
 package android.sead_systems.seads;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.sead_systems.seads.rooms.RoomManagerFactory;
+import android.sead_systems.seads.rooms.RoomObject;
+import android.widget.EditText;
 import android.widget.Toast;
 
 /**
@@ -35,9 +40,24 @@ public class SettingsActivity extends PreferenceActivity {
         switch(key) {
 
             case "create_room":
-                intent = new Intent(this, AddDevice.class);
-                startActivity(intent);
-                finish();
+                final EditText input = new EditText(this);
+
+                new AlertDialog.Builder(this)
+                        .setTitle("Create Room")
+                        .setMessage("Please enter a room name")
+                        .setView(input)
+                        .setCancelable(true)
+                        .setPositiveButton("Create", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                String roomName = input.getText().toString();
+                                RoomManagerFactory.getInstance().insertRoom(new RoomObject(
+                                        roomName, R.mipmap.bathroom));
+                                Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
+                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(i);
+                            }
+                        })
+                        .show();
 
                 break;
 
@@ -50,7 +70,6 @@ public class SettingsActivity extends PreferenceActivity {
                 intent = new Intent(this, AddDevice.class);
                 startActivity(intent);
                 finish();
-
                 break;
 
             case "delete_device":
