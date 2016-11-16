@@ -2,7 +2,6 @@ package android.sead_systems.seads;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
@@ -36,7 +35,9 @@ public class SettingsActivity extends PreferenceActivity {
         switch(key) {
 
             case "create_room":
-                Toast.makeText(SettingsActivity.this, "Coming soon", Toast.LENGTH_SHORT).show();
+                intent = new Intent(this, AddDevice.class);
+                startActivity(intent);
+                finish();
 
                 break;
 
