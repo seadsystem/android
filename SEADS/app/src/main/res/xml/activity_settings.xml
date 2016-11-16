@@ -1,0 +1,57 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <PreferenceCategory
+        android:title="Room Management">
+
+        <Preference
+            android:key="create_room"
+            android:title="Create room">
+        </Preference>
+
+        <Preference
+            android:key="delete_room"
+            android:title="Delete room">
+        </Preference>
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Device Management">
+
+        <Preference
+            android:key="add_device"
+            android:title="Add device">
+        </Preference>
+
+        <Preference
+            android:key="delete_device"
+            android:title="Delete device">
+        </Preference>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Account Settings">
+
+        <Preference
+            android:key="log_out"
+            android:title="Logout">
+        </Preference>
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:title="Developer Settings">
+
+        <Preference
+            android:key="clear_data"
+            android:title="Clear data">
+        </Preference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

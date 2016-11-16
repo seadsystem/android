@@ -72,6 +72,7 @@ public class SignupActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         intent.putExtra("USERNAME", ((EditText)findViewById(R.id.input_email)).getText().toString());
         startActivity(intent);
+        finish();
 
     }
 
