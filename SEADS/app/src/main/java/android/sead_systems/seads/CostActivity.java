@@ -35,7 +35,7 @@ public class CostActivity extends AppCompatActivity {
         final TextView priceTextView = (TextView) findViewById(R.id.electricity_cost);
         priceTextView.setText(pricePerKWHour + "¢ per kWh");
         final TextView dateTextView = (TextView) findViewById(R.id.electricity_date);
-        dateTextView.setText("August 2016");
+        dateTextView.setText("Please choose a point");
 
         // Line Chart
         LineChart lineChart = (LineChart) findViewById(R.id.line_graph);
@@ -92,11 +92,13 @@ public class CostActivity extends AppCompatActivity {
                                     DashboardActivity.class);
                             startActivity(intent);
                             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                            finish();
                         } else if (tabId == R.id.tab_center) {
-
+                            // Current Activity -> do nothing
                         } else if (tabId == R.id.tab_right) {
-
+                            Intent intent = new Intent(getApplicationContext(),
+                                    SettingsActivity.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         }
                     } else {
                         firstRunForBottomBar = false;
@@ -114,11 +116,13 @@ public class CostActivity extends AppCompatActivity {
                                 DashboardActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                        finish();
                     } else if (tabId == R.id.tab_center) {
-
+                        // Current Activity -> do nothing
                     } else if (tabId == R.id.tab_right) {
-
+                        Intent intent = new Intent(getApplicationContext(),
+                                SettingsActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     }
                 }
             });

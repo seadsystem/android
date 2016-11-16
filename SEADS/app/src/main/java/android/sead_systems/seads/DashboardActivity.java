@@ -64,13 +64,12 @@ public class DashboardActivity extends AppCompatActivity {
                 @Override
                 public void onTabSelected(@IdRes int tabId) {
                     if (tabId == R.id.tab_left) {
-
+                        // Current Activity -> do nothing
                     } else if (tabId == R.id.tab_center) {
                         Intent intent = new Intent(getApplicationContext(),
                                 CostActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                        finish();
                     } else if (tabId == R.id.tab_right) {
                         Intent intent = new Intent(getApplicationContext(),
                                 SettingsActivity.class);
@@ -86,13 +85,12 @@ public class DashboardActivity extends AppCompatActivity {
                 @Override
                 public void onTabReSelected(@IdRes int tabId) {
                     if (tabId == R.id.tab_left) {
-
+                        // Current Activity -> do nothing
                     } else if (tabId == R.id.tab_center) {
                         Intent intent = new Intent(getApplicationContext(),
                                 CostActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                        finish();
                     } else if (tabId == R.id.tab_right) {
                         Intent intent = new Intent(getApplicationContext(),
                                 SettingsActivity.class);
