@@ -55,7 +55,7 @@ public class TabFragment2 extends Fragment {
         barChart.setDragEnabled(true);
         barChart.setScaleEnabled(true);
         barChart.setFitBars(true);
-        //barChart.setDescription("Last Week's Energy Use");
+        //barChart.getLegend().setEnabled(false);
 
         return v;
     }

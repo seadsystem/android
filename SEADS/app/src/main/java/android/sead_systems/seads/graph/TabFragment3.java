@@ -77,6 +77,7 @@ public class TabFragment3 extends Fragment {
 
         lineChart.setData(lineData);
         lineChart.animateY(4000);
+        lineChart.getLegend().setEnabled(false);
 
 
         return v;

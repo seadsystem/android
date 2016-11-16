@@ -1,6 +1,7 @@
 package android.sead_systems.seads.graph;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.sead_systems.seads.DashboardActivity;
 import android.sead_systems.seads.R;
@@ -93,6 +94,7 @@ public class DemoActivity extends AppCompatActivity {
                 }
             });
         }
+
     }
 
     @Override

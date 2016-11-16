@@ -4,6 +4,7 @@ package android.sead_systems.seads.graph;
  * Created by Bob on 11/1/16.
  */
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.sead_systems.seads.R;
 import android.support.v4.app.Fragment;
@@ -33,13 +34,13 @@ public class TabFragment4 extends Fragment {
         radarChart = (RadarChart) v.findViewById(R.id.radargraph);
 
         ArrayList<RadarEntry> radarEntries = new ArrayList<>();
-        radarEntries.add(new RadarEntry(3.5f, 0));
-        radarEntries.add(new RadarEntry(4.5f, 1));
-        radarEntries.add(new RadarEntry(2.7f, 2));
-        radarEntries.add(new RadarEntry(5.5f, 3));
-        radarEntries.add(new RadarEntry(3.2f, 4));
-        radarEntries.add(new RadarEntry(2.4f, 5));
-        /*
+        radarEntries.add(new RadarEntry(2.1f, "Lights"));
+        radarEntries.add(new RadarEntry(5.5f, "Fridge"));
+        radarEntries.add(new RadarEntry(4.9f, "AC"));
+        radarEntries.add(new RadarEntry(2.7f, "Microwave"));
+        radarEntries.add(new RadarEntry(5.1f, "Computer"));
+        radarEntries.add(new RadarEntry(4.2f, "Dishwasher"));
+/*
         ArrayList<String> labels = new ArrayList<String>();
         labels.add("Lights");
         labels.add("AC");
@@ -47,12 +48,15 @@ public class TabFragment4 extends Fragment {
         labels.add("Microwave");
         labels.add("Computer");
         labels.add("Dishwasher");
-        */
+*/
 
-        RadarDataSet radarDataSet =  new RadarDataSet(radarEntries, "Device Power Draw");
+        RadarDataSet radarDataSet =  new RadarDataSet(radarEntries, "Today");
+        radarDataSet.setColor(Color.RED);
+        radarDataSet.setDrawFilled(true);
+        radarDataSet.setLabel("Device Power");
 
-        radarDataSet.setColors(new int[] {android.R.color.holo_blue_dark, android.R.color.holo_purple, android.R.color.holo_red_light,
-                android.R.color.holo_blue_bright, android.R.color.holo_orange_light, android.R.color.holo_blue_dark}, getContext());
+        radarDataSet.setColors(new int[] {android.R.color.holo_blue_bright, android.R.color.holo_orange_light, android.R.color.holo_blue_dark}, getContext());
+
         RadarData data = new RadarData(radarDataSet);
 
         radarChart.setData(data);
@@ -60,6 +64,7 @@ public class TabFragment4 extends Fragment {
         radarChart.animateXY(5000, 5000);
 
         radarChart.setTouchEnabled(true);
+        radarChart.getLegend().setEnabled(false);
 
         return v;
     }
