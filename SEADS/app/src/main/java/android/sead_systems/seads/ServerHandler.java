@@ -88,7 +88,7 @@ public class ServerHandler {
 
 
     public static JSONArray getJSONObjectFromURL(String urlString) throws IOException, JSONException {
-        System.out.println("TemperatureActivity::getJSONObjectFromURL");
+        System.out.println("TipsActivity::getJSONObjectFromURL");
         HttpURLConnection urlConnection = null;
 
         URL url = new URL(urlString);

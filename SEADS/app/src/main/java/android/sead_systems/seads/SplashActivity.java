@@ -11,7 +11,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // If first time launch -> WelcomeActivity
-        Intent intent = new Intent(this, WelcomeActivity.class);
+        Intent intent = new Intent(this, DashboardActivity.class);
         startActivity(intent);
         finish();
 

@@ -38,7 +38,7 @@
         </activity>
 
         <activity
-            android:name=".TemperatureActivity">
+            android:name=".TipsActivity">
         </activity>
 
         <activity

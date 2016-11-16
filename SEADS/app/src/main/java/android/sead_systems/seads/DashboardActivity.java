@@ -48,8 +48,6 @@ public class DashboardActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT);
                 toast.show();
 
-
-
                 // TODO Need function to take the name and populate the next activity based off
                 // TODO the current item's name that is clicked.
                 Intent intent = new Intent(getApplicationContext(), DemoActivity.class);
@@ -58,31 +56,45 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
         BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
-        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelected(@IdRes int tabId) {
-                if (tabId == R.id.tab_left) {
 
-                } else if (tabId == R.id.tab_center) {
+        if (bottomBar != null) {
+            bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+                @Override
+                public void onTabSelected(@IdRes int tabId) {
+                    if (tabId == R.id.tab_left) {
 
-                } else if (tabId == R.id.tab_right) {
+                    } else if (tabId == R.id.tab_center) {
+                        Intent intent = new Intent(getApplicationContext(),
+                                TipsActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        finish();
+                    } else if (tabId == R.id.tab_right) {
 
+                    }
                 }
-            }
-        });
+            });
+        }
 
-        bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
-            @Override
-            public void onTabReSelected(@IdRes int tabId) {
-                if (tabId == R.id.tab_left) {
+        if (bottomBar != null) {
+            bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
+                @Override
+                public void onTabReSelected(@IdRes int tabId) {
+                    if (tabId == R.id.tab_left) {
 
-                } else if (tabId == R.id.tab_center) {
+                    } else if (tabId == R.id.tab_center) {
+                        Intent intent = new Intent(getApplicationContext(),
+                                TipsActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        finish();
+                    } else if (tabId == R.id.tab_right) {
 
-                } else if (tabId == R.id.tab_right) {
-
+                    }
                 }
-            }
-        });
+            });
+        }
+
     }
 
     @Override
