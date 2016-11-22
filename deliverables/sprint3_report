@@ -17,14 +17,15 @@ Actions to keep doing:
 
 Work completed:
 
-	+ As a user, I want to see the cost of running devices in the form of a graph so that I can know when is the most efficient time to use power. 
-		-
+
 	+ As a user, I want to be able to have my settings and devices saved to my account so that I can always see the information I want.
 		-
 	+ As a user, I want to be able to create a database to store information about users, rooms, devices and power usage so that it's available everytime i use the app	
 		-
 	+ As a user, I want the app to be connected with the database so that I can retrieve my up to date information.
 		-
-Work not completed:
 
+Work not completed:
+	+ As a user, I want to see the cost of running devices in the form of a graph so that I can know when is the most efficient time to use power. 
+		 
 
