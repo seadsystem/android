@@ -12,6 +12,8 @@ import android.sead_systems.seads.rooms.RoomObject;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 /**
  * User settings activity - allow user to add/delete rooms and devices as well as log out.
  * @author Talal Abou Haiba
@@ -78,8 +80,7 @@ public class SettingsActivity extends PreferenceActivity {
                 break;
 
             case "log_out":
-                getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).edit().
-                        putBoolean(getString(R.string.preference_logged_in), false).apply();
+                FirebaseAuth.getInstance().signOut();
                 intent = new Intent(this, LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -87,8 +88,7 @@ public class SettingsActivity extends PreferenceActivity {
                 break;
 
             case "clear_data":
-                getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).edit().
-                        putBoolean(getString(R.string.preference_logged_in), false).apply();
+                FirebaseAuth.getInstance().signOut();
                 getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).edit().
                         putBoolean(getString(R.string.preference_first_time), true).apply();
                 intent = new Intent(this, SplashActivity.class);

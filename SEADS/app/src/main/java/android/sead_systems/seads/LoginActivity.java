@@ -79,9 +79,6 @@ public class LoginActivity extends AppCompatActivity {
     private void successfulLogin() {
         mProgressDialog.dismiss();
 
-        getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).edit().
-                putBoolean(getString(R.string.preference_logged_in), true).apply();
-
         Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
         startActivity(intent);
         finish();
