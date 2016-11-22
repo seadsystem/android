@@ -31,11 +31,12 @@ public class Adapter extends ArrayAdapter<String> {
 
     public View getView(int position,View view,ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
+        /** create a device with default properties **/
         View rowView = inflater.inflate(R.layout.devicelist, null, true);
         TextView txtTitle = (TextView) rowView.findViewById(
                 R.id.text);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-
+        /** returns a list of images and strings **/
         txtTitle.setText(itemname[position]);
         imageView.setImageResource(imgid[position]);
         return rowView;

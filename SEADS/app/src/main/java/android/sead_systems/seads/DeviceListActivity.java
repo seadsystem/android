@@ -21,13 +21,13 @@ import java.util.List;
 
 public class DeviceListActivity extends AppCompatActivity {
 
-
+/** necessary global variables **/
     public RoomListManager rooms = RoomManagerFactory.getInstance();
     public List<String> devList;
     public DeviceObject temp;
     public RoomObject curr;
 
-
+    /**Run Add Device Activity**/
     public void onClick(View target){
         Intent intent = new Intent(DeviceListActivity.this, AddDevice.class);
         startActivity(intent);
@@ -40,17 +40,18 @@ public class DeviceListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_device_list);
             Intent intent = getIntent();
 
+        /** try will catch instance when list is empty**/
        try{
                 Bundle bundle = intent.getExtras();
                 String dev = bundle.getString("New");
 
                 temp = new DeviceObject(dev, false, 0);
                 String current_room = bundle.getString("Room");
-                //if the current room is not already in the room list insert the room
+                /**if the current room is not already in the room list insert the room**/
                 if(rooms.getRoom(current_room) == null){
                     RoomObject new_room = new RoomObject(current_room, R.mipmap.bathroom);
                     rooms.insertRoom(new_room);
-                    //insert the device into the newly made room object
+                    /**insert the device into the newly made room object**/
                     rooms.getRoom(current_room).manageDevices().insertDevice(temp);
                     curr = rooms.getRoom(current_room);
                 }
@@ -60,30 +61,20 @@ public class DeviceListActivity extends AppCompatActivity {
                 }
 
            populateListView();
+           /** if list is empty don't try to build it **/
             } catch(NullPointerException e){
            Toast.makeText(DeviceListActivity.this, "no items in list", Toast.LENGTH_LONG).show();
        }
 
-
-
-  /*      button = (Button)findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener()){
-            public void onClick(View v) {
-
-            }
-        }*/
     }
 
     private void populateListView() {
-        //can adapt this list to be only which devices the user wants to see
-        //boolean [] stat = devList.generateListOfStatuses();
+
         boolean [] stat = curr.manageDevices().generateListOfStatuses();
         devList = curr.manageDevices().generateListOfDevices();
 
-                /*** boolean[] stat = { true,false,false,true,true,false,false,false,true,false};
-                 String[] devices = {"Fridge", "Heater", "Electric Car", "Air Conditioning", "TV", "Computer", "Washer", "Drier", "Laptop Charging", "Microwave"}; ***/
 
-
+    /** creates an array of status lights based on the boolean array**/
         Integer[] light = new Integer[stat.length];
         for (int i = 0 ; i < stat.length; i ++){
             if(stat[i]){
@@ -96,15 +87,12 @@ public class DeviceListActivity extends AppCompatActivity {
         String [] deviceStrings = new String[stat.length];
 
         int index = 0;
-        //deviceStrings = devices;
+        /** converts a List to an array of strings **/
         for(Object value : devList) {
-            //if(devList!=null) {
                 deviceStrings[index] = (String) value;
                 index++;
-           // }
         }
 
-       // Toast.makeText(DeviceListActivity.this,, Toast.LENGTH_LONG).show();
         Adapter adapter = new Adapter(DeviceListActivity.this,deviceStrings, light);
         ListView list = (ListView) findViewById(R.id.listView);
         list.setAdapter(adapter);

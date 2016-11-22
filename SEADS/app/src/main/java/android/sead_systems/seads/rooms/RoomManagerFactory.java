@@ -1,5 +1,8 @@
 package android.sead_systems.seads.rooms;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 /**
  * RoomManagerFactory is a singleton which contains an instance of {@link RoomListManager}
  * @author Talal Abou Haiba
@@ -21,6 +24,9 @@ public class RoomManagerFactory {
     public static RoomListManager getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new RoomListManager();
+           // FirebaseDatabase database = FirebaseDatabase.getInstance();
+          //  DatabaseReference myRef = database.getReference("message");
+
         }
         return INSTANCE;
     }

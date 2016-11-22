@@ -13,6 +13,7 @@ import java.util.Map;
 
 public class DeviceListManager {
 
+
     private HashMap<String, DeviceObject> mDeviceObjects;
 
     public DeviceListManager() {

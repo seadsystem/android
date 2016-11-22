@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "213223687386",
+    "firebase_url": "https://seads-test.firebaseio.com",
+    "project_id": "seads-test",
+    "storage_bucket": "seads-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:213223687386:android:c31aa213ed2e0f32",
+        "android_client_info": {
+          "package_name": "android.sead_systems.seads"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "213223687386-54v5mhoc4afcqqt92e4i7ir4j846n2tc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALXwCZg6spBkAwEmIKww74--vM3i-stBM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
