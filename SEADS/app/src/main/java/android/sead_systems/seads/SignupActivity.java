@@ -3,21 +3,33 @@ package android.sead_systems.seads;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 /** Created by talal.abouhaiba on 11/2/2016. */
 
 public class SignupActivity extends AppCompatActivity {
 
+    private FirebaseAuth mAuth;
+    private ProgressDialog mProgressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        mAuth = FirebaseAuth.getInstance();
 
         TextView loginButton = (TextView)findViewById(R.id.button_login);
         Button signupButton = (Button) findViewById(R.id.button_signup);
@@ -54,30 +66,44 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
 
-        ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Signing up");
-        progressDialog.setIndeterminate(true);
-        progressDialog.show();
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setMessage("Signing up");
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.show();
 
-        Thread loginThread = new Thread() {
-            @Override
-            public void run() {
-                authenticateSignup();
-            }
-        };
-        loginThread.start();
+        authenticateSignup();
+    }
 
-        progressDialog.dismiss();
+    private void authenticateSignup() {
+        final String email = ((EditText)findViewById(R.id.input_email)).getText().toString();
+        final String password  = ((EditText)findViewById(R.id.input_password)).getText().toString();
+
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            successfulSignup();
+                        } else {
+                            unsuccessfulSignup();
+                        }
+                    }
+                });
+    }
+
+    private void successfulSignup() {
+        mProgressDialog.dismiss();
 
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         intent.putExtra("USERNAME", ((EditText)findViewById(R.id.input_email)).getText().toString());
         startActivity(intent);
         finish();
-
     }
 
-    private void authenticateSignup() {
+    private void unsuccessfulSignup() {
+        mProgressDialog.dismiss();
 
+        Toast.makeText(SignupActivity.this, "Error creating account", Toast.LENGTH_SHORT).show();
     }
 
     private boolean validateInput() {
@@ -102,8 +128,9 @@ public class SignupActivity extends AppCompatActivity {
             ((EditText)findViewById(R.id.input_email)).setError(null);
         }
 
-        if (passwordInput.isEmpty()) {
-            ((EditText)findViewById(R.id.input_password)).setError("Please enter a valid password");
+        if (passwordInput.isEmpty() || passwordInput.length() < 6) {
+            ((EditText)findViewById(R.id.input_password)).setError("Please enter a valid password" +
+                    " containing at least 6 characters.");
             findViewById(R.id.input_password).requestFocus();
             return false;
         } else {
