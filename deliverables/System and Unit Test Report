@@ -17,7 +17,7 @@ Sprint 1
     -Start the SEADS app
     -Click on the room whose devices you wish to see
     -Click on the List button in the top left
-    -User should see the list of all devices in the room
+    -User should see the list of all devices in the room with proper status indicators
 
   C. User Story 3 from Sprint 1: Omitted from final project
 
@@ -30,6 +30,11 @@ Sprint 1
     
 Sprint 2
   A. User Story 1 from Sprint 2:
+  
+Sprint 3
+  A. User Story 1 from Sprint 3:  As a user, I want to see the cost of running devices in the form of a graph so that I can 
+  know when is the most efficient time to use power. 
+
   
   
  
