@@ -10,6 +10,8 @@ List of functions not working properly:
     -The bottom navigation bar highlights the wrong activity when using the back button.
 
     -The bottom navigation bar behaves poorly when in graph fragments (Home and Settings do not work).
+    
+    -Switching tabs too quickly causes the fragment not to change properly.
 
 List of test cases/user stories for acceptance tests:
 
