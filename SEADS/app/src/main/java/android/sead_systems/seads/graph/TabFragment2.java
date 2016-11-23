@@ -27,7 +27,6 @@ public class TabFragment2 extends Fragment {
         View v = inflater.inflate(R.layout.tab_fragment_2, container, false);
 
         barChart = (BarChart) v.findViewById(R.id.bargraph);
-
         ArrayList<BarEntry> barEntries = new ArrayList<>();
         barEntries.add(new BarEntry(1f, 1f));
         barEntries.add(new BarEntry(2f, 3.5f));
@@ -42,13 +41,15 @@ public class TabFragment2 extends Fragment {
 
         BarDataSet barDataSet =  new BarDataSet(barEntries, "Power Draw By Time");
 
-        barDataSet.setColors(new int[] {android.R.color.holo_blue_dark, android.R.color.holo_purple, android.R.color.holo_red_light,
-                                        android.R.color.holo_blue_bright, android.R.color.holo_orange_light, android.R.color.holo_blue_dark, android.R.color.holo_purple, android.R.color.holo_red_light,
+        barDataSet.setColors(new int[] {android.R.color.holo_blue_dark, android.R.color.holo_purple,
+                android.R.color.holo_red_light, android.R.color.holo_blue_bright,
+                android.R.color.holo_orange_light, android.R.color.holo_blue_dark,
+                android.R.color.holo_purple, android.R.color.holo_red_light,
                 android.R.color.holo_blue_bright, android.R.color.holo_orange_light}, getContext());
+
         BarData data = new BarData( barDataSet);
 
         barChart.setData(data);
-
         barChart.animateXY(5000,5000);
 
         barChart.setTouchEnabled(true);

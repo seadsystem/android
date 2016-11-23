@@ -134,7 +134,6 @@ public class TabFragment5 extends Fragment implements View.OnClickListener {
     }
 
     private LineDataSet createSet() {
-
         LineDataSet set = new LineDataSet(null, "Dynamic Data");
         set.setAxisDependency(AxisDependency.LEFT);
         set.setColor(ColorTemplate.getHoloBlue());
@@ -188,7 +187,7 @@ public class TabFragment5 extends Fragment implements View.OnClickListener {
     }
 
     private void stopUIThread(){
-        //thread.stop(); //not good, kills UIthread and activity crash.
+        //thread.stop(); //do not use. kills UIthread and activity crash.
     }
 
 }

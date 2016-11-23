@@ -10,9 +10,9 @@ import android.support.v4.app.FragmentActivity;
 
 /**
  * Baseclass for Real Time Graph Activity. Stripped away all non-necessary functions.
- *
  * Credit to Philipp Jahoda, modified by SEADS Android Team
  */
+
 public abstract class DemoBase extends FragmentActivity {
 
     protected String[] mMonths = new String[] {
@@ -40,6 +40,5 @@ public abstract class DemoBase extends FragmentActivity {
     protected float getRandom(float range, float startsfrom) {
         return (float) (Math.random() * range) + startsfrom;
     }
-
 
 }

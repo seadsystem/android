@@ -45,7 +45,6 @@ public class TabFragment4 extends Fragment {
         radarDataSet.setColors(new int[] {android.R.color.holo_blue_bright}, getContext());
         radarDataSet.setDrawFilled(true);
 
-
         ArrayList<RadarEntry> radarEntries2 = new ArrayList<>();
         radarEntries2.add(new RadarEntry(3.1f, 0));
         radarEntries2.add(new RadarEntry(4.5f, 1));
@@ -59,9 +58,6 @@ public class TabFragment4 extends Fragment {
 
         radarDataSet2.setColors(new int[] {android.R.color.holo_orange_light}, getContext());
         radarDataSet2.setDrawFilled(true);
-
-
-
 
         RadarData data = new RadarData(radarDataSet, radarDataSet2);
 

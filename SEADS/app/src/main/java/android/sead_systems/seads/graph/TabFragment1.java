@@ -37,7 +37,11 @@ public class TabFragment1 extends Fragment {
 
         mWebView = (WebView) v.findViewById(R.id.webviewgauge);
         WebSettings webSettings = mWebView.getSettings();
+
+        //Need to enable js to allow d3js draw animation
         webSettings.setJavaScriptEnabled(true);
+
+        //Change loadUrl to adjust graph to settle
         mWebView.loadUrl("https://people.ucsc.edu/~okdogulu/gauge.html");
         mWebView.setVerticalScrollBarEnabled(false);
 
