@@ -39,4 +39,13 @@
         <item>@color/dot_dark_screen4</item>
     </array>
 
+    <color name="bar_chart_color_1">#4CAF50</color>
+    <color name="bar_chart_color_2">#8BC34A</color>
+    <color name="bar_chart_color_3">#CDDC39</color>
+    <color name="bar_chart_color_4">#FFEB3B</color>
+    <color name="bar_chart_color_5">#FFC107</color>
+    <color name="bar_chart_color_6">#FF9800</color>
+    <color name="bar_chart_color_7">#FF5722</color>
+    <color name="bar_chart_color_8">#F44336</color>
+
 </resources>
