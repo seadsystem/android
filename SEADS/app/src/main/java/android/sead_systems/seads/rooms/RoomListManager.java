@@ -19,7 +19,7 @@ public class RoomListManager {
     public RoomListManager() {
         mRoomObjects = new HashMap<>();
         mRoomOrdering = new ArrayList<>();
-        insertRoom(new RoomObject("Home", R.mipmap.bedroom1));
+        //insertRoom(new RoomObject("Home", R.mipmap.bedroom1));
     }
 
     /**
