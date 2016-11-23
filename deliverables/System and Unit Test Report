@@ -11,15 +11,20 @@ Sprint 1
     -Start the SEADS App
     -User should see the green SEADS splash screen before being taken to a dashboard where all the data has been loaded
   
-  B. User Story 2 from Sprint 1: As a user, I want to see a list of my devices and their status so that I can tell which
-  devices are currently running and consuming power.
+  B. User Story 2 from Sprint 1: As a user, I want to see a list of my devices so that I can tell which devices have been
+  consuming power. 
   
     -Start the SEADS app
     -Click on the room whose devices you wish to see
     -Click on the List button in the top left
     -User should see the list of all devices in the room with proper status indicators
 
-  C. User Story 3 from Sprint 1: Omitted from final project
+  C. User Story 3 from Sprint 1: As a user, I want to see my current and recent electricity cost so that I can understand
+  the trend of my power usage.
+  
+    -Start the SEADS app
+    -Click on a desired room
+    -User should see a variety of different past and current costs for devices and rooms
 
   D. User Story 4 from Sprint 1: As a user, I want to see my electricity usage in the form of a graph so that I can see how 
   much energy I’m currently using.
@@ -29,8 +34,46 @@ Sprint 1
     -Click across named tabs, for each tab the user should see a different graph displaying energy use data
     
 Sprint 2
-  A. User Story 1 from Sprint 2:
+  A. User Story 1 from Sprint 2: As a user, I want to see the rates I will be charged when I run appliances at a given part 
+  of the day, so I know when is the best time to use my big energy items.
   
+    -Start SEADS app
+    -Click on desired room icon
+    -Click on cost tab at the bottom
+    -User should see a graph for energy cost average in kWh.
+    
+  B. User Story 2 from Sprint 2: As a user, I want to find out my historical power usage within the house in the form of a 
+  graph so I understand my current usage and save money.
+  
+    -Start SEADS app
+    -Click on desired room icon
+    -Click on the details tab in the top bar
+    -User should see a graph of the power usage in their house for a given amount of time
+    
+  C. User Story 3 from Sprint 2: As a user, I want to be able to edit which room show up on my home screen, so that I can 
+  see information about the rooms I care about most.
+  
+    -Start SEADS app
+    -Click on the settings tab
+    -Click on Add Room
+    -Return to homescreen
+    -User should see the new room on the homescreen
+    
+  D. User Story 4 from Sprint 2: As a user, I want to be able to view my highest power consumption device so I can recognize
+  what areas I can save money on.
+  
+    -Start SEADS app
+    -Click on desired room
+    -Click on devices tab in the top bar
+    -User should see a radar graph showing device power usage for the room, with highest a lowest devices displayed above
+    
+  E. User Story 5 from Sprint 2: As a user, I want to see an introduction on the first run of the app so that I understand
+  how and why to use this app.
+  
+    -Download fresh copy of SEADS app
+    -Open app
+    -User should be greeted with a four slide introduction to the app
+    
 Sprint 3
   A. User Story 1 from Sprint 3:  As a user, I want to see the cost of running devices in the form of a graph so that I can 
   know when is the most efficient time to use power. 
