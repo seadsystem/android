@@ -42,6 +42,11 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
 
+/*
+    Dymanic real-time updated chart fragment used in conjunction with DynamicChartActivity and
+    DemoBase.
+ */
+
 public class TabFragment5 extends Fragment implements View.OnClickListener {
 
     LineChart mChart;
@@ -49,8 +54,6 @@ public class TabFragment5 extends Fragment implements View.OnClickListener {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_fragment_5, container, false);
-        //TEMP
-
         mChart = (LineChart) v.findViewById(R.id.chart1);
 
         // enable description text
@@ -104,9 +107,7 @@ public class TabFragment5 extends Fragment implements View.OnClickListener {
     }
 
     private void addEntry() {
-
         LineData data = mChart.getData();
-
         if (data != null) {
 
             ILineDataSet set = data.getDataSetByIndex(0);
@@ -129,10 +130,6 @@ public class TabFragment5 extends Fragment implements View.OnClickListener {
 
             // move to the latest entry
             mChart.moveViewToX(data.getEntryCount());
-
-            // this automatically refreshes the chart (calls invalidate())
-            // mChart.moveViewTo(data.getXValCount()-7, 55f,
-            // AxisDependency.LEFT);
         }
     }
 
@@ -191,7 +188,7 @@ public class TabFragment5 extends Fragment implements View.OnClickListener {
     }
 
     private void stopUIThread(){
-        //thread.stop(); //not good, kills UIthread and activity crash
+        //thread.stop(); //not good, kills UIthread and activity crash.
     }
 
 }

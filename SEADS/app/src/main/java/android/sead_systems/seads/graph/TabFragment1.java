@@ -17,6 +17,9 @@ import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
 
+/*
+    Webview Daily Summary Fragment
+ */
 public class TabFragment1 extends Fragment {
 
     PieChart pieChart;

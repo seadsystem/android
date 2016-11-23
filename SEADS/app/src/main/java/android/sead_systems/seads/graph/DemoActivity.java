@@ -18,7 +18,12 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
+/*
+    This is the main activity that inflates the 5 different fragments containing graphs.
+    Inside also contain the tab manager organizing each fragment as swipe-able tabs by invoking
+    PageAdapter class.
 
+ */
 public class DemoActivity extends AppCompatActivity {
     private boolean firstRunForBottomBar = true;
 

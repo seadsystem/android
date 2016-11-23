@@ -15,6 +15,9 @@ import com.github.mikephil.charting.data.BarEntry;
 
 import java.util.ArrayList;
 
+/*
+    Displays historical power usage via a bargraph
+ */
 public class TabFragment2 extends Fragment {
 
     BarChart barChart;

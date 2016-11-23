@@ -18,6 +18,12 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+/*
+    This is the activity that supports the Real Time Chart Fragment (TabFragment5) to add
+    entries to graph in real-time with a separate thread. Currently we are not connected to API
+    so data is generated randomly.
+ */
+
 public class  DynamicChartActivity extends Activity {
     private LineChart mChart;
     private Thread thread;
@@ -28,10 +34,6 @@ public class  DynamicChartActivity extends Activity {
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        //setContentView(R.layout.<insert activity name here>);
-
-        //mChart = (LineChart) findViewById(R.id.)
-        //mChart.setOnChartValueSelectedListener(this);
     }
 
     public void onValueSelected(Entry e, Highlight h) {
@@ -52,7 +54,6 @@ public class  DynamicChartActivity extends Activity {
                 set = createSet();
                 data.addDataSet(set);
             }
-
 
             data.addEntry(new Entry(set.getEntryCount(), (float) (Math.random() * 40) + 30f), 0);
             data.notifyDataChanged();

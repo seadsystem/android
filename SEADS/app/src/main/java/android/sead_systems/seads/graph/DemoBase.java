@@ -1,9 +1,5 @@
 package android.sead_systems.seads.graph;
 
-/**
- * Created by Bob on 11/16/16.
- */
-
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.renderscript.Type;
@@ -13,9 +9,9 @@ import android.sead_systems.seads.R;
 import android.support.v4.app.FragmentActivity;
 
 /**
- * Baseclass for Real Time Graph Activity.
+ * Baseclass for Real Time Graph Activity. Stripped away all non-necessary functions.
  *
- * Credit to Philipp Jahoda
+ * Credit to Philipp Jahoda, modified by SEADS Android Team
  */
 public abstract class DemoBase extends FragmentActivity {
 

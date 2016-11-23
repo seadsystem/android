@@ -1,11 +1,13 @@
 package android.sead_systems.seads.graph;
 
-/**
- * Created by Bob on 11/1/16.
- */
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+/*
+    This is a simple adatapter that helps DemoActivity to manage transitioning between
+    different fragments.
+ */
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;

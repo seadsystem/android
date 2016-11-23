@@ -1,6 +1,5 @@
 package android.sead_systems.seads.graph;
 
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.sead_systems.seads.R;
@@ -20,6 +19,9 @@ import com.github.mikephil.charting.data.RadarEntry;
 
 import java.util.ArrayList;
 
+/*
+    Compary today's power usage with historical averages via radarchart
+ */
 public class TabFragment4 extends Fragment {
 
     RadarChart radarChart;

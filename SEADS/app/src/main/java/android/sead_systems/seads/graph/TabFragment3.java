@@ -17,6 +17,9 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
+/*
+    Displays a room/device's power usage over time in detail
+ */
 public class TabFragment3 extends Fragment {
 
     LineChart lineChart;
