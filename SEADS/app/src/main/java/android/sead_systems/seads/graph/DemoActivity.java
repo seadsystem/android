@@ -24,11 +24,11 @@ public class DemoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Summary"));
+        tabLayout.addTab(tabLayout.newTab().setText("RealTime"));
         tabLayout.addTab(tabLayout.newTab().setText("Breakdown"));
         tabLayout.addTab(tabLayout.newTab().setText("Details"));
         tabLayout.addTab(tabLayout.newTab().setText("Devices"));
-        tabLayout.addTab(tabLayout.newTab().setText("RealTime"));
+        tabLayout.addTab(tabLayout.newTab().setText("Summary"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);

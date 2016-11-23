@@ -48,7 +48,7 @@
 
     <com.github.mikephil.charting.charts.RadarChart
         android:layout_width="match_parent"
-        android:layout_height="675dp"
+        android:layout_height="375dp"
         android:id="@+id/radargraph"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
