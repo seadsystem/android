@@ -93,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
         String emailInput = ((EditText)findViewById(R.id.input_email)).getText().toString();
         String passwordInput = ((EditText)findViewById(R.id.input_password)).getText().toString();
 
+
         mAuth.signInWithEmailAndPassword(emailInput, passwordInput)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override

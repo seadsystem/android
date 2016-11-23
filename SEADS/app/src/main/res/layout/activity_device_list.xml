@@ -41,5 +41,15 @@
         android:id="@+id/button"
         android:onClick="onClick"/>
 
+    <Button
+        android:text="Return"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/dash"
+        android:onClick="goHome"/>
+
 
 </RelativeLayout>

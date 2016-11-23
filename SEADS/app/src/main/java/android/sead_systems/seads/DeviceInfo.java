@@ -17,7 +17,7 @@ public class DeviceInfo extends AppCompatActivity {
 
     public String Watts = " Watts.";
     public String On = "Device is on.";
-    public String Off = "Device is off";
+    public String Off = "Device is off.";
     public RoomListManager rooms = RoomManagerFactory.getInstance();
 
     @Override

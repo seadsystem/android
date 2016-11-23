@@ -32,7 +32,7 @@ import com.roughike.bottombar.OnTabSelectListener;
 import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity {
-    GestureDetectorCompat gestureObject;
+   /** GestureDetectorCompat gestureObject; */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //begin swipe method
-        gestureObject = new GestureDetectorCompat(this, new LearnGesture());
+       /*** gestureObject = new GestureDetectorCompat(this, new LearnGesture()); **/
 
         GridView gridView = (GridView) findViewById(R.id.gridview);
         gridView.setAdapter(new MyAdapter(this));
@@ -107,6 +107,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     //enables swipe gesture to get to listview
+    /***
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         this.gestureObject.onTouchEvent(event);
@@ -130,7 +131,7 @@ public class DashboardActivity extends AppCompatActivity {
             return true;
         }
 
-    }
+    } **/
 
 
     private final class MyAdapter extends BaseAdapter {

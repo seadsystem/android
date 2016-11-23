@@ -2,6 +2,7 @@ package android.sead_systems.seads.graph;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.sead_systems.seads.DeviceListActivity;
 import android.sead_systems.seads.R;
 import android.sead_systems.seads.CostActivity;
 import android.support.annotation.IdRes;
@@ -10,6 +11,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
@@ -94,6 +97,12 @@ public class DemoActivity extends AppCompatActivity {
             });
         }
 
+    }
+
+    /** jump to the listview activity **/
+    public void toList(View v){
+        Intent intent = new Intent(DemoActivity.this, DeviceListActivity.class);
+        startActivity(intent);
     }
 
     @Override

@@ -74,37 +74,10 @@ public class AddDevice extends AppCompatActivity {
         });
     }
 
-
-        // dropdown.setOnItemClickListener(new View.OnItemClickListener() {
-        //  @Override
-
-       // });
-        /**
-         *
-
-        try {
-            //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, room_strings);
-            adapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-            dropdown.setAdapter(adapt);
-        }
-        catch(NullPointerException e){
-            Toast.makeText(AddDevice.this, "no items in list", Toast.LENGTH_LONG).show();
-
-        }
-        setContentView(R.layout.activity_add_device);
-        //onButtonPressed();  **/
-
-
-
-
-
-
-
     /**allows selection of a picture for the room**/
     public Integer[] room_pics ={
-            R.mipmap.bathroom,
             R.mipmap.bedroom1,
+            R.mipmap.bathroom,
             R.mipmap.bedroom2,
             R.mipmap.kitchen,
             R.mipmap.livingroom,
@@ -135,11 +108,10 @@ public class AddDevice extends AppCompatActivity {
     public void onButtonPressed(View view){
 
         /** take in user text from the fields **/
-
-
-
         EditText dev = (EditText)findViewById(R.id.new_device);
         EditText room = (EditText)findViewById(R.id.new_room);
+
+        /** if add new device was selected, grab the entered string **/
         int check = 0;
         String devName = dev.getText().toString();
         if(getRoom == 1) {

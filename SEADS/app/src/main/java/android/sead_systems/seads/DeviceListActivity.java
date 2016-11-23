@@ -66,7 +66,7 @@ public class DeviceListActivity extends AppCompatActivity {
             } catch(NullPointerException e){
            Toast.makeText(DeviceListActivity.this, "no items in list", Toast.LENGTH_LONG).show();
        }
-        registerOnClick();
+        //registerOnClick();
 
     }
 
@@ -106,20 +106,19 @@ public class DeviceListActivity extends AppCompatActivity {
     }
 
     //This function will be used to run an individual fragment based on which item was clicked
-    private void registerOnClick() {
+    //register onClick not working
+
+    /**private void registerOnClick() {
 
         final ListView mylist = (ListView) findViewById(R.id.listView);
         mylist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            //put method to run graph fragment here
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
                 LinearLayout par = (LinearLayout) viewClicked;
-               Object clicked1 = mylist.getItemAtPosition(0);
-                    /**ListView textView = (ListView) par.findViewById(R.id.listView);
-                     Object clicked1 = (textView.getItemAtPosition(position)); **/
+                Toast.makeText(DeviceListActivity.this, mylist.getCount(), Toast.LENGTH_SHORT).show();
+                    ListView textView = (ListView) par.findViewById(R.id.listView);
+                    Object clicked1 = (textView.getItemAtPosition(position));
                     String clicked = clicked1.toString();
-                    //String clicked = textView.getText().toString();
-                    //show which list item the user has clicked
                     Toast.makeText(DeviceListActivity.this, clicked, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(DeviceListActivity.this, DeviceInfo.class);
                     Bundle extras = new Bundle();
@@ -129,6 +128,13 @@ public class DeviceListActivity extends AppCompatActivity {
 
             }
         });
+    } **/
+
+    /** go back to dashboard **/
+    public void goHome(View v){
+        Intent intent = new Intent(DeviceListActivity.this, DashboardActivity.class);
+        startActivity(intent);
     }
+
 
 }
