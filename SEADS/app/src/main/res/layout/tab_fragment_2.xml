@@ -16,7 +16,7 @@
         android:layout_alignBottom="@+id/textView3"
         android:layout_toRightOf="@+id/textView"
         android:layout_toEndOf="@+id/textView"
-        android:layout_width="130dp" />
+        android:layout_width="120dp" />
 
     <TextView
         android:text="Best Record $15"
@@ -30,7 +30,7 @@
         android:layout_above="@+id/bargraph"
         android:layout_toRightOf="@+id/textView2"
         android:layout_toEndOf="@+id/textView2"
-        android:layout_width="130dp" />
+        android:layout_width="120dp" />
 
     <com.github.mikephil.charting.charts.BarChart
         android:layout_width="match_parent"
@@ -49,7 +49,7 @@
         android:textAllCaps="true"
         android:textAlignment="center"
         android:layout_height="50dp"
-        android:layout_width="130dp"
+        android:layout_width="120dp"
         android:layout_alignBaseline="@+id/textView2"
         android:layout_alignBottom="@+id/textView2"
         android:layout_alignParentLeft="true"

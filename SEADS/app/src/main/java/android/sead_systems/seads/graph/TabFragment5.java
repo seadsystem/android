@@ -75,28 +75,6 @@ public class TabFragment5 extends Fragment implements View.OnClickListener {
 
         // add empty data
         mChart.setData(data);
-/*
-        // get the legend (only possible after setting data)
-        Legend l = mChart.getLegend();
-
-        // modify the legend ...
-        l.setForm(LegendForm.LINE);
-        l.setTypeface(mTfLight);
-        l.setTextColor(Color.WHITE);
-
-        XAxis xl = mChart.getXAxis();
-        xl.setTypeface(mTfLight);
-        xl.setTextColor(Color.WHITE);
-        xl.setDrawGridLines(false);
-        xl.setAvoidFirstLastClipping(true);
-        xl.setEnabled(true);
-
-        YAxis leftAxis = mChart.getAxisLeft();
-        leftAxis.setTypeface(mTfLight);
-        leftAxis.setTextColor(Color.WHITE);
-        leftAxis.setAxisMaximum(100f);
-        leftAxis.setAxisMinimum(0f);
-        leftAxis.setDrawGridLines(true); */
 
         YAxis rightAxis = mChart.getAxisRight();
         rightAxis.setEnabled(false);
@@ -124,34 +102,7 @@ public class TabFragment5 extends Fragment implements View.OnClickListener {
                 break;
         }
     }
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.realtime, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.actionAdd: {
-                addEntry();
-                break;
-            }
-            case R.id.actionClear: {
-                mChart.clearValues();
-                Toast.makeText(this, "Chart cleared!", Toast.LENGTH_SHORT).show();
-                break;
-            }
-            case R.id.actionFeedMultiple: {
-                feedMultiple();
-                break;
-            }
-        }
-        return true;
-    }
-*/
     private void addEntry() {
 
         LineData data = mChart.getData();
@@ -221,10 +172,7 @@ public class TabFragment5 extends Fragment implements View.OnClickListener {
 
             @Override
             public void run() {
-               /* for (int i = 0; i < 1000; i++) {
-                    if (killMe){
-                        return;
-                    }*/
+                //live feed continues will it is not stopped
                 while(!killMe) {
                     // Don't generate garbage runnables inside the loop.
                     getActivity().runOnUiThread(runnable);

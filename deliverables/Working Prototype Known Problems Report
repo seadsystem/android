@@ -7,3 +7,8 @@ List of functions not working properly:
 
 
 List of test cases/user stories for acceptance tests:
+
+
+
+List of serious bugs that affects user experience:
+    - Changing graph fragments without manually stopping the livefeed thread will crash the application.
