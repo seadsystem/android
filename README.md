@@ -37,3 +37,16 @@ CMPS115 Fall 2016
       8. change pick to squash for the change you just commited
       9. remove the commit message when it comes up.
       10. git push -f origin myworkbranch
+
+## User Installation Guide
+### Users with Development Environment
+1. Set up local git repo according to instruction in the previous "How-to" section
+2. Build the Android application (Ex. via AndroidStudio and Gradle) and produce APK file
+3. Choose between signed vs unsigned APK when deciding if you want to share the APK with others
+4. Load the APK file onto your phone and find it in the file system
+5. Starting the APK file will initiate the instalation of SEADS Android Application
+6. Start the SEADS Android Application and enjoy saving thousands of $$$ in electricity bills
+
+### Users with Access to Pre-compiled APK
+1. See previous section and start process at step 3
+
