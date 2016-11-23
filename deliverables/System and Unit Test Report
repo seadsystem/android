@@ -34,7 +34,38 @@ Sprint 2
 Sprint 3
   A. User Story 1 from Sprint 3:  As a user, I want to see the cost of running devices in the form of a graph so that I can 
   know when is the most efficient time to use power. 
-	-Click on cost at the bottom in the navigation bar and it'll load the current costs per kWh for the next 8 hours.
   
-  
+    -Start SEADS app
+    -Click on desired room icon
+    -Click on cost at the bottom in the navigation bar and it will load the current costs per kWh for the next 8 hours.
+	
+  B. User Story 2 from Sprint 3: As a user, I want to be able to have my settings and devices saved to my account so that I 
+  can always see the information I want.
+  	
+    -Create account and login to SEADS app
+    -Click on the settings tab
+    -Add desired devices and rooms
+    -Quit the app 
+    -Restart app and log into previously made account
+    -User should see their previously added devices present in the rooms 
+    
+  C. User Story 3 from Sprint 3: As a user, I want to be able to create a database to store information about users, rooms,
+  devices and power usage so that it's available everytime i use the app
  
+    -Sign into SEADS app
+    -Look a room list on the dashboard
+    -User should see rooms pulled from the database
+    -Log out and restart app
+    -Log back into the same account, user should see the same rooms 
+    
+   D. User Story 4 from Sprint 4: As a user, I want the app to be connected with the database so that I can retrieve my up 
+   to date information.
+   
+     -Sign into SEADS app
+     -Sign into firebase database
+     -Navigate to listview
+     -View a rooms list
+     -In firebase console add a device to the given room
+     -Refresh the page
+     -User should see the new device
+     (because we don't have real data this simulates the device changing data on its own)
