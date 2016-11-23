@@ -28,7 +28,7 @@ public class RoomListManagerTest {
 
     @Test
     public void testInsertAndRetrieveRoom() {
-        RoomObject testRoom = new RoomObject("testRoom");
+        RoomObject testRoom = new RoomObject("testRoom", 0);
         mRoomListManager.insertRoom(testRoom);
 
         RoomObject returnedRoom = mRoomListManager.getRoom("testRoom");
@@ -42,7 +42,7 @@ public class RoomListManagerTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void testInsertRoomMultipleTimes() {
-        RoomObject testRoom = new RoomObject("testRoom");
+        RoomObject testRoom = new RoomObject("testRoom", 0);
         mRoomListManager.insertRoom(testRoom);
         mRoomListManager.insertRoom(testRoom);
     }
@@ -57,8 +57,8 @@ public class RoomListManagerTest {
 
     @Test
     public void testGenerateTotalUsage() {
-        RoomObject testRoom1 = new RoomObject("testRoom1");
-        RoomObject testRoom2 = new RoomObject("testRoom2");
+        RoomObject testRoom1 = new RoomObject("testRoom1", 0);
+        RoomObject testRoom2 = new RoomObject("testRoom2", 0);
 
         double currentUsage = 0;
         double device1Usage = 15;
@@ -87,8 +87,8 @@ public class RoomListManagerTest {
     public void testGenerateRoomList() {
         List<String> listOfRooms = new ArrayList<>();
 
-        RoomObject testRoom1 = new RoomObject("testRoom1");
-        RoomObject testRoom2 = new RoomObject("testRoom2");
+        RoomObject testRoom1 = new RoomObject("testRoom1", 0);
+        RoomObject testRoom2 = new RoomObject("testRoom2", 0);
 
         mRoomListManager.insertRoom(testRoom1);
         mRoomListManager.insertRoom(testRoom2);

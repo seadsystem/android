@@ -35,7 +35,15 @@
         android:id="@+id/contentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottomBar" />
+        android:layout_above="@+id/bottomBar" >
+
+        <Button
+            android:text="List"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/to_list"
+            android:onClick="toList"/>
+    </FrameLayout>
 
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"

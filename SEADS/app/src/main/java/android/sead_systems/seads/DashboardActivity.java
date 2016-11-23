@@ -1,6 +1,7 @@
 package android.sead_systems.seads;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,8 +24,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -32,33 +36,23 @@ import com.roughike.bottombar.OnTabSelectListener;
 import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity {
-    GestureDetectorCompat gestureObject;
+   /** GestureDetectorCompat gestureObject; */
+
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
+
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+
         //begin swipe method
-        gestureObject = new GestureDetectorCompat(this, new LearnGesture());
-
-        GridView gridView = (GridView) findViewById(R.id.gridview);
-        gridView.setAdapter(new MyAdapter(this));
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // Gets the Item's Name and displays to the user currently
-                TextView tv = (TextView) view.findViewById(R.id.text);
-                Toast toast = Toast.makeText(getApplicationContext(), tv.getText(),
-                        Toast.LENGTH_SHORT);
-                toast.show();
-
-                // TODO Need function to take the name and populate the next activity based off
-                // TODO the current item's name that is clicked.
-                Intent intent = new Intent(getApplicationContext(), DemoActivity.class);
-                startActivity(intent);
-            }
-        });
+       /*** gestureObject = new GestureDetectorCompat(this, new LearnGesture()); **/
 
         BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
@@ -106,7 +100,83 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        System.out.println("On Resume!");
+        runUpdate();
+    }
+
+    private void runUpdate() {
+        if (RoomManagerFactory.getInstance().generateListOfRooms().isEmpty()) {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setMessage("Updating");
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.show();
+        }
+        updateData();
+    }
+
+    /**
+     * Makes a connection to the server and obtains recent the most recent database.
+     */
+    private void updateData() {
+
+        DatabaseReference roomRef = mDatabase.child("users").child(mAuth.getCurrentUser().getUid()).child("rooms").getRef();
+
+        roomRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean dataUpdated = false;
+                for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+                    if (RoomManagerFactory.getInstance().getRoom(dsp.getKey()) == null) {
+                        System.out.println("Updating with: " + dsp.getKey());
+                        RoomObject newRoom = new RoomObject(dsp.getKey(), ((Long) dsp.child("room_image").getValue()).intValue());
+                        RoomManagerFactory.getInstance().insertRoom(newRoom);
+                        dataUpdated = true;
+                    }
+                }
+                GridView gridView = (GridView) findViewById(R.id.gridview);
+                if (dataUpdated) {
+                    updateAdapter();
+                } else if (gridView == null || gridView.getAdapter() == null ||
+                        gridView.getAdapter().isEmpty()) {
+                    updateAdapter();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void updateAdapter() {
+        GridView gridView = (GridView) findViewById(R.id.gridview);
+        gridView.setAdapter(new MyAdapter(this));
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                // Gets the Item's Name and displays to the user currently
+                TextView tv = (TextView) view.findViewById(R.id.text);
+                Toast toast = Toast.makeText(getApplicationContext(), tv.getText(),
+                        Toast.LENGTH_SHORT);
+                toast.show();
+
+                // TODO Need function to take the name and populate the next activity based off
+                // TODO the current item's name that is clicked.
+                Intent intent = new Intent(getApplicationContext(), DemoActivity.class);
+                startActivity(intent);
+            }
+        });
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
     //enables swipe gesture to get to listview
+    /***
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         this.gestureObject.onTouchEvent(event);
@@ -130,7 +200,7 @@ public class DashboardActivity extends AppCompatActivity {
             return true;
         }
 
-    }
+    } **/
 
 
     private final class MyAdapter extends BaseAdapter {

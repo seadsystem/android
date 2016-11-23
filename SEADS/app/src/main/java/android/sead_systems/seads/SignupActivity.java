@@ -16,25 +16,41 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /** Created by talal.abouhaiba on 11/2/2016. */
 
 public class SignupActivity extends AppCompatActivity {
 
+    private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
+
     private ProgressDialog mProgressDialog;
+
+    private EditText mNameField;
+    private EditText mEmailField;
+    private EditText mPasswordField;
+
+    private TextView mLoginButton;
+    private Button mSignupButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
+        mNameField = (EditText) findViewById(R.id.input_name);
+        mEmailField = (EditText) findViewById(R.id.input_email);
+        mPasswordField = (EditText) findViewById(R.id.input_password);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
-        TextView loginButton = (TextView)findViewById(R.id.button_login);
-        Button signupButton = (Button) findViewById(R.id.button_signup);
+        mLoginButton = (TextView) findViewById(R.id.button_login);
+        mSignupButton = (Button) findViewById(R.id.button_signup);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -43,7 +59,7 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        signupButton.setOnClickListener(new View.OnClickListener() {
+        mSignupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signup();
@@ -75,8 +91,8 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void authenticateSignup() {
-        final String email = ((EditText)findViewById(R.id.input_email)).getText().toString();
-        final String password  = ((EditText)findViewById(R.id.input_password)).getText().toString();
+        final String email = mEmailField.getText().toString();
+        final String password  = mPasswordField.getText().toString();
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -84,6 +100,7 @@ public class SignupActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             successfulSignup();
+                            writeNewUser(email, task.getResult().getUser().getUid());
                         } else {
                             unsuccessfulSignup();
                         }
@@ -95,7 +112,7 @@ public class SignupActivity extends AppCompatActivity {
         mProgressDialog.dismiss();
 
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        intent.putExtra("USERNAME", ((EditText)findViewById(R.id.input_email)).getText().toString());
+        intent.putExtra("USERNAME", mEmailField.getText().toString());
         startActivity(intent);
         finish();
     }
@@ -106,35 +123,40 @@ public class SignupActivity extends AppCompatActivity {
         Toast.makeText(SignupActivity.this, "Error creating account", Toast.LENGTH_SHORT).show();
     }
 
+    private void writeNewUser(String email, String uuid) {
+        System.out.println("Writing user: " + email + " " + uuid);
+        mDatabase.child("users").child(uuid).child("name").setValue(mNameField.getText().toString());
+    }
+
     private boolean validateInput() {
-        String nameInput = ((EditText)findViewById(R.id.input_name)).getText().toString();
-        String emailInput = ((EditText)findViewById(R.id.input_email)).getText().toString();
-        String passwordInput = ((EditText)findViewById(R.id.input_password)).getText().toString();
+        String nameInput = mNameField.getText().toString();
+        String emailInput = mEmailField.getText().toString();
+        String passwordInput = mPasswordField.getText().toString();
 
         if (nameInput.isEmpty()) {
-            ((EditText)findViewById(R.id.input_name)).setError("Please enter your name");
-            findViewById(R.id.input_name).requestFocus();
+            mNameField.setError("Please enter your name");
+            mNameField.requestFocus();
             return false;
         } else {
-            ((EditText)findViewById(R.id.input_name)).setError(null);
+            mNameField.setError(null);
         }
 
 
         if (emailInput.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
-            ((EditText)findViewById(R.id.input_email)).setError("Please enter a valid email address");
-            findViewById(R.id.input_email).requestFocus();
+            mEmailField.setError("Please enter a valid email address");
+            mEmailField.requestFocus();
             return false;
         } else {
-            ((EditText)findViewById(R.id.input_email)).setError(null);
+            mEmailField.setError(null);
         }
 
         if (passwordInput.isEmpty() || passwordInput.length() < 6) {
-            ((EditText)findViewById(R.id.input_password)).setError("Please enter a valid password" +
+            mPasswordField.setError("Please enter a valid password" +
                     " containing at least 6 characters.");
-            findViewById(R.id.input_password).requestFocus();
+            mPasswordField.requestFocus();
             return false;
         } else {
-            ((EditText)findViewById(R.id.input_password)).setError(null);
+            mPasswordField.setError(null);
         }
 
         return true;

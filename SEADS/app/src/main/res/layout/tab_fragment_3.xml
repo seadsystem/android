@@ -5,19 +5,6 @@
     android:orientation="vertical">
 
 
-    <TextView
-        android:text="Yesterday $21"
-        android:layout_height="25dp"
-        android:id="@+id/textView33"
-        android:background="@android:color/holo_red_light"
-        android:textAppearance="@style/TextAppearence.TextInputLayout.White"
-        android:textStyle="normal|bold"
-        android:textAlignment="center"
-        android:layout_width="300dp"
-        android:layout_below="@+id/textView32"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/linegraph"
         android:layout_alignParentBottom="true"
@@ -25,21 +12,7 @@
         android:layout_alignParentStart="true"
 
         android:layout_width="match_parent"
-        android:layout_height="700dp" />
-
-    <TextView
-        android:text="Daily Usage $19"
-        android:layout_height="25dp"
-        android:id="@+id/textView32"
-        android:background="@android:color/holo_green_light"
-        android:textAppearance="@style/TextAppearence.TextInputLayout.White"
-        android:textStyle="normal|bold"
-        android:textAlignment="center"
-        android:layout_width="300dp"
-        android:layout_alignBaseline="@+id/textView31"
-        android:layout_alignBottom="@+id/textView31"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_height="362dp" />
 
     <TextView
         android:text="Last Week $25"
@@ -50,10 +23,38 @@
         android:textAllCaps="true"
         android:textAlignment="center"
         android:layout_height="50dp"
-        android:layout_width="300dp"
-        android:layout_alignParentTop="true"
+        android:layout_width="180dp"
+        android:layout_above="@+id/linegraph"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="129dp" />
+        android:layout_marginBottom="38dp" />
+
+    <TextView
+        android:text="Yesterday $21"
+        android:layout_height="25dp"
+        android:id="@+id/textView33"
+        android:background="@android:color/holo_red_light"
+        android:textAppearance="@style/TextAppearence.TextInputLayout.White"
+        android:textStyle="normal|bold"
+        android:textAlignment="center"
+        android:layout_width="180dp"
+        android:textAllCaps="true"
+        android:layout_above="@+id/textView32"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="Daily Usage $19"
+        android:layout_height="25dp"
+        android:id="@+id/textView32"
+        android:background="@android:color/holo_green_light"
+        android:textAppearance="@style/TextAppearence.TextInputLayout.White"
+        android:textStyle="normal|bold"
+        android:textAlignment="center"
+        android:layout_width="180dp"
+        android:textAllCaps="true"
+        android:layout_alignBottom="@+id/textView31"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

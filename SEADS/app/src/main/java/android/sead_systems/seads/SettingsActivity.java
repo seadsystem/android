@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * User settings activity - allow user to add/delete rooms and devices as well as log out.
@@ -21,15 +23,15 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SettingsActivity extends PreferenceActivity {
 
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.activity_settings);
-
-//        Preference p = findPreference("create_room");
-//        p.setEnabled(false);
-//        p.setSelectable(false);
-
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -52,8 +54,8 @@ public class SettingsActivity extends PreferenceActivity {
                         .setPositiveButton("Create", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 String roomName = input.getText().toString();
-                                RoomManagerFactory.getInstance().insertRoom(new RoomObject(
-                                        roomName, R.mipmap.bathroom));
+                                mDatabase.child("users").child(mAuth.getCurrentUser().getUid())
+                                        .child("rooms").child(roomName).child("room_image").setValue(R.mipmap.bathroom);
                                 Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
                                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(i);

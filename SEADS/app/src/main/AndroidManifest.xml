@@ -49,12 +49,17 @@
             android:name=".DashboardActivity">
         </activity>
 
-        <activity 
+        <activity
+            android:screenOrientation="portrait"
             android:name=".graph.DemoActivity">         
         </activity>
 
         <activity 
             android:name=".DeviceListActivity">
+        </activity>
+
+        <activity android:name=".DeviceInfo">
+
         </activity>
 
         <activity

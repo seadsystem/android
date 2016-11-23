@@ -20,8 +20,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                TabFragment1 tab1 = new TabFragment1();
-                return tab1;
+                TabFragment5 tab5 = new TabFragment5();
+                return tab5;
             case 1:
                 TabFragment2 tab2 = new TabFragment2();
                 return tab2;
@@ -32,8 +32,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 TabFragment4 tab4 = new TabFragment4();
                 return tab4;
             case 4:
-                TabFragment5 tab5 = new TabFragment5();
-                return tab5;
+                TabFragment1 tab1 = new TabFragment1();
+                return tab1;
             default:
                 return null;
         }
