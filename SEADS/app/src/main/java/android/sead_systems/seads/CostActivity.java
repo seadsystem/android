@@ -1,7 +1,7 @@
 package android.sead_systems.seads;
 
 import android.content.Intent;
-import android.content.res.TypedArray;
+
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -79,10 +79,9 @@ public class CostActivity extends AppCompatActivity {
 
         barDataSet = new BarDataSet(barEntries, "Power Draw By Time");
         setColorsOfBarChartList();
-
         BarData barData = new BarData(barDataSet);
-
         barChart.setData(barData);
+
         XAxis xAxis = barChart.getXAxis();
         xAxis.setValueFormatter(new MyXAxisValueFormatter(times));
         xAxis.setGranularity(1f);
@@ -148,11 +147,13 @@ public class CostActivity extends AppCompatActivity {
 
 
     /**
-     *
+     *  Sets the colors of each of the elements in the barChartList by sorting them from lowest to
+     *  highest by cost and applying colors based off those costs. Then the function sorts back to
+     *  the original order of the list and applies the proper colors for the Bar Chart to be shown.
      */
     public void setColorsOfBarChartList() {
 
-        // Sort By Cost
+        // Sort By Cost lowest to highest
         Collections.sort(barChartList, new Comparator<BarChartEntry>() {
             @Override public int compare(BarChartEntry b1, BarChartEntry b2) {
                 if (b1.getCost() > b2.getCost()) {
@@ -164,15 +165,15 @@ public class CostActivity extends AppCompatActivity {
             }
         });
 
+        // Get colors and apply them by cost to the list of BarChartEntries
         int[] colorArray = new int[] {R.color.bar_chart_color_1, R.color.bar_chart_color_2,
                 R.color.bar_chart_color_3, R.color.bar_chart_color_4, R.color.bar_chart_color_5,
                 R.color.bar_chart_color_6, R.color.bar_chart_color_7, R.color.bar_chart_color_8};
-
         for (int i = 0; i < colorArray.length; i++) {
             barChartList.get(i).setColor(colorArray[i]);
         }
 
-        // Sort By Position
+        // Sort By Position lowest to highest
         Collections.sort(barChartList, new Comparator<BarChartEntry>() {
             @Override public int compare(BarChartEntry b1, BarChartEntry b2) {
                 if (b1.getPosition() > b2.getPosition()) {
@@ -184,53 +185,27 @@ public class CostActivity extends AppCompatActivity {
             }
         });
 
-        // Set colors for data set based off position
+        // Rebuild color array off BarChartEntries by position and apply to bar chart data set
         for (int i = 0; i < colorArray.length; i++) {
             colorArray[i] = barChartList.get(i).getColor();
-            System.out.println("Colors at: " + i + " " + colorArray[i]);
         }
         barDataSet.setColors(colorArray, getApplicationContext());
     }
 
     /**
-     *
+     * BarChartEntry is a class that is used to hold data for each entry on the bar chart.
+     *  time: String that is used to hold the specific hour of the day.
+     *  cost: Float value of how many cents per kWh for the specified time.
+     *  color: Int value that represents the color of the Bar Entry. Color is dfferent based off
+     *      the cost.
+     *  position: Int value that represents the position of the value as it is retrieved from the
+     *      database. It is also used for sorting and applying the proper colors to the bars.
      */
-    public class BarChartEntry {
-        private String time = "";
-        private float cost = 0.0f;
-        private int color = 0;
-        private int position = 0;
 
-        public BarChartEntry (String time, float cost, int position) {
-            this.time = time;
-            this.cost = cost;
-            this.position = position;
-        }
-
-        public void setColor(int color) { this.color = color; }
-
-        public String getTime() {
-            return time;
-        }
-
-        public float getCost() { return cost; }
-
-        public int getColor() {
-            return color;
-        }
-
-        public int getPosition() { return position; }
-
-        public String toString() {
-            return "Time: " + this.time + "\n" +
-                    "Cost: " + this.cost + "\n" +
-                    "Color: " + this.color + "\n" +
-                    "Position: " + this.position + "\n";
-        }
-    }
 
     /**
-     *
+     *  MyXAxisValueFormatter is a class that is used to format the X-Axis values.
+     *  The floats of the X-Axis will be replaced with Strings that represent times of the day.
      */
     public class MyXAxisValueFormatter implements IAxisValueFormatter {
         private ArrayList<String> mValues;
