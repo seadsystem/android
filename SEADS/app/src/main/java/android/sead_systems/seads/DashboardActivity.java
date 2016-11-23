@@ -136,7 +136,11 @@ public class DashboardActivity extends AppCompatActivity {
                         dataUpdated = true;
                     }
                 }
+                GridView gridView = (GridView) findViewById(R.id.gridview);
                 if (dataUpdated) {
+                    updateAdapter();
+                } else if (gridView == null || gridView.getAdapter() == null ||
+                        gridView.getAdapter().isEmpty()) {
                     updateAdapter();
                 }
             }
