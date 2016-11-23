@@ -25,7 +25,6 @@ public class SplashActivity extends AppCompatActivity {
                 true);
         boolean loggedIn = mAuth.getCurrentUser() != null;
 
-        // If first time launch -> WelcomeActivity
         Intent intent;
 
         if (firstTime) {
@@ -38,8 +37,5 @@ public class SplashActivity extends AppCompatActivity {
 
         startActivity(intent);
         finish();
-
-        // If not logged in -> LoginActivity
-        // If logged in -> DashboardActivity
     }
 }
