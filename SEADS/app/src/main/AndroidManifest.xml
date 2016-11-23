@@ -49,7 +49,8 @@
             android:name=".DashboardActivity">
         </activity>
 
-        <activity 
+        <activity
+            android:screenOrientation="portrait"
             android:name=".graph.DemoActivity">         
         </activity>
 

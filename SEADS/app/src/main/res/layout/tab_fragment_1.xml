@@ -4,19 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:text="Yesterday $57"
-        android:layout_height="25dp"
-        android:id="@+id/textView13"
-        android:background="@android:color/holo_orange_light"
-        android:textAppearance="@style/TextAppearence.TextInputLayout.White"
-        android:textStyle="normal|bold"
-        android:textAlignment="center"
-        android:layout_below="@+id/textView12"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_width="180dp" />
-
     <WebView
         android:layout_width="match_parent"
         android:layout_height="400dp"
@@ -40,6 +27,20 @@
         android:layout_width="180dp" />
 
     <TextView
+        android:text="Yesterday $57"
+        android:layout_height="25dp"
+        android:id="@+id/textView13"
+        android:background="@android:color/holo_orange_light"
+        android:textAppearance="@style/TextAppearence.TextInputLayout.White"
+        android:textStyle="normal|bold"
+        android:textAlignment="center"
+        android:layout_width="180dp"
+        android:layout_above="@+id/textView12"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textAllCaps="true" />
+
+    <TextView
         android:text="Daily Usage $54"
         android:layout_height="25dp"
         android:id="@+id/textView12"
@@ -47,10 +48,10 @@
         android:textAppearance="@style/TextAppearence.TextInputLayout.White"
         android:textStyle="normal|bold"
         android:textAlignment="center"
-        android:layout_alignBaseline="@+id/textView11"
-        android:layout_alignBottom="@+id/textView11"
+        android:layout_width="180dp"
+        android:layout_above="@+id/webviewgauge"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_width="180dp" />
+        android:textAllCaps="true" />
 
 </RelativeLayout>
