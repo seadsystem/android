@@ -24,6 +24,12 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private ProgressDialog mProgressDialog;
 
+    private EditText mEmailField;
+    private EditText mPasswordField;
+
+    private Button mLoginButton;
+    private TextView mSignupButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,22 +38,26 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        Button loginButton = (Button)findViewById(R.id.button_login);
-        TextView signupButton = (TextView) findViewById(R.id.button_signup);
+        mEmailField = (EditText) findViewById(R.id.input_email);
+        mPasswordField = (EditText) findViewById(R.id.input_password);
 
+        mLoginButton = (Button)findViewById(R.id.button_login);
+        mSignupButton = (TextView) findViewById(R.id.button_signup);
+
+        // Autofill email if the user just signed up
         if (getIntent().getStringExtra("USERNAME") != null) {
-            ((EditText)findViewById(R.id.input_email)).setText(getIntent().getStringExtra("USERNAME"));
-            findViewById(R.id.input_password).requestFocus();
+            mEmailField.setText(getIntent().getStringExtra("USERNAME"));
+            mPasswordField.requestFocus();
         }
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 login();
             }
         });
 
-        signupButton.setOnClickListener(new View.OnClickListener() {
+        mSignupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
@@ -55,9 +65,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-//        ServerHandler serverHandler = new ServerHandler(LoginActivity.this);
-//        serverHandler.serverCall();
 
     }
 
@@ -90,8 +97,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void authenticateLogin() {
-        String emailInput = ((EditText)findViewById(R.id.input_email)).getText().toString();
-        String passwordInput = ((EditText)findViewById(R.id.input_password)).getText().toString();
+        String emailInput = mEmailField.getText().toString();
+        String passwordInput = mPasswordField.getText().toString();
 
 
         mAuth.signInWithEmailAndPassword(emailInput, passwordInput)
@@ -112,23 +119,23 @@ public class LoginActivity extends AppCompatActivity {
      * @return true if the email and password are correctly formed
      */
     private boolean validateInput() {
-        String emailInput = ((EditText)findViewById(R.id.input_email)).getText().toString();
-        String passwordInput = ((EditText)findViewById(R.id.input_password)).getText().toString();
+        String emailInput = mEmailField.getText().toString();
+        String passwordInput = mPasswordField.getText().toString();
 
         if (emailInput.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
-            ((EditText)findViewById(R.id.input_email)).setError("Please enter a valid email address");
-            findViewById(R.id.input_email).requestFocus();
+            mEmailField.setError("Please enter a valid email address");
+            mEmailField.requestFocus();
             return false;
         } else {
-            ((EditText)findViewById(R.id.input_email)).setError(null);
+            mEmailField.setError(null);
         }
 
         if (passwordInput.isEmpty()) {
-            ((EditText)findViewById(R.id.input_password)).setError("Please enter your password");
-            findViewById(R.id.input_password).requestFocus();
+            mPasswordField.setError("Please enter your password");
+            mPasswordField.requestFocus();
             return false;
         } else {
-            ((EditText)findViewById(R.id.input_password)).setError(null);
+            mPasswordField.setError(null);
         }
 
         return true;
