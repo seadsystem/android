@@ -7,6 +7,7 @@ List of functions not working properly:
     structure of the listView, when trying to access the device data it returns null because the data
     for each segment is in a file seperate from the listView.
 
+    -The bottom navigation bar highlights the wrong activity when using the back button.
 
 
 List of test cases/user stories for acceptance tests:
