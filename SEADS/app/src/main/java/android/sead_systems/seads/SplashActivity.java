@@ -6,19 +6,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class SplashActivity extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mAuth = FirebaseAuth.getInstance();
 
         SharedPreferences sharedPreferences = getSharedPreferences(
                 getString(R.string.shared_preferences), MODE_PRIVATE);
 
         boolean firstTime = sharedPreferences.getBoolean(getString(R.string.preference_first_time),
                 true);
-        boolean loggedIn = sharedPreferences.getBoolean(getString(R.string.preference_logged_in),
-                false);
+        boolean loggedIn = mAuth.getCurrentUser() != null;
 
         // If first time launch -> WelcomeActivity
         Intent intent;

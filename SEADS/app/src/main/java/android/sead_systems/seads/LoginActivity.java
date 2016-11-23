@@ -3,22 +3,34 @@ package android.sead_systems.seads;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 /** Created by talal.abouhaiba on 10/26/2016. */
 
 public class LoginActivity extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
+
+        mAuth = FirebaseAuth.getInstance();
 
         Button loginButton = (Button)findViewById(R.id.button_login);
         TextView signupButton = (TextView) findViewById(R.id.button_signup);
@@ -55,35 +67,43 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Logging in");
-        progressDialog.setIndeterminate(true);
-        progressDialog.show();
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setMessage("Logging in");
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.show();
 
-        Thread loginThread = new Thread() {
-            @Override
-            public void run() {
-                authenticateLogin();
-            }
-        };
-        loginThread.start();
+        authenticateLogin();
 
-        progressDialog.dismiss();
+    }
 
-        // Assuming login is successful
-
-        getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).edit().
-                putBoolean(getString(R.string.preference_logged_in), true).apply();
+    private void successfulLogin() {
+        mProgressDialog.dismiss();
 
         Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
         startActivity(intent);
         finish();
     }
 
+    private void unsuccessfulLogin() {
+        mProgressDialog.dismiss();
+        Toast.makeText(LoginActivity.this, "Invalid login", Toast.LENGTH_SHORT).show();
+    }
+
     private void authenticateLogin() {
+        String emailInput = ((EditText)findViewById(R.id.input_email)).getText().toString();
+        String passwordInput = ((EditText)findViewById(R.id.input_password)).getText().toString();
 
-        /** Server call to be made here. **/
-
+        mAuth.signInWithEmailAndPassword(emailInput, passwordInput)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            successfulLogin();
+                        } else {
+                            unsuccessfulLogin();
+                        }
+                    }
+                });
     }
 
     /**
