@@ -1,0 +1,40 @@
+Release Plan - SEADS Android
+CMPS 115 Fall 2016
+
+Second  Release [2.0.0]
+ revision 2 [Nov 22, 2016]
+
+High level goals:
+
+    + Build up the Android application, mimicking the existing iOS Application.
+    + Improve upon the current features in order to provide a better experience
+      for our users.
+    + Enable push notifications (requires API modifications as well as Android
+      modifications).
+
+Sprint 1:
+
+	[8] As a user, I want to see my electricity usage in the form of a graph so that I can see how much energy I’m currently using.
+	[8] As a user, I want to see a list of my devices and their status so that I can tell which devices are currently running and consuming power. 
+	[5] As a user, I want to be able to see the temperature inside my house so that I can determine if I need to heat or cool my house. 
+	[1] As a designer, I want a splash screen so that the user is not left starting at a black screen during a cold boot.
+
+Sprint 2:
+
+	[8] As a user, I want to see the rates I will be charged when I run specific appliances at a given part of the day, so I know when is the best time to use my big energy items.
+	[5] As a user, I want to find out when is the most cost efficient time to charge my electric vehicle so I can save money.
+	[3] As a user, I want to be able to edit which devices show up on my home screen, so that I can see information about the items I care about most.
+	[2] As a user, I want to be able to mark important items, so I can quickly see when big power users are running.
+	[2] As a user, I want to see if my electric vehicle is fully charged so that I can unplug it.
+
+Sprint 3:
+
+	[8] As a user, I want to receive notifications when large devices have been left on too long, when we are coming up on a price surge due to time of day, or when the best time is to charge a marked item so that I can efficiently and easily save power and money.
+	[5] As a user, I want to look back at my history and see how I have done in the past on saving power and money so I can strive to keep improving in the future.
+	[5] As a user. I want to be able to sign up so that I can register my device.
+	[3] As a user, I want to be able to login to my account so that I can view what devices are on.
+
+Product Backlog:
+
+	As a developer, I want to test with a Raspberry Pi device so that I can get actual data on my mobile application.
+	As a user, I want to know the average cost of running all of my devices across the day so that I can save money and reduce energy usage.
