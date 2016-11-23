@@ -14,7 +14,7 @@ public class RoomObjectTest {
 
     @Before
     public void initialize() {
-        mRoom = new RoomObject(mRoomName);
+        mRoom = new RoomObject(mRoomName, 0);
     }
 
     @Test
