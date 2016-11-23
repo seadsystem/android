@@ -18,7 +18,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-public class DynamicChartActivity extends Activity {
+public class  DynamicChartActivity extends Activity {
     private LineChart mChart;
     private Thread thread;
 

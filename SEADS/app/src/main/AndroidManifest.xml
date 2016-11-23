@@ -57,6 +57,10 @@
             android:name=".DeviceListActivity">
         </activity>
 
+        <activity android:name=".DeviceInfo">
+
+        </activity>
+
         <activity
             android:name=".AddDevice"
             android:label="@string/title_activity_add_device">

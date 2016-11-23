@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,6 +66,7 @@ public class DeviceListActivity extends AppCompatActivity {
             } catch(NullPointerException e){
            Toast.makeText(DeviceListActivity.this, "no items in list", Toast.LENGTH_LONG).show();
        }
+        registerOnClick();
 
     }
 
@@ -105,16 +107,25 @@ public class DeviceListActivity extends AppCompatActivity {
 
     //This function will be used to run an individual fragment based on which item was clicked
     private void registerOnClick() {
-        ListView list = (ListView) findViewById(R.id.listView);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        final ListView mylist = (ListView) findViewById(R.id.listView);
+        mylist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             //put method to run graph fragment here
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
-                TextView textView = (TextView) viewClicked;
-                String clicked = textView.getText().toString();
-                //show which list item the user has clicked
-                Toast.makeText(DeviceListActivity.this, clicked, Toast.LENGTH_SHORT).show();
-
+                LinearLayout par = (LinearLayout) viewClicked;
+               Object clicked1 = mylist.getItemAtPosition(0);
+                    /**ListView textView = (ListView) par.findViewById(R.id.listView);
+                     Object clicked1 = (textView.getItemAtPosition(position)); **/
+                    String clicked = clicked1.toString();
+                    //String clicked = textView.getText().toString();
+                    //show which list item the user has clicked
+                    Toast.makeText(DeviceListActivity.this, clicked, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(DeviceListActivity.this, DeviceInfo.class);
+                    Bundle extras = new Bundle();
+                    extras.putString("room", curr.toString());
+                    extras.putString("device", clicked);
+                    startActivity(intent);
 
             }
         });

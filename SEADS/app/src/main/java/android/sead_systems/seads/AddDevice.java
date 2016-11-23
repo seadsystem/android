@@ -5,7 +5,10 @@ import android.sead_systems.seads.rooms.RoomListManager;
 import android.sead_systems.seads.rooms.RoomManagerFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,21 +21,67 @@ public class AddDevice extends AppCompatActivity {
 
     public RoomListManager rooms = RoomManagerFactory.getInstance();
 
+    public String roomName;
+    public int getRoom;
+    public Spinner dropdown;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Spinner dropdown = (Spinner)findViewById(R.id.room_dropdown);
+        setContentView(R.layout.activity_add_device);
+        dropdown = (Spinner) findViewById(R.id.room_dropdown);
         List<String> room_list = rooms.generateListOfRooms();
-        room_list.add("Add new room");
-       // String [] room_strings = new String[room_list.size()];
-        ArrayAdapter<String> adapt = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, room_list);
 
-        //int ind = 0;
+        String[] room_strings = new String[room_list.size() + 1];
+        //ArrayAdapter<String> adapt = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, room_list);
+
+
+        int ind = 0;
         /** converts a List to an array of strings **/
-        //for(Object value : room_list) {
-        //   room_strings[ind] = (String) value;
-        //    ind++;
-       // }
+        for (Object value : room_list) {
+            room_strings[ind] = (String) value;
+            ind++;
+        }
+        room_strings[ind] = "Add new room.";
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, room_strings);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dropdown.setAdapter(adapter);
+         roomName = dropdown.getSelectedItem().toString();
+        final EditText new_room =(EditText) findViewById(R.id.new_room);
+
+        /** if a pre-existing room is selected hide the edit text **/
+        if(roomName.equals("Add new room.")){
+            new_room.setVisibility(View.VISIBLE);
+        }else{
+            new_room.setVisibility(View.INVISIBLE);
+        }
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                roomName = dropdown.getSelectedItem().toString();
+                if(roomName.equals("Add new room.")){
+                    new_room.setVisibility(View.VISIBLE);
+                    getRoom = 1;
+                }else{
+                    new_room.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+
+        // dropdown.setOnItemClickListener(new View.OnItemClickListener() {
+        //  @Override
+
+       // });
+        /**
+         *
+
         try {
             //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, room_strings);
             adapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -44,9 +93,12 @@ public class AddDevice extends AppCompatActivity {
 
         }
         setContentView(R.layout.activity_add_device);
-        //onButtonPressed();
+        //onButtonPressed();  **/
 
-    }
+
+
+
+
 
 
     /**allows selection of a picture for the room**/
@@ -84,11 +136,15 @@ public class AddDevice extends AppCompatActivity {
 
         /** take in user text from the fields **/
 
+
+
         EditText dev = (EditText)findViewById(R.id.new_device);
         EditText room = (EditText)findViewById(R.id.new_room);
         int check = 0;
         String devName = dev.getText().toString();
-        String roomName = room.getText().toString();
+        if(getRoom == 1) {
+             roomName = room.getText().toString();
+        }
 
         /** if one field is left blank, do not let them continue **/
         if(devName.equals("") ) {

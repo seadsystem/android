@@ -15,23 +15,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/new_room"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/room_dropdown" />
-
-    <EditText android:id="@+id/new_room"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/roomName"
-        android:layout_marginTop="83dp"
-        android:layout_below="@+id/new_device"
-        android:layout_centerHorizontal="true" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -73,6 +56,28 @@
         android:layout_alignRight="@+id/new_device"
         android:layout_alignEnd="@+id/new_device"
         android:onClick="picture_right" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:id="@+id/room_dropdown"
+        android:layout_alignBottom="@+id/new_room"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginBottom="50dp" />
+
+    <EditText android:id="@+id/new_room"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/roomName"
+        android:layout_marginBottom="49dp"
+        android:layout_above="@+id/imageView"
+        android:layout_alignLeft="@+id/left"
+        android:layout_alignStart="@+id/left" />
 
 
 </RelativeLayout>
