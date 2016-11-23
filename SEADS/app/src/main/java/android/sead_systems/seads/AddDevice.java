@@ -5,8 +5,6 @@ import android.sead_systems.seads.rooms.RoomListManager;
 import android.sead_systems.seads.rooms.RoomManagerFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +12,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -25,10 +27,18 @@ public class AddDevice extends AppCompatActivity {
     public int getRoom;
     public Spinner dropdown;
 
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_device);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+
         dropdown = (Spinner) findViewById(R.id.room_dropdown);
         List<String> room_list = rooms.generateListOfRooms();
 
@@ -127,6 +137,8 @@ public class AddDevice extends AppCompatActivity {
             check = 1;
         }else if(check == 0){
         /**send new device info to the data structure **/
+
+        writeDeviceToDatabase(roomName, devName, room_pics[index]);
         Intent intent = new Intent(AddDevice.this, DeviceListActivity.class);
         Bundle extras = new Bundle();
         extras.putString("New", devName);
@@ -137,5 +149,22 @@ public class AddDevice extends AppCompatActivity {
         finish();
         }
 
+    }
+
+    private void writeDeviceToDatabase(String roomName, String deviceName, int roomPicture) {
+        if (getRoom == 1) {
+            mDatabase.child("users").child(mAuth.getCurrentUser().getUid())
+                    .child("rooms").child(roomName).child("room_image").setValue(roomPicture);
+        }
+
+        // Fixme: hardcoded - all devices inserted have usage 48 and status 0 (off)
+
+        mDatabase.child("users").child(mAuth.getCurrentUser().getUid())
+                .child("rooms").child(roomName).child("devices").child(deviceName).child("usage")
+                .setValue(48);
+
+        mDatabase.child("users").child(mAuth.getCurrentUser().getUid())
+                .child("rooms").child(roomName).child("devices").child(deviceName).child("status")
+                .setValue(0);
     }
 }

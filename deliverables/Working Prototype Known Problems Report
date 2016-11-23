@@ -3,6 +3,9 @@ Working Prototype Known Problems Report - SEADS Android
 CMPS 115 Fall 2016
 
 List of functions not working properly:
+    -DeviceInfo is not properly getting the device information from the listView. This is due to the 
+    structure of the listView, when trying to access the device data it returns null because the data
+    for each segment is in a file seperate from the listView.
 
 
 
