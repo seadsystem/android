@@ -34,7 +34,7 @@ Sprint 2
 Sprint 3
   A. User Story 1 from Sprint 3:  As a user, I want to see the cost of running devices in the form of a graph so that I can 
   know when is the most efficient time to use power. 
-
+	-Click on cost at the bottom in the navigation bar and it'll load the current costs per kWh for the next 8 hours.
   
   
  
