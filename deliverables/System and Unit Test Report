@@ -3,9 +3,9 @@ System and Unit Test Report - SEADS Android
 CMPS 115 Fall 2016
 
 System Test Scenarios:
-(User stories as shown in Sprint Reviews)
 
-  A.User Story 1 from Sprint 1: As a designer, I want a splash screen so that the user is not left staring at a black screen 
+Sprint 1
+  A. User Story 1 from Sprint 1: As a designer, I want a splash screen so that the user is not left staring at a black screen 
   during a cold boot.
   
     -Start the SEADS App
@@ -19,12 +19,17 @@ System Test Scenarios:
     -Click on the List button in the top left
     -User should see the list of all devices in the room
 
-  C.User Story 3 from Sprint 1: Omitted from final project
+  C. User Story 3 from Sprint 1: Omitted from final project
 
   D. User Story 4 from Sprint 1: As a user, I want to see my electricity usage in the form of a graph so that I can see how 
   much energy I’m currently using.
   
-  
+    -Start the SEADS app
+    -Click on the desired room icon
+    -Click across named tabs, for each tab the user should see a different graph displaying energy use data
+    
+Sprint 2
+  A. User Story 1 from Sprint 2:
   
   
  
