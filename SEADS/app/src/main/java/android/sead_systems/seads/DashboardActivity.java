@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.sead_systems.seads.devices.DeviceObject;
 import android.sead_systems.seads.graph.DemoActivity;
 import android.sead_systems.seads.rooms.RoomManagerFactory;
 import android.sead_systems.seads.rooms.RoomObject;
@@ -122,19 +123,46 @@ public class DashboardActivity extends AppCompatActivity {
      */
     private void updateData() {
 
-        DatabaseReference roomRef = mDatabase.child("users").child(mAuth.getCurrentUser().getUid()).child("rooms").getRef();
+        final DatabaseReference roomRef = mDatabase.child("users").child(mAuth.getCurrentUser().getUid()).child("rooms").getRef();
 
         roomRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 boolean dataUpdated = false;
                 for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+                    final String currentRoomName = dsp.getKey();
                     if (RoomManagerFactory.getInstance().getRoom(dsp.getKey()) == null) {
-                        System.out.println("Updating with: " + dsp.getKey());
-                        RoomObject newRoom = new RoomObject(dsp.getKey(), ((Long) dsp.child("room_image").getValue()).intValue());
+                        RoomObject newRoom = new RoomObject(dsp.getKey(),
+                                ((Long) dsp.child("room_image").getValue()).intValue());
                         RoomManagerFactory.getInstance().insertRoom(newRoom);
                         dataUpdated = true;
                     }
+
+                    // Insert devices into room
+
+                    DatabaseReference deviceRef = roomRef.child(currentRoomName).child("devices").getRef();
+                    deviceRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            System.out.println("In snapshot "  + currentRoomName);
+                            for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+                                boolean newDeviceStatus = dsp.child("status").getValue().toString()
+                                        .equals("1");
+                                double newDeviceUsage = Double.valueOf(dsp.child("usage").getValue()
+                                        .toString());
+                                DeviceObject newDevice = new DeviceObject(dsp.getKey(),
+                                        newDeviceStatus, newDeviceUsage);
+                                RoomManagerFactory.getInstance().getRoom(currentRoomName).
+                                        manageDevices().insertDevice(newDevice);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
                 }
                 GridView gridView = (GridView) findViewById(R.id.gridview);
                 if (dataUpdated) {
