@@ -38,11 +38,17 @@ public class DeviceListManagerTest {
         mDeviceListManager.insertDevice(null);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test
     public void testInsertDeviceMultipleTimes() {
-        DeviceObject testDevice = new DeviceObject("testDevice", true, 15);
-        mDeviceListManager.insertDevice(testDevice);
-        mDeviceListManager.insertDevice(testDevice);
+        DeviceObject testDevice1 = new DeviceObject("testDevice", true, 15);
+        DeviceObject testDevice2 = new DeviceObject("testDevice", false, 30);
+        mDeviceListManager.insertDevice(testDevice1);
+        mDeviceListManager.insertDevice(testDevice2);
+
+        DeviceObject returnedDevice = mDeviceListManager.getDevice("testDevice");
+        Assert.assertFalse(returnedDevice.getDeviceStatus());
+        Assert.assertEquals(30.0, returnedDevice.getDeviceUsage());
+
     }
 
     @Test

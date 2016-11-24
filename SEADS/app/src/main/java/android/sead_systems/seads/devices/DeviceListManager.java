@@ -27,8 +27,11 @@ public class DeviceListManager {
     public synchronized void insertDevice(DeviceObject newDevice) {
         if (newDevice != null && !mDeviceObjects.containsKey(newDevice.toString())) {
             mDeviceObjects.put(newDevice.toString(), newDevice);
+        } else if (newDevice != null) {
+            mDeviceObjects.get(newDevice.toString()).updateDeviceStatus(newDevice.getDeviceStatus());
+            mDeviceObjects.get(newDevice.toString()).updateDeviceUsage(newDevice.getDeviceUsage());
         } else {
-            throw new IllegalArgumentException("Cannot insert a null or duplicate device!");
+            throw new IllegalArgumentException("Cannot insert a null device!");
         }
     }
 
