@@ -3,9 +3,8 @@ Working Prototype Known Problems Report - SEADS Android
 CMPS 115 Fall 2016
 
 List of functions not working properly:
-    -DeviceInfo is not properly getting the device information from the listView. This is due to the 
-     structure of the listView, when trying to access the device data it returns null because the data
-     for each segment is in a file separate from the listView.
+
+    -DeviceInfo is not properly getting the device information from the listView. This is due to the structure of the listView: when trying to access the device data it returns null because the data for each segment is in a file separate from the listView.
 
     -The bottom navigation bar highlights the wrong activity when using the back button.
 
@@ -16,6 +15,8 @@ List of functions not working properly:
     -Devices newly created all are registered as off with OW output, due to no device being hooked up.
     
     -On add device, add room image is visible
+
+    -Layout looks normal on phones, not tablet/phablet optimized.
     
 
 List of test cases/user stories for acceptance tests:
