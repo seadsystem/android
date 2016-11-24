@@ -27,6 +27,8 @@ import com.roughike.bottombar.OnTabSelectListener;
 public class DemoActivity extends AppCompatActivity {
     private boolean firstRunForBottomBar = true;
 
+    private String mCurrentRoomName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,10 @@ public class DemoActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Devices"));
         tabLayout.addTab(tabLayout.newTab().setText("Today"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        if (getIntent().getStringExtra("ROOM_NAME") != null) {
+            mCurrentRoomName = getIntent().getStringExtra("ROOM_NAME");
+        }
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter
@@ -103,6 +109,9 @@ public class DemoActivity extends AppCompatActivity {
     /** jump to the listview activity **/
     public void toList(View v){
         Intent intent = new Intent(DemoActivity.this, DeviceListActivity.class);
+        Bundle extras = new Bundle();
+        extras.putString("Room", mCurrentRoomName);
+        intent.putExtras(extras);
         startActivity(intent);
     }
 

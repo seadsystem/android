@@ -189,13 +189,9 @@ public class DashboardActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 // Gets the Item's Name and displays to the user currently
                 TextView tv = (TextView) view.findViewById(R.id.text);
-                Toast toast = Toast.makeText(getApplicationContext(), tv.getText(),
-                        Toast.LENGTH_SHORT);
-                toast.show();
 
-                // TODO Need function to take the name and populate the next activity based off
-                // TODO the current item's name that is clicked.
                 Intent intent = new Intent(getApplicationContext(), DemoActivity.class);
+                intent.putExtra("ROOM_NAME", tv.getText());
                 startActivity(intent);
             }
         });

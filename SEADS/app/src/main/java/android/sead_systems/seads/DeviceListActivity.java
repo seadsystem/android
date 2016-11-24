@@ -42,9 +42,12 @@ public class DeviceListActivity extends AppCompatActivity {
             Intent intent = getIntent();
 
         /** try will catch instance when list is empty**/
-       try{
+       try{ // FIXME: This activity should ONLY be obtaining the list of devices, not creating any
                 Bundle bundle = intent.getExtras();
                 String dev = bundle.getString("New");
+                if (dev == null) { // FIXME: Also a hack
+                    dev = "";
+                }
                 int imgid = bundle.getInt("Image");
                 temp = new DeviceObject(dev, false, 0);
                 String current_room = bundle.getString("Room");
@@ -56,8 +59,10 @@ public class DeviceListActivity extends AppCompatActivity {
                     rooms.getRoom(current_room).manageDevices().insertDevice(temp);
                     curr = rooms.getRoom(current_room);
                 }
-                else{
-                    rooms.getRoom(current_room).manageDevices().insertDevice(temp);
+                else {
+                    if (!temp.toString().isEmpty()) { // FIXME: This is a hack - this entire activity should be redone
+                        rooms.getRoom(current_room).manageDevices().insertDevice(temp);
+                    }
                     curr = rooms.getRoom(current_room);
                 }
 
