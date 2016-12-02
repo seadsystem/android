@@ -3,6 +3,14 @@ package android.sead_systems.seads.energy_cost;
 /**
  * Container class for a single bar chart entry used by {@link EnergyCostActivity}
  * @author Chris Persons
+ *
+ * @class BarChartEntry is a class that is used to hold data for each entry on the bar chart.
+ *  time: String that is used to hold the specific hour of the day.
+ *  cost: Float value of how many cents per kWh for the specified time.
+ *  color: Int value that represents the color of the Bar Entry. Color is dfferent based off
+ *      the cost.
+ *  position: Int value that represents the position of the value as it is retrieved from the
+ *      database. It is also used for sorting and applying the proper colors to the bars.
  */
 
 class BarChartEntry {

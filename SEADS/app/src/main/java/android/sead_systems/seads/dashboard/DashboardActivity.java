@@ -40,6 +40,7 @@ public class DashboardActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     private ProgressDialog mProgressDialog;
+    private BottomBar bottomBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,7 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        bottomBar.selectTabAtPosition(0);
         runUpdate();
     }
 
@@ -62,7 +64,7 @@ public class DashboardActivity extends AppCompatActivity {
      * Instantiates the bottom navigation bar.
      */
     private void setBottomBar() {
-        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
         if (bottomBar != null) {
             bottomBar.setOnTabSelectListener(new OnTabSelectListener() {

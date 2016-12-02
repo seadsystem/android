@@ -17,7 +17,10 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -38,29 +41,31 @@ public class EnergyCostActivity extends AppCompatActivity {
     private BarChart mBarChart;
     private BarDataSet mBarDataSet;
     private ArrayList<BarChartEntry> mBarChartList;
+    private ArrayList<Float> cost;
+    private ArrayList<String> times;
+    private TextView priceTextView, highTextView, lowTextView;
+    private BottomBar bottomBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tips);
+        setContentView(R.layout.activity_energy_cost);
 
-        final TextView priceTextView = (TextView) findViewById(R.id.electricity_cost);
+        priceTextView = (TextView) findViewById(R.id.electricity_cost);
         if (priceTextView != null) {
             String priceText = mPricePerKWHour + "¢ per kWh";
             priceTextView.setText(priceText);
         }
 
-        final TextView dateTextView = (TextView) findViewById(R.id.electricity_date);
-        if (dateTextView != null) {
-            String dateText = "Current Cost: ";
-            dateTextView.setText(dateText);
-        }
+        highTextView = (TextView) findViewById(R.id.electricity_high);
+        lowTextView = (TextView) findViewById(R.id.electricity_low);
 
         // BarChart should always have the current and next 7 times and costs
         mBarChart = (BarChart) findViewById(R.id.bar_graph);
 
         // Needs to be size 8
-        ArrayList<String> times = new ArrayList<>();
+        times = new ArrayList<>();
         times.add("1 AM ");
         times.add("4 AM ");
         times.add("7 AM ");
@@ -71,7 +76,7 @@ public class EnergyCostActivity extends AppCompatActivity {
         times.add("11 PM ");
 
         // Needs to be size  8
-        ArrayList<Float> cost = new ArrayList<>();
+        cost = new ArrayList<>();
         cost.add(11.76f);
         cost.add(12.79f);
         cost.add(13.66f);
@@ -80,6 +85,8 @@ public class EnergyCostActivity extends AppCompatActivity {
         cost.add(15.11f);
         cost.add(13.49f);
         cost.add(11.88f);
+
+        setPriceAndTimeTextViews();
 
         mBarChartList = new ArrayList<>();
         for (int i = 0; i < cost.size(); i++) {
@@ -92,7 +99,7 @@ public class EnergyCostActivity extends AppCompatActivity {
             barEntries.add(new BarEntry(i, cost.get(i)));
         }
 
-        mBarDataSet = new BarDataSet(barEntries, "Power Draw By Time");
+        mBarDataSet = new BarDataSet(barEntries, "Energy Cost By Time");
         setColorsOfBarChartList();
         BarData barData = new BarData(mBarDataSet);
         mBarChart.setData(barData);
@@ -110,8 +117,19 @@ public class EnergyCostActivity extends AppCompatActivity {
         Description desc = new Description();
         desc.setText("");
         mBarChart.setDescription(desc);
+        mBarChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                priceTextView.setText(e.getY() + "¢ per kWh at " + times.get(Math.round(e.getX())));
+            }
 
-        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+            @Override
+            public void onNothingSelected() {
+                priceTextView.setText("0.0¢ per kWh");
+            }
+        });
+
+        bottomBar = (BottomBar) findViewById(R.id.bottomBar);
         bottomBar.selectTabAtPosition(1);
         if (bottomBar != null) {
             bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
@@ -158,6 +176,12 @@ public class EnergyCostActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        bottomBar.selectTabAtPosition(1);
     }
 
 
@@ -208,17 +232,6 @@ public class EnergyCostActivity extends AppCompatActivity {
     }
 
     /**
-     * BarChartEntry is a class that is used to hold data for each entry on the bar chart.
-     *  time: String that is used to hold the specific hour of the day.
-     *  cost: Float value of how many cents per kWh for the specified time.
-     *  color: Int value that represents the color of the Bar Entry. Color is dfferent based off
-     *      the cost.
-     *  position: Int value that represents the position of the value as it is retrieved from the
-     *      database. It is also used for sorting and applying the proper colors to the bars.
-     */
-
-
-    /**
      *  MyXAxisValueFormatter is a class that is used to format the X-Axis values.
      *  The floats of the X-Axis will be replaced with Strings that represent times of the day.
      */
@@ -236,5 +249,62 @@ public class EnergyCostActivity extends AppCompatActivity {
 
         @Override
         public int getDecimalDigits() { return 0; }
+    }
+
+
+    /**
+     * Method to return the index of the highest cost in the cost array
+     */
+    public int getHighestCostIndex() {
+        int index = 0;
+        double highCost = 0.0;
+        if (cost.size() > 0) {
+            highCost = cost.get(0);
+        }
+        for (int i = 1; i < cost.size(); i++) {
+            if(cost.get(i) > highCost) {
+                highCost = cost.get(i);
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    /**
+     * Method to return the index of the lowest cost in the cost array
+     */
+    public int getLowestCostIndex() {
+        int index = 0;
+
+        // Needed to initiate it to an unreasonably high value for getting the lowest value
+        double lowCost = 500000;
+        if (cost.size() > 0) {
+            lowCost = cost.get(0);
+        }
+        for (int i = 1; i < cost.size(); i++) {
+            if(cost.get(i) < lowCost) {
+                lowCost = cost.get(i);
+                index = i;
+            }
+        }
+        return index;
+    }
+
+
+    /**
+     * Sets the price and time of both highest and lowest text views.
+     */
+    public void setPriceAndTimeTextViews() {
+        int highestIndex = getHighestCostIndex();
+        int lowestIndex = getLowestCostIndex();
+
+        String highCostText = "Highest Cost: " + cost.get(highestIndex) + "¢ per kWh at "
+                + times.get(highestIndex);
+        highTextView.setText(highCostText);
+
+        String lowCostText = "Lowest Cost: " + cost.get(lowestIndex) + "¢ per kWh at "
+                + times.get(lowestIndex);
+        lowTextView.setText(lowCostText);
+
     }
 }

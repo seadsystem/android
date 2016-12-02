@@ -47,16 +47,26 @@
             android:textSize="@dimen/slide_title"/>
 
         <TextView
-            android:id="@+id/electricity_date"
+            android:id="@+id/electricity_high"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:paddingLeft="@dimen/desc_padding"
             android:paddingRight="@dimen/desc_padding"
             android:text=""
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="@color/bar_chart_color_8"
             android:textSize="@dimen/slide_desc" />
 
+        <TextView
+            android:id="@+id/electricity_low"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="@dimen/desc_padding"
+            android:paddingRight="@dimen/desc_padding"
+            android:text=""
+            android:textColor="@color/bar_chart_color_1"
+            android:textSize="@dimen/slide_desc" />
         <FrameLayout
             android:id="@+id/contentContainer"
             android:layout_width="match_parent"

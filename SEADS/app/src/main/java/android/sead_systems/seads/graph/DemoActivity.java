@@ -27,6 +27,7 @@ public class DemoActivity extends AppCompatActivity {
     private boolean firstRunForBottomBar = true;
 
     private String mCurrentRoomName;
+    private BottomBar bottomBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,7 @@ public class DemoActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {}
         });
 
-        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        bottomBar = (BottomBar) findViewById(R.id.bottomBar);
         if (bottomBar != null) {
             bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
                 @Override
@@ -103,6 +104,12 @@ public class DemoActivity extends AppCompatActivity {
             });
         }
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        bottomBar.selectTabAtPosition(0);
     }
 
     /** jump to the listview activity **/
