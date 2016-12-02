@@ -25,5 +25,5 @@ List of test cases/user stories for acceptance tests:
 
 List of serious bugs that affects user experience:
     - Changing graph fragments without manually stopping the live-data thread will crash the application.
-    - Adding multiple devices to rooms will sometimes lead so some not showing up, when viewing a list from the home page it may omit some devices.
+    - Adding multiple devices to rooms will sometimes add the device to the wrong room.
     
