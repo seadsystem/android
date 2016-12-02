@@ -90,6 +90,7 @@ public class SettingsActivity extends PreferenceActivity {
                 break;
 
             case "log_out":
+                RoomManagerFactory.getInstance().clearRoomData();
                 FirebaseAuth.getInstance().signOut();
                 intent = new Intent(this, LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -98,6 +99,7 @@ public class SettingsActivity extends PreferenceActivity {
                 break;
 
             case "clear_data":
+                RoomManagerFactory.getInstance().clearRoomData();
                 FirebaseAuth.getInstance().signOut();
                 getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).edit().
                         putBoolean(getString(R.string.preference_first_time), true).apply();

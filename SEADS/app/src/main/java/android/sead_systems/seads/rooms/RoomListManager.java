@@ -1,7 +1,5 @@
 package android.sead_systems.seads.rooms;
 
-import android.sead_systems.seads.R;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +17,6 @@ public class RoomListManager {
     public RoomListManager() {
         mRoomObjects = new HashMap<>();
         mRoomOrdering = new ArrayList<>();
-        //insertRoom(new RoomObject("Home", R.mipmap.bedroom1));
     }
 
     /**
@@ -56,16 +53,33 @@ public class RoomListManager {
         return totalConsumption;
     }
 
+    /**
+     * Generates a list of all room names.
+     * @return List of the keySet.
+     */
     public List<String> generateListOfRooms() {
         return new ArrayList<>(mRoomObjects.keySet());
     }
 
+    /**
+     * Generates an ordered list (based on insertion order maintained by mRoomOrdering)
+     * @return ordered list of Room object references
+     */
     public List<RoomObject> generateListOfRoomObjects() {
         List<RoomObject> inOrderList = new ArrayList<>();
         for (String room : mRoomOrdering) {
             inOrderList.add(mRoomObjects.get(room));
         }
         return inOrderList;
+    }
+
+    /**
+     * Clears all stored room data.
+     * To be used when logging out in {@link android.sead_systems.seads.SettingsActivity}
+     */
+    public void clearRoomData() {
+        mRoomObjects.clear();
+        mRoomOrdering.clear();
     }
 
 }
