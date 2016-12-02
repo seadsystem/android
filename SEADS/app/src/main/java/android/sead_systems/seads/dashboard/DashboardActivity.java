@@ -27,6 +27,12 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
+/**
+ * Main activity which obtains and displays a list of rooms.
+ * @author Talal Abou Haiba
+ * @author Chris Persons
+ */
+
 public class DashboardActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
@@ -189,6 +195,10 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Sets the {@link DashboardAdapter} using room information obtained from
+     * {@link RoomManagerFactory}
+     */
     private void updateAdapter() {
         GridView gridView = (GridView) findViewById(R.id.gridview);
         gridView.setAdapter(new DashboardAdapter(this));
