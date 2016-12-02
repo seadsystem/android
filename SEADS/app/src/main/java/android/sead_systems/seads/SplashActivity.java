@@ -3,6 +3,7 @@ package android.sead_systems.seads;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.sead_systems.seads.dashboard.DashboardActivity;
+import android.sead_systems.seads.graph.DemoActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -36,7 +37,8 @@ public class SplashActivity extends AppCompatActivity {
         if (firstTime) {
             intent = new Intent(this, WelcomeActivity.class);
         } else if (!loggedIn) {
-            intent = new Intent(this, LoginActivity.class);
+            intent = new Intent(this, DemoActivity.class);
+            //intent = new Intent(this, LoginActivity.class);
         } else {
             intent = new Intent(this, DashboardActivity.class);
         }
