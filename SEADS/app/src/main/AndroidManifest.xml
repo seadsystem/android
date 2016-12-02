@@ -72,7 +72,7 @@
 
         <activity
             android:screenOrientation="sensorPortrait"
-            android:name=".AddDevice">
+            android:name=".AddDeviceActivity">
         </activity>
         
     </application>
