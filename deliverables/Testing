@@ -1,0 +1,9 @@
+Testing - SEADS Android
+CMPS 115 Fall 2016
+
+Running automated unit tests:
+
+	- Open project in Android Studio
+	- Right click the android.sead_systems.seads test directory (highlighted in green)
+	- Select "Run tests in 'seads'" -> this will build and run every unit test available and return the final result.
+
