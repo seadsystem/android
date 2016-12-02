@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -58,6 +59,9 @@ public class AddDevice extends AppCompatActivity {
         dropdown.setAdapter(adapter);
          roomName = dropdown.getSelectedItem().toString();
         final EditText new_room =(EditText) findViewById(R.id.new_room);
+        final Button left = (Button) findViewById(R.id.left);
+        final Button right = (Button) findViewById(R.id.right);
+        final ImageView img = (ImageView) findViewById(R.id.imageView);
 
         /** if a pre-existing room is selected hide the edit text **/
         if(roomName.equals("Add new room.")){
@@ -71,9 +75,15 @@ public class AddDevice extends AppCompatActivity {
                 roomName = dropdown.getSelectedItem().toString();
                 if(roomName.equals("Add new room.")){
                     new_room.setVisibility(View.VISIBLE);
+                    left.setVisibility(View.VISIBLE);
+                    right.setVisibility(View.VISIBLE);
+                    img.setVisibility(View.VISIBLE);
                     getRoom = 1;
                 }else{
                     new_room.setVisibility(View.INVISIBLE);
+                    left.setVisibility(View.INVISIBLE);
+                    right.setVisibility(View.INVISIBLE);
+                    img.setVisibility(View.INVISIBLE);
                 }
             }
 
