@@ -7,3 +7,126 @@ Running automated unit tests:
 	- Right click the android.sead_systems.seads test directory (highlighted in green)
 	- Select "Run tests in 'seads'" -> this will build and run every unit test available and return the final result.
 
+Module: DeviceListManager
+
+	+ Tests:
+
+		+ testInitialize()
+
+			- Ensure that an instance of the DeviceListManager can be created without any issues.
+
+		+ testInsertAndRetrieveDevice()
+
+			- Insert a (non-null) test device, retrieve it, and assert that they are equal.
+
+		+ testInsertNullDevice()
+
+			- Insert a null test device - an IllegalArgumentException should be thrown.
+
+		+ testInsertDeviceMultipleTimes()
+
+			- Attempt to insert the same device multiple times, with different values.
+			- Retrieve the device and assert that the values were properly updated.
+
+		+ testModifyExistingDevice()
+
+			- Insert a device, retrieve a reference to it, and update it's values.
+			- Retrieve the device and assert that the values were properly updated.
+
+		+ testGenerateTotalUsage_EmptyList()
+
+			- Attempt to generate the total usage of an empty list.
+			- Assert that the usage value returned is zero.
+
+		+ testGenerateTotalUsage()
+
+			- Insert some devices with given usages.
+			- Assert that the total usage value returned equals the sum of the device's usages.
+
+		+ testGenerateDeviceList_EmptyList()
+
+			- Ensure that the DeviceList is empty, and attempt to generate the device list.
+			- Assert that the returned list is empty.
+
+		+ testGenerateDeviceList()
+
+			- Insert devices into the list and generate the device list.
+			- Assert that the returned list contains the names of both inserted devices.
+
+Module: DeviceObject
+
+	+ Tests:
+
+		+ testCreateObject()
+
+			- Ensure that an instance of a device object can be created without any issues.
+
+		+ testCreateObjectAndVerifyInformation()
+
+			- Create a device object and ensure that it returns the correct values.
+
+		+ testUpdateDeviceStatus()
+
+			- Update the device status. It can be only true or false, ensure that both updates result in a successfully updated device.
+
+		+ testUpdateDeviceUsage()
+
+			- Update the device usage. The usage can be any double, ensure that the update results in a successfully updated device.
+
+Module: RoomListManager
+
+	+ Tests:
+
+		+ testInitialize()
+
+			- Ensure that an instance of the RoomListManager can be created without any issues.
+
+		+ testInsertAndRetrieveRoom()
+
+			- Insert a single room object.
+			- Retrieve the object and assert that the object has the same values.
+
+		+ testInsertNullRoom()
+
+			- Attempt to insert a null room. Ensure that an IllegalArgumentException is thrown.
+
+		+ testInsertRoomMultipleTimes()
+
+			- Attempt to insert the same room multiple times. Ensure that an IllegalArgumentException is thrown.
+
+		+ testGenerateTotalUsage_EmptyList()
+
+			- Attempt to generate the total usage of an empty list of rooms.
+			- Ensure that the value returned is zero.
+
+		+ testGenerateTotalUsage()
+
+			- Insert rooms containing devices with varying usages.
+			- Generate the total usage of the rooms.
+			- Assert that the value returned is equal to the sum of all devices in all rooms.
+
+		+ testGenerateRoomList_EmptyList()
+
+			- Ensure that the RoomList is empty, and attempt to generate the room list.
+			- Assert that the returned list is empty.
+
+		+ testGenerateRoomList()
+
+			- Insert rooms into the list.
+			- Attempt to generate the room list, assert that the returned list contains the names of all rooms inserted.
+
+Module: RoomObject
+
+	+ Tests:
+
+		+ testCreateObject()
+
+			- Ensure that an instance of a room object can be created without any issues.
+
+		+ testCreateObjectAndVerifyName()
+
+			- Create a room object and ensure that it returns the correct name.
+
+		+ testManageDevices()
+
+			- Create a room object and ensure that it returns a valid (non-null) DeviceListManager instance.
