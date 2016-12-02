@@ -16,55 +16,63 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:screenOrientation="sensorPortrait"
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
+            android:screenOrientation="sensorPortrait"
             android:name=".WelcomeActivity">
         </activity>
 
         <activity
+            android:screenOrientation="sensorPortrait"
             android:name=".LoginActivity">
         </activity>
 
         <activity
+            android:screenOrientation="sensorPortrait"
             android:name=".SignupActivity">
         </activity>
 
         <activity
+            android:screenOrientation="sensorPortrait"
             android:name=".CostActivity">
         </activity>
 
         <activity
+            android:screenOrientation="sensorPortrait"
             android:name=".SettingsActivity">
         </activity>
 
         <activity
+            android:screenOrientation="sensorPortrait"
             android:name=".DashboardActivity">
         </activity>
 
         <activity
-            android:screenOrientation="portrait"
+            android:screenOrientation="sensorPortrait"
             android:name=".graph.DemoActivity">         
         </activity>
 
-        <activity 
+        <activity
+            android:screenOrientation="sensorPortrait"
             android:name=".DeviceListActivity">
         </activity>
 
-        <activity android:name=".DeviceInfo">
-
+        <activity
+            android:screenOrientation="sensorPortrait"
+            android:name=".DeviceInfo">
         </activity>
 
         <activity
-            android:name=".AddDevice"
-            android:label="@string/title_activity_add_device">
+            android:screenOrientation="sensorPortrait"
+            android:name=".AddDevice">
         </activity>
         
     </application>
