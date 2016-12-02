@@ -25,10 +25,13 @@ import android.widget.TextView;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    private ViewPager viewPager;
-    private LinearLayout dotsLayout;
-    private int[] layouts;
-    private Button btnSkip, btnNext;
+    private int[] mLayouts;
+
+    private ViewPager mViewPager;
+    private LinearLayout mDotsLayout;
+
+    private Button mNextButton;
+    private Button mSkipButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +45,13 @@ public class WelcomeActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_welcome);
 
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
-        dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
-        btnSkip = (Button) findViewById(R.id.btn_skip);
-        btnNext = (Button) findViewById(R.id.btn_next);
+        mViewPager = (ViewPager) findViewById(R.id.view_pager);
+        mDotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
+        mSkipButton = (Button) findViewById(R.id.btn_skip);
+        mNextButton = (Button) findViewById(R.id.btn_next);
 
 
-        layouts = new int[]{
+        mLayouts = new int[]{
                 R.layout.welcome_page1,
                 R.layout.welcome_page2,
                 R.layout.welcome_page3,
@@ -59,23 +62,23 @@ public class WelcomeActivity extends AppCompatActivity {
         // Set notification bar transparent
         changeStatusBarColor();
 
-        viewPager.setAdapter(new MyViewPagerAdapter());
-        viewPager.addOnPageChangeListener(pageChangeListener);
+        mViewPager.setAdapter(new MyViewPagerAdapter());
+        mViewPager.addOnPageChangeListener(pageChangeListener);
 
-        btnSkip.setOnClickListener(new View.OnClickListener() {
+        mSkipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 launchHomeScreen();
             }
         });
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
+        mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int current = getItem(+1);
-                if (current < layouts.length) {
+                if (current < mLayouts.length) {
                     // move to next screen
-                    viewPager.setCurrentItem(current);
+                    mViewPager.setCurrentItem(current);
                 } else {
                     launchHomeScreen();
                 }
@@ -84,18 +87,18 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void addBottomDots(int currentPage) {
-        TextView[] dots = new TextView[layouts.length];
+        TextView[] dots = new TextView[mLayouts.length];
 
         int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
         int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
 
-        dotsLayout.removeAllViews();
+        mDotsLayout.removeAllViews();
         for (int i = 0; i < dots.length; i++) {
             dots[i] = new TextView(this);
             dots[i].setText(Html.fromHtml("&#8226;"));
             dots[i].setTextSize(35);
             dots[i].setTextColor(colorsInactive[currentPage]);
-            dotsLayout.addView(dots[i]);
+            mDotsLayout.addView(dots[i]);
         }
 
         if (dots.length > 0)
@@ -103,7 +106,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private int getItem(int i) {
-        return viewPager.getCurrentItem() + i;
+        return mViewPager.getCurrentItem() + i;
     }
 
     private void launchHomeScreen() {
@@ -121,14 +124,14 @@ public class WelcomeActivity extends AppCompatActivity {
             addBottomDots(position);
 
             // changing the next button text 'NEXT' / 'GOT IT'
-            if (position == layouts.length - 1) {
+            if (position == mLayouts.length - 1) {
                 // last page. make button text to GOT IT
-                btnNext.setText(getString(R.string.welcome_button_continue));
-                btnSkip.setVisibility(View.GONE);
+                mNextButton.setText(getString(R.string.welcome_button_continue));
+                mSkipButton.setVisibility(View.GONE);
             } else {
                 // still pages are left
-                btnNext.setText(getString(R.string.welcome_button_next));
-                btnSkip.setVisibility(View.VISIBLE);
+                mNextButton.setText(getString(R.string.welcome_button_next));
+                mSkipButton.setVisibility(View.VISIBLE);
             }
         }
 
@@ -164,7 +167,7 @@ public class WelcomeActivity extends AppCompatActivity {
         public Object instantiateItem(ViewGroup container, int position) {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            View view = layoutInflater.inflate(layouts[position], container, false);
+            View view = layoutInflater.inflate(mLayouts[position], container, false);
             container.addView(view);
 
             return view;
@@ -172,7 +175,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return layouts.length;
+            return mLayouts.length;
         }
 
         @Override

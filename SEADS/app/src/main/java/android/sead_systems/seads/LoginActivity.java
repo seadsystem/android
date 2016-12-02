@@ -18,7 +18,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-/** Created by talal.abouhaiba on 10/26/2016. */
+/**
+ * Allows the user to log in or create an account.
+ * @author Talal Abou Haiba
+ */
 
 public class LoginActivity extends AppCompatActivity {
 

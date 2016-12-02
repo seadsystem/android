@@ -3,7 +3,8 @@ package android.sead_systems.seads.dashboard;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.sead_systems.seads.CostActivity;
+import android.sead_systems.seads.LoginActivity;
+import android.sead_systems.seads.energy_cost.EnergyCostActivity;
 import android.sead_systems.seads.R;
 import android.sead_systems.seads.SettingsActivity;
 import android.sead_systems.seads.devices.DeviceObject;
@@ -74,7 +75,7 @@ public class DashboardActivity extends AppCompatActivity {
                             break;
 
                         case R.id.tab_center:
-                            intent = new Intent(getApplicationContext(), CostActivity.class);
+                            intent = new Intent(getApplicationContext(), EnergyCostActivity.class);
                             startActivity(intent);
                             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                             break;
@@ -100,7 +101,7 @@ public class DashboardActivity extends AppCompatActivity {
                             break;
 
                         case R.id.tab_center:
-                            intent = new Intent(getApplicationContext(), CostActivity.class);
+                            intent = new Intent(getApplicationContext(), EnergyCostActivity.class);
                             startActivity(intent);
                             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                             break;
@@ -135,6 +136,17 @@ public class DashboardActivity extends AppCompatActivity {
      * Makes a connection to the server and obtains recent the most recent database.
      */
     private void updateData() {
+
+        // If there is an error obtaining the current user, sign out and return to LoginActivity
+        if (mAuth.getCurrentUser() == null) {
+            RoomManagerFactory.getInstance().clearRoomData();
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+            return;
+        }
 
         final DatabaseReference roomRef = mDatabase.child("users")
                 .child(mAuth.getCurrentUser().getUid()).child("rooms").getRef();
@@ -201,20 +213,26 @@ public class DashboardActivity extends AppCompatActivity {
      */
     private void updateAdapter() {
         GridView gridView = (GridView) findViewById(R.id.gridview);
-        gridView.setAdapter(new DashboardAdapter(this));
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                TextView textView = (TextView) view.findViewById(R.id.text);
 
-                Intent intent = new Intent(getApplicationContext(), DemoActivity.class);
-                intent.putExtra("ROOM_NAME", textView.getText());
-                startActivity(intent);
-            }
-        });
+        if (gridView != null) {
+            gridView.setAdapter(new DashboardAdapter(this));
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    TextView textView = (TextView) view.findViewById(R.id.text);
+
+                    Intent intent = new Intent(getApplicationContext(), DemoActivity.class);
+                    intent.putExtra("ROOM_NAME", textView.getText());
+                    startActivity(intent);
+                }
+            });
+        }
+
+        // Dismiss the progress dialog if it is currently active
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
+
     }
 
 }

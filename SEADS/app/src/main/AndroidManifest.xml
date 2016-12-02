@@ -42,7 +42,7 @@
 
         <activity
             android:screenOrientation="sensorPortrait"
-            android:name=".CostActivity">
+            android:name=".energy_cost.EnergyCostActivity">
         </activity>
 
         <activity

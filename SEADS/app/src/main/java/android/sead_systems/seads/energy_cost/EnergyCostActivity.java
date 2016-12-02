@@ -1,7 +1,9 @@
-package android.sead_systems.seads;
+package android.sead_systems.seads.energy_cost;
 
 import android.content.Intent;
 
+import android.sead_systems.seads.R;
+import android.sead_systems.seads.SettingsActivity;
 import android.sead_systems.seads.dashboard.DashboardActivity;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
@@ -24,13 +26,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+/**
+ * Displays a graph containing the cost of electricity over a set period of time.
+ * @author Chris Persons
+ */
 
-public class CostActivity extends AppCompatActivity {
-    private static String pricePerKWHour = "0.0";
-    private boolean firstRunForBottomBar = true;
-    private BarChart barChart;
-    private BarDataSet barDataSet;
-    private ArrayList<BarChartEntry> barChartList;
+public class EnergyCostActivity extends AppCompatActivity {
+
+    private static String mPricePerKWHour = "0.0";
+    private boolean mFirstRunForBottomBar = true;
+    private BarChart mBarChart;
+    private BarDataSet mBarDataSet;
+    private ArrayList<BarChartEntry> mBarChartList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +45,19 @@ public class CostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tips);
 
         final TextView priceTextView = (TextView) findViewById(R.id.electricity_cost);
-        priceTextView.setText(pricePerKWHour + "¢ per kWh");
+        if (priceTextView != null) {
+            String priceText = mPricePerKWHour + "¢ per kWh";
+            priceTextView.setText(priceText);
+        }
+
         final TextView dateTextView = (TextView) findViewById(R.id.electricity_date);
-        dateTextView.setText("Current Cost: ");
+        if (dateTextView != null) {
+            String dateText = "Current Cost: ";
+            dateTextView.setText(dateText);
+        }
 
         // BarChart should always have the current and next 7 times and costs
-        barChart = (BarChart) findViewById(R.id.bar_graph);
+        mBarChart = (BarChart) findViewById(R.id.bar_graph);
 
         // Needs to be size 8
         ArrayList<String> times = new ArrayList<>();
@@ -67,10 +81,10 @@ public class CostActivity extends AppCompatActivity {
         cost.add(13.49f);
         cost.add(11.88f);
 
-        barChartList = new ArrayList<>();
+        mBarChartList = new ArrayList<>();
         for (int i = 0; i < cost.size(); i++) {
             BarChartEntry bc = new BarChartEntry(times.get(i), cost.get(i), i);
-            barChartList.add(bc);
+            mBarChartList.add(bc);
         }
 
         ArrayList<BarEntry> barEntries = new ArrayList<>();
@@ -78,24 +92,24 @@ public class CostActivity extends AppCompatActivity {
             barEntries.add(new BarEntry(i, cost.get(i)));
         }
 
-        barDataSet = new BarDataSet(barEntries, "Power Draw By Time");
+        mBarDataSet = new BarDataSet(barEntries, "Power Draw By Time");
         setColorsOfBarChartList();
-        BarData barData = new BarData(barDataSet);
-        barChart.setData(barData);
+        BarData barData = new BarData(mBarDataSet);
+        mBarChart.setData(barData);
 
-        XAxis xAxis = barChart.getXAxis();
+        XAxis xAxis = mBarChart.getXAxis();
         xAxis.setValueFormatter(new MyXAxisValueFormatter(times));
         xAxis.setGranularity(1f);
 
-        barChart.animateXY(2000,2000);
-        barChart.setTouchEnabled(true);
-        barChart.setDragEnabled(false);
-        barChart.setScaleEnabled(false);
-        barChart.setFitBars(true);
+        mBarChart.animateXY(2000,2000);
+        mBarChart.setTouchEnabled(true);
+        mBarChart.setDragEnabled(false);
+        mBarChart.setScaleEnabled(false);
+        mBarChart.setFitBars(true);
 
         Description desc = new Description();
         desc.setText("");
-        barChart.setDescription(desc);
+        mBarChart.setDescription(desc);
 
         BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
         bottomBar.selectTabAtPosition(1);
@@ -103,7 +117,7 @@ public class CostActivity extends AppCompatActivity {
             bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
                 @Override
                 public void onTabSelected(@IdRes int tabId) {
-                    if(!firstRunForBottomBar){
+                    if(!mFirstRunForBottomBar){
                         if (tabId == R.id.tab_left) {
                             Intent intent = new Intent(getApplicationContext(),
                                     DashboardActivity.class);
@@ -118,7 +132,7 @@ public class CostActivity extends AppCompatActivity {
                             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         }
                     } else {
-                        firstRunForBottomBar = false;
+                        mFirstRunForBottomBar = false;
                     }
                 }
             });
@@ -148,14 +162,14 @@ public class CostActivity extends AppCompatActivity {
 
 
     /**
-     *  Sets the colors of each of the elements in the barChartList by sorting them from lowest to
+     *  Sets the colors of each of the elements in the mBarChartList by sorting them from lowest to
      *  highest by cost and applying colors based off those costs. Then the function sorts back to
      *  the original order of the list and applies the proper colors for the Bar Chart to be shown.
      */
     public void setColorsOfBarChartList() {
 
         // Sort By Cost lowest to highest
-        Collections.sort(barChartList, new Comparator<BarChartEntry>() {
+        Collections.sort(mBarChartList, new Comparator<BarChartEntry>() {
             @Override public int compare(BarChartEntry b1, BarChartEntry b2) {
                 if (b1.getCost() > b2.getCost()) {
                     return 1;
@@ -171,11 +185,11 @@ public class CostActivity extends AppCompatActivity {
                 R.color.bar_chart_color_3, R.color.bar_chart_color_4, R.color.bar_chart_color_5,
                 R.color.bar_chart_color_6, R.color.bar_chart_color_7, R.color.bar_chart_color_8};
         for (int i = 0; i < colorArray.length; i++) {
-            barChartList.get(i).setColor(colorArray[i]);
+            mBarChartList.get(i).setColor(colorArray[i]);
         }
 
         // Sort By Position lowest to highest
-        Collections.sort(barChartList, new Comparator<BarChartEntry>() {
+        Collections.sort(mBarChartList, new Comparator<BarChartEntry>() {
             @Override public int compare(BarChartEntry b1, BarChartEntry b2) {
                 if (b1.getPosition() > b2.getPosition()) {
                     return 1;
@@ -188,9 +202,9 @@ public class CostActivity extends AppCompatActivity {
 
         // Rebuild color array off BarChartEntries by position and apply to bar chart data set
         for (int i = 0; i < colorArray.length; i++) {
-            colorArray[i] = barChartList.get(i).getColor();
+            colorArray[i] = mBarChartList.get(i).getColor();
         }
-        barDataSet.setColors(colorArray, getApplicationContext());
+        mBarDataSet.setColors(colorArray, getApplicationContext());
     }
 
     /**

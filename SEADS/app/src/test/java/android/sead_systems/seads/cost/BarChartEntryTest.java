@@ -4,7 +4,7 @@ package android.sead_systems.seads.cost;
  * Created by christopherpersons on 11/22/16.
  */
 
-import android.sead_systems.seads.BarChartEntry;
+import android.sead_systems.seads.energy_cost.BarChartEntry;
 import junit.framework.Assert;
 
 import org.junit.Test;

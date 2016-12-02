@@ -2,9 +2,9 @@ package android.sead_systems.seads.graph;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.sead_systems.seads.energy_cost.EnergyCostActivity;
 import android.sead_systems.seads.device_list.DeviceListActivity;
 import android.sead_systems.seads.R;
-import android.sead_systems.seads.CostActivity;
 import android.support.annotation.IdRes;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -72,7 +72,7 @@ public class DemoActivity extends AppCompatActivity {
 
                         } else if (tabId == R.id.tab_center) {
                             Intent intent = new Intent(getApplicationContext(),
-                                    CostActivity.class);
+                                    EnergyCostActivity.class);
                             startActivity(intent);
                             finish();
                         } else if (tabId == R.id.tab_right) {
@@ -93,7 +93,7 @@ public class DemoActivity extends AppCompatActivity {
 
                     } else if (tabId == R.id.tab_center) {
                         Intent intent = new Intent(getApplicationContext(),
-                                CostActivity.class);
+                                EnergyCostActivity.class);
                         startActivity(intent);
                         finish();
                     } else if (tabId == R.id.tab_right) {

@@ -8,6 +8,12 @@ import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * First activity loaded when cold-booting the app. Determines whether the user should be sent to
+ * {@link WelcomeActivity}, {@link LoginActivity}, or {@link DashboardActivity}.
+ * @author Talal Abou Haiba
+ */
+
 public class SplashActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;

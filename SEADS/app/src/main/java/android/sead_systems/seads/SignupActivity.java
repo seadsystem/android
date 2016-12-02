@@ -19,7 +19,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-/** Created by talal.abouhaiba on 11/2/2016. */
+/**
+ * Allows the user to sign up or return to the log in page.
+ * @author Talal Abou Haiba
+ */
 
 public class SignupActivity extends AppCompatActivity {
 

@@ -13,13 +13,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
 
 /**
- * Created by christopherpersons on 11/8/16.
+ * Deprecated server handling class. Currently not in use as of December 1, 2016.
+ * @author Chris Persons
  */
+
 public class ServerHandler {
     // http://db.sead.systems:8080/466419818?start_time=1478462587&end_time=1478548987&subset=10&type=P
     private String baseUrl = "http://db.sead.systems:8080/";
