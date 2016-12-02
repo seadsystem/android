@@ -24,7 +24,8 @@
         android:layout_above="@+id/webviewgauge"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_width="300dp" />
+        android:layout_width="300dp"
+        android:textSize="24sp" />
 
     <TextView
         android:text="Yesterdayk $57"

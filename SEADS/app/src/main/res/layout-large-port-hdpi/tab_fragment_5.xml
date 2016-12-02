@@ -38,7 +38,8 @@
         android:layout_width="250dp"
         android:layout_above="@+id/chart1"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textSize="24sp" />
 
     <TextView
         android:text="Peak Usage: 91W"
@@ -52,7 +53,8 @@
         android:layout_above="@+id/chart1"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:textAllCaps="true" />
+        android:textAllCaps="true"
+        android:textSize="24sp" />
 
     <Button
         android:text="Stop"
@@ -61,17 +63,21 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true"
-        android:id="@+id/stopThread" />
+        android:id="@+id/stopThread"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
+        android:textStyle="normal|bold" />
 
     <Button
         android:text="Connect"
-        android:background="@drawable/graph_button2"
+        android:background="@drawable/graph_button3"
         android:onClick="myClickMethod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/actionFeedMultiple"
         android:layout_alignTop="@+id/textView4"
         android:layout_alignLeft="@+id/stopThread"
-        android:layout_alignStart="@+id/stopThread" />
+        android:layout_alignStart="@+id/stopThread"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
+        android:textStyle="normal|bold" />
 
 </RelativeLayout>
