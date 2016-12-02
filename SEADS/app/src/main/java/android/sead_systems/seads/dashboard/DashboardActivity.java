@@ -1,28 +1,21 @@
-package android.sead_systems.seads;
-
+package android.sead_systems.seads.dashboard;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.sead_systems.seads.CostActivity;
+import android.sead_systems.seads.R;
+import android.sead_systems.seads.SettingsActivity;
 import android.sead_systems.seads.devices.DeviceObject;
 import android.sead_systems.seads.graph.DemoActivity;
 import android.sead_systems.seads.rooms.RoomManagerFactory;
 import android.sead_systems.seads.rooms.RoomObject;
 import android.support.annotation.IdRes;
-import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.GestureDetector;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -34,10 +27,7 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
-import java.util.List;
-
 public class DashboardActivity extends AppCompatActivity {
-   /** GestureDetectorCompat gestureObject; */
 
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
@@ -52,27 +42,42 @@ public class DashboardActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
-        //begin swipe method
-       /*** gestureObject = new GestureDetectorCompat(this, new LearnGesture()); **/
+        setBottomBar();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        runUpdate();
+    }
+
+    /**
+     * Instantiates the bottom navigation bar.
+     */
+    private void setBottomBar() {
         BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
         if (bottomBar != null) {
             bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
                 @Override
                 public void onTabSelected(@IdRes int tabId) {
-                    if (tabId == R.id.tab_left) {
-                        // Current Activity -> do nothing
-                    } else if (tabId == R.id.tab_center) {
-                        Intent intent = new Intent(getApplicationContext(),
-                                CostActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                    } else if (tabId == R.id.tab_right) {
-                        Intent intent = new Intent(getApplicationContext(),
-                                SettingsActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    Intent intent;
+                    switch(tabId) {
+
+                        case R.id.tab_left:
+                            break;
+
+                        case R.id.tab_center:
+                            intent = new Intent(getApplicationContext(), CostActivity.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                            break;
+
+                        case R.id.tab_right:
+                            intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                            break;
                     }
                 }
             });
@@ -82,18 +87,23 @@ public class DashboardActivity extends AppCompatActivity {
             bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
                 @Override
                 public void onTabReSelected(@IdRes int tabId) {
-                    if (tabId == R.id.tab_left) {
-                        // Current Activity -> do nothing
-                    } else if (tabId == R.id.tab_center) {
-                        Intent intent = new Intent(getApplicationContext(),
-                                CostActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                    } else if (tabId == R.id.tab_right) {
-                        Intent intent = new Intent(getApplicationContext(),
-                                SettingsActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    Intent intent;
+                    switch(tabId) {
+
+                        case R.id.tab_left:
+                            break;
+
+                        case R.id.tab_center:
+                            intent = new Intent(getApplicationContext(), CostActivity.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                            break;
+
+                        case R.id.tab_right:
+                            intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                            break;
                     }
                 }
             });
@@ -101,13 +111,10 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        System.out.println("On Resume!");
-        runUpdate();
-    }
-
+    /**
+     * Populates rooms and devices from Firebase. If the list of rooms is empty, display a progress
+     * dialog. Otherwise, continue with the update in the background.
+     */
     private void runUpdate() {
         if (RoomManagerFactory.getInstance().generateListOfRooms().isEmpty()) {
             mProgressDialog = new ProgressDialog(this);
@@ -123,7 +130,8 @@ public class DashboardActivity extends AppCompatActivity {
      */
     private void updateData() {
 
-        final DatabaseReference roomRef = mDatabase.child("users").child(mAuth.getCurrentUser().getUid()).child("rooms").getRef();
+        final DatabaseReference roomRef = mDatabase.child("users")
+                .child(mAuth.getCurrentUser().getUid()).child("rooms").getRef();
 
         roomRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -183,15 +191,14 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void updateAdapter() {
         GridView gridView = (GridView) findViewById(R.id.gridview);
-        gridView.setAdapter(new MyAdapter(this));
+        gridView.setAdapter(new DashboardAdapter(this));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // Gets the Item's Name and displays to the user currently
-                TextView tv = (TextView) view.findViewById(R.id.text);
+                TextView textView = (TextView) view.findViewById(R.id.text);
 
                 Intent intent = new Intent(getApplicationContext(), DemoActivity.class);
-                intent.putExtra("ROOM_NAME", tv.getText());
+                intent.putExtra("ROOM_NAME", textView.getText());
                 startActivity(intent);
             }
         });
@@ -199,79 +206,5 @@ public class DashboardActivity extends AppCompatActivity {
             mProgressDialog.dismiss();
         }
     }
-    //enables swipe gesture to get to listview
-    /***
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        this.gestureObject.onTouchEvent(event);
-        return super.onTouchEvent(event);
-    }
 
-    class LearnGesture extends GestureDetector.SimpleOnGestureListener {
-
-        @Override
-        public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY){
-            if (event2.getX() > event1.getX()) {
-                //left to right swipe
-
-            }else
-                if(event2.getX() < event1.getX()){
-                //right to left swipe
-                    Intent intent = new Intent(DashboardActivity.this, DeviceListActivity.class);
-                    finish();
-                    startActivity(intent);
-                }
-            return true;
-        }
-
-    } **/
-
-
-    private final class MyAdapter extends BaseAdapter {
-        private final List<RoomObject> mItems = RoomManagerFactory.getInstance().generateListOfRoomObjects();
-        private final LayoutInflater mInflater;
-
-        public MyAdapter(Context context) {
-            mInflater = LayoutInflater.from(context);
-        }
-
-        @Override
-        public int getCount() {
-            return mItems.size();
-        }
-
-        @Override
-        public RoomObject getItem(int i) {
-            return mItems.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return mItems.get(i).getImageId();
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            View v = view;
-            ImageView picture;
-            TextView name;
-
-            if (v == null) {
-                v = mInflater.inflate(R.layout.grid_item, viewGroup, false);
-                v.setTag(R.id.picture, v.findViewById(R.id.picture));
-                v.setTag(R.id.text, v.findViewById(R.id.text));
-            }
-
-            picture = (ImageView) v.getTag(R.id.picture);
-            name = (TextView) v.getTag(R.id.text);
-
-            RoomObject item = getItem(i);
-
-            picture.setImageResource(item.getImageId());
-            name.setText(item.toString());
-
-            return v;
-        }
-
-    }
 }

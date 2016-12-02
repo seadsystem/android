@@ -52,7 +52,7 @@
 
         <activity
             android:screenOrientation="sensorPortrait"
-            android:name=".DashboardActivity">
+            android:name=".dashboard.DashboardActivity">
         </activity>
 
         <activity

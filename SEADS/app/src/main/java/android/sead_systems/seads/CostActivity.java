@@ -2,6 +2,7 @@ package android.sead_systems.seads;
 
 import android.content.Intent;
 
+import android.sead_systems.seads.dashboard.DashboardActivity;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

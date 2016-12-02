@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.sead_systems.seads.dashboard.DashboardActivity;
 import android.sead_systems.seads.rooms.RoomManagerFactory;
-import android.sead_systems.seads.rooms.RoomObject;
 import android.widget.EditText;
 import android.widget.Toast;
 

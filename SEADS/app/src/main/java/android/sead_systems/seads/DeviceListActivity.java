@@ -1,7 +1,7 @@
 package android.sead_systems.seads;
 
 import android.content.Intent;
-import android.sead_systems.seads.devices.DeviceListManager;
+import android.sead_systems.seads.dashboard.DashboardActivity;
 import android.sead_systems.seads.devices.DeviceObject;
 import android.sead_systems.seads.rooms.RoomListManager;
 import android.sead_systems.seads.rooms.RoomManagerFactory;
@@ -9,14 +9,9 @@ import android.sead_systems.seads.rooms.RoomObject;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
