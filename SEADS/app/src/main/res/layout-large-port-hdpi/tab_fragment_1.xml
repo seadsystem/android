@@ -13,7 +13,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Last Weekk $379"
+        android:text="Last Week $164"
         android:id="@+id/textView11"
         android:background="@android:color/holo_blue_light"
         android:textAppearance="@style/TextAppearence.TextInputLayout.White"
@@ -28,7 +28,7 @@
         android:textSize="24sp" />
 
     <TextView
-        android:text="Yesterdayk $57"
+        android:text="Yesterday $57"
         android:layout_height="25dp"
         android:id="@+id/textView13"
         android:background="@android:color/holo_orange_light"
@@ -42,7 +42,7 @@
         android:textAllCaps="true" />
 
     <TextView
-        android:text="Daily Usagek $54"
+        android:text="Daily Usage $54"
         android:layout_height="25dp"
         android:id="@+id/textView12"
         android:background="@android:color/holo_green_light"
