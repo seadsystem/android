@@ -37,8 +37,8 @@ public class SplashActivity extends AppCompatActivity {
         if (firstTime) {
             intent = new Intent(this, WelcomeActivity.class);
         } else if (!loggedIn) {
-            intent = new Intent(this, DemoActivity.class);
-            //intent = new Intent(this, LoginActivity.class);
+            //intent = new Intent(this, DemoActivity.class);
+            intent = new Intent(this, LoginActivity.class);
         } else {
             intent = new Intent(this, DashboardActivity.class);
         }
