@@ -4,21 +4,43 @@ CMPS 115 Fall 2016
 Sprint 3 ended on [11/23/2016]
 
 Actions to stop doing:
-	
+	+ Stop defining our own acceptance criteria and get them from our product owner.
+
 Actions to start doing:
+	+ Make better use of online tools for keeping track of what tasks need to be done.
+	+ Work on having individuals claim tasks that they will work on.
+	+ Spend more time using TDD methodology.
 
 Actions to keep doing:
 	+ Setting time aside to work together as a team was extremely beneficial to getting work done. 
 
 Work completed:
-       	+ As a user, I want to see the cost of running devices in the form of a graph so that I can know when is the most efficient time to use power. 
-	+ As a user, I want to be able to have my settings and devices saved to my account so that I can always see the information I want.
-		-
-	+ As a user, I want to be able to create a database to store information about users, rooms, devices and power usage so that it's available everytime i use the app	
-		-
-	+ As a user, I want the app to be connected with the database so that I can retrieve my up to date information.
-		-
+       	[8] As a user, I want to see the cost of running devices in the form of a graph so that I can know when is the most efficient time to use power. 
+		[2] Display graph of current cost per kWh for energy usage.
+		[2] Color bars in the graph according to cost from light green to dark red.
+		[2] Text to display lowest and highest costs for time period.
+		[2] Clicking on individual bar displays current cost of time selected.
 
+	[8] As a user, I want to be able to have my settings and devices saved to my account so that I can always see the information I want.
+		[4] Add account creation 
+		[4] Add login with e-mail and password
+
+	[5] As a user, I want to be able to create a database to store information about users, rooms, devices and power usage so that it's available everytime i use the app	
+		[2] Create hierarchy for storing rooms with devices nested underneath
+		[2] Create user accounts with authentication 
+
+	[5] As a user, I want the app to be connected with the database so that I can retrieve my up to date information.
+		- Make appropriate calls
+			[1] Logging In
+			[2] Creating an account
+			[1] Retrieving rooms and devices
+			 
 Work not completed:
-	 
+	+ As a user, I want to be able to create a database to store information about users, rooms, devices and power usage so that it's available everytime i use the app	
+ 		[1] Add times and energy costs nested under zip code
 
+	+ As a user, I want the app to be connected with the database so that I can retrieve my up to date information.
+		- Make appropriate calls
+			[1] Energy cost per kWh
+	
+24/26 = 92% Completion Rate

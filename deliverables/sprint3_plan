@@ -12,27 +12,36 @@ Sprint 3 Goal:
 
 Task Listing:
 
-	[8} As a user, I want to see the cost of running devices in the form of a graph so that I can know when is the most efficient time to use power. 
+       	[8] As a user, I want to see the cost of running devices in the form of a graph so that I can know when is the most efficient time to use power. 
+		[2] Display graph of current cost per kWh for energy usage.
+		[2] Color bars in the graph according to cost from light green to dark red.
+		[2] Text to display lowest and highest costs for time period.
+		[2] Clicking on individual bar displays current cost of time selected.
 
 	[8] As a user, I want to be able to have my settings and devices saved to my account so that I can always see the information I want.
-	
-	[5] Create a database to store information about users, rooms, devices and power usage
-	
-	[3] Hook database up to local framework 
+		[4] Add account creation 
+		[4] Add login with e-mail and password
 
-	[5] As a user. I want to be able to sign up so that I can register my device.
-        	
-	[3] As a user, I want to be able to login to my account so that I can view what devices are on.
+	[5] As a user, I want to be able to create a database to store information about users, rooms, devices and power usage so that it's available everytime i use the app	
+		[2] Create hierarchy for storing rooms with devices nested underneath
+		[2] Create user accounts with authentication
+		[1] Add times and energy costs nested under zip codes 
 
-
+	[5] As a user, I want the app to be connected with the database so that I can retrieve my up to date information.
+		- Make appropriate calls
+			[1] Logging In
+			[2] Creating an account
+			[1] Retrieving rooms and devices
+			[1] Energy cost per kWh
+		
 Team Roles:
 
 
 	Product Owner/Sponsor: Ali Adabi
 	Scrum Master: Christopher Persons
 	Scrum Master: Cameron Wheeler
-	Developer: Sing Cao	
-Developer:Talal Abou Haiba
+	Developer: Xing Cao	
+	Developer: Talal Abou Haiba
 
 
 Digital scrum board on Trello - physical board with conceptual planning work in E2 lab.
