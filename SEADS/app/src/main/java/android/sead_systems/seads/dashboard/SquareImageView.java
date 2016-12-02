@@ -1,14 +1,16 @@
-package android.sead_systems.seads;
+package android.sead_systems.seads.dashboard;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
 /**
- * Created by christopherpersons on 10/30/16.
+ * ImageView for {@link DashboardActivity}
+ * @author Chris Persons
  */
 
 public class SquareImageView extends ImageView {
+
     public SquareImageView(Context context) {
         super(context);
     }
