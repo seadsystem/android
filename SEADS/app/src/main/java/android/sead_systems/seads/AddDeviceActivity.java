@@ -1,6 +1,7 @@
 package android.sead_systems.seads;
 
 import android.content.Intent;
+import android.sead_systems.seads.device_list.DeviceListActivity;
 import android.sead_systems.seads.rooms.RoomListManager;
 import android.sead_systems.seads.rooms.RoomManagerFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
-public class AddDevice extends AppCompatActivity {
+public class AddDeviceActivity extends AppCompatActivity {
 
     public RoomListManager rooms = RoomManagerFactory.getInstance();
 
@@ -140,16 +141,16 @@ public class AddDevice extends AppCompatActivity {
 
         /** if one field is left blank, do not let them continue **/
         if(devName.equals("") ) {
-            Toast.makeText(AddDevice.this, "Please add a Device name", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddDeviceActivity.this, "Please add a Device name", Toast.LENGTH_LONG).show();
             check = 1;
         }if(roomName.equals("")) {
-            Toast.makeText(AddDevice.this, "Please add a Room name", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddDeviceActivity.this, "Please add a Room name", Toast.LENGTH_LONG).show();
             check = 1;
         }else if(check == 0){
         /**send new device info to the data structure **/
 
         writeDeviceToDatabase(roomName, devName, room_pics[index]);
-        Intent intent = new Intent(AddDevice.this, DeviceListActivity.class);
+        Intent intent = new Intent(AddDeviceActivity.this, DeviceListActivity.class);
         Bundle extras = new Bundle();
         extras.putString("New", devName);
         extras.putString("Room", roomName);

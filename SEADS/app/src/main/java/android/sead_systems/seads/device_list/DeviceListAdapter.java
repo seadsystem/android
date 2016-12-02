@@ -1,7 +1,8 @@
-package android.sead_systems.seads;
+package android.sead_systems.seads.device_list;
 
 
 import android.app.Activity;
+import android.sead_systems.seads.R;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +11,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * Created by camwh on 10/28/2016.
+ * @author Cameron Wheeler
  */
 
-public class Adapter extends ArrayAdapter<String> {
+class DeviceListAdapter extends ArrayAdapter<String> {
 
     private final Activity context;
     private final String[] itemname;
     private final Integer[] imgid;
 
 
-    public Adapter(Activity context, String[] itemname, Integer[] imgid) {
+    public DeviceListAdapter(Activity context, String[] itemname, Integer[] imgid) {
         super(context, R.layout.devicelist, itemname);
         // TODO Auto-generated constructor stub
 

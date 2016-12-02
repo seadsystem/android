@@ -1,6 +1,8 @@
-package android.sead_systems.seads;
+package android.sead_systems.seads.device_list;
 
 import android.content.Intent;
+import android.sead_systems.seads.AddDeviceActivity;
+import android.sead_systems.seads.R;
 import android.sead_systems.seads.dashboard.DashboardActivity;
 import android.sead_systems.seads.devices.DeviceObject;
 import android.sead_systems.seads.rooms.RoomListManager;
@@ -14,6 +16,10 @@ import android.widget.Toast;
 
 import java.util.List;
 
+/**
+ * Displays a list of devices associated with a given {@link RoomObject}
+ * @author Cameron Wheeler
+ */
 
 public class DeviceListActivity extends AppCompatActivity {
 
@@ -25,7 +31,7 @@ public class DeviceListActivity extends AppCompatActivity {
 
     /**Run Add Device Activity**/
     public void onClick(View target){
-        Intent intent = new Intent(DeviceListActivity.this, AddDevice.class);
+        Intent intent = new Intent(DeviceListActivity.this, AddDeviceActivity.class);
         startActivity(intent);
     }
 
@@ -95,9 +101,11 @@ public class DeviceListActivity extends AppCompatActivity {
                 index++;
         }
 
-        Adapter adapter = new Adapter(DeviceListActivity.this,deviceStrings, light);
+        DeviceListAdapter adapter = new DeviceListAdapter(DeviceListActivity.this,deviceStrings, light);
         ListView list = (ListView) findViewById(R.id.listView);
-        list.setAdapter(adapter);
+        if (list != null) {
+            list.setAdapter(adapter);
+        }
 
        /** ((TextView) findViewById(R.id.currentUsageTextbox)).setText(String.valueOf(
                devList.generateCurrentPowerUsage())); **/

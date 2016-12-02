@@ -79,7 +79,7 @@ public class SettingsActivity extends PreferenceActivity {
                 break;
 
             case "add_device":
-                intent = new Intent(this, AddDevice.class);
+                intent = new Intent(this, AddDeviceActivity.class);
                 startActivity(intent);
                 finish();
                 break;
