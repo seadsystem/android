@@ -1,6 +1,7 @@
 package android.sead_systems.seads.graph;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.sead_systems.seads.R;
 import android.support.v4.app.Fragment;
@@ -51,6 +52,7 @@ public class TabFragment5 extends Fragment implements View.OnClickListener {
 
     LineChart mChart;
     private boolean killMe = false;
+    private boolean running = false;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_fragment_5, container, false);
@@ -95,12 +97,28 @@ public class TabFragment5 extends Fragment implements View.OnClickListener {
         switch(v.getId()){
             case R.id.actionFeedMultiple:
                 killMe = false;
-                System.out.println("Thread Start Button" + killMe);
-                feedMultiple();
+                if (running == true){
+
+                }
+                else {
+                    running = true;
+                    Context context = this.getContext();
+                    CharSequence text = "Connected to Live";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                    feedMultiple();
+                }
                 break;
+
             case R.id.stopThread:
                 killMe = true;
-                System.out.println("Thread Stop Button" + killMe);
+                running = false;
+                Context context2 = this.getContext();
+                CharSequence text2 = "Disconnected";
+                int duration2 = Toast.LENGTH_SHORT;
+                Toast toast2 = Toast.makeText(context2, text2, duration2);
+                toast2.show();
                 stopUIThread();
                 break;
         }
