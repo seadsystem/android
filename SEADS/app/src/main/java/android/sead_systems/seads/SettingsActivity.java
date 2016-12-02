@@ -54,11 +54,19 @@ public class SettingsActivity extends PreferenceActivity {
                         .setPositiveButton("Create", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 String roomName = input.getText().toString();
-                                mDatabase.child("users").child(mAuth.getCurrentUser().getUid())
-                                        .child("rooms").child(roomName).child("room_image").setValue(R.mipmap.bathroom);
-                                Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
-                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(i);
+                                if (roomName.isEmpty()) {
+                                    Toast.makeText(SettingsActivity.this,
+                                            "Error: Invalid room name", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    mDatabase.child("users").child(mAuth.getCurrentUser().getUid())
+                                            .child("rooms").child(roomName).child("room_image")
+                                            .setValue(R.mipmap.bathroom);
+                                    Intent i = new Intent(getApplicationContext(),
+                                            DashboardActivity.class);
+                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                                            Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(i);
+                                }
                             }
                         })
                         .show();
