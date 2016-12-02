@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="You Saved: $11.92"
+        android:id="@+id/textView6"
+        android:background="@android:color/holo_red_light"
+        android:textAppearance="@style/TextAppearence.TextInputLayout.White"
+        android:textStyle="normal|bold"
+        android:textAlignment="center"
+        android:layout_marginBottom="28dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/radargraph"
+        android:layout_toRightOf="@+id/textView5"
+        android:layout_toEndOf="@+id/textView5"
+        android:layout_width="140dp" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:layout_width="match_parent"
+        android:layout_height="732dp"
+        android:id="@+id/chart1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"></com.github.mikephil.charting.charts.LineChart>
+
+    <TextView
+        android:text="Average: 77W"
+        android:id="@+id/textView4"
+        android:background="@android:color/holo_green_light"
+        android:textAppearance="@style/TextAppearence.TextInputLayout.White"
+        android:textStyle="normal|bold"
+        android:textAllCaps="true"
+        android:textAlignment="center"
+        android:layout_height="50dp"
+        android:layout_width="250dp"
+        android:layout_above="@+id/chart1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="24sp" />
+
+    <TextView
+        android:text="Peak Usage: 91W"
+        android:id="@+id/textView5"
+        android:background="@android:color/holo_purple"
+        android:textAppearance="@style/TextAppearence.TextInputLayout.White"
+        android:textStyle="normal|bold"
+        android:textAlignment="center"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/chart1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textAllCaps="true"
+        android:textSize="24sp" />
+
+    <Button
+        android:text="Stop"
+        android:background="@drawable/graph_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/stopThread"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
+        android:textStyle="normal|bold" />
+
+    <Button
+        android:text="Connect"
+        android:background="@drawable/graph_button3"
+        android:onClick="myClickMethod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/actionFeedMultiple"
+        android:layout_alignTop="@+id/textView4"
+        android:layout_alignLeft="@+id/stopThread"
+        android:layout_alignStart="@+id/stopThread"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
+        android:textStyle="normal|bold" />
+
+</RelativeLayout>
