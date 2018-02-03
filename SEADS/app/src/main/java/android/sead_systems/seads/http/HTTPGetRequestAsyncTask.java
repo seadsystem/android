@@ -94,16 +94,18 @@ public class HTTPGetRequestAsyncTask extends AsyncTask<URL, Void, String> {
             return null;
         }
         try {
-            String curLine;
-            InputStreamReader streamReader = new InputStreamReader(connection.getInputStream());
-            BufferedReader reader = new BufferedReader(streamReader);
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(connection.getInputStream()));
             StringBuilder sb = new StringBuilder();
-            while ((curLine = reader.readLine()) != null) {
-                sb.append(curLine);
+            String curLine;
+            try {
+                while ((curLine = reader.readLine()) != null) {
+                    sb.append(curLine);
+                }
+            } finally {
+                reader.close();
+                connection.disconnect();
             }
-            reader.close();
-            streamReader.close();
-            connection.disconnect();
             return sb.toString();
         } catch (IOException e) {
             Log.d("HTTP", "IOException:" + e.toString());
