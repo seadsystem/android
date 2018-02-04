@@ -25,6 +25,7 @@ public class AddDeviceActivity extends AppCompatActivity {
 
     public RoomListManager rooms = RoomManagerFactory.getInstance();
 
+    /** Test comment **/
     public String roomName;
     public int getRoom;
     public Spinner dropdown;
