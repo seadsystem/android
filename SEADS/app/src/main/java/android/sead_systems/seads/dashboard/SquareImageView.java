@@ -2,14 +2,13 @@ package android.sead_systems.seads.dashboard;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 /**
  * ImageView for {@link DashboardActivity}
  * @author Chris Persons
  */
 
-class SquareImageView extends ImageView {
+class SquareImageView extends android.support.v7.widget.AppCompatImageView {
 
     public SquareImageView(Context context) {
         super(context);

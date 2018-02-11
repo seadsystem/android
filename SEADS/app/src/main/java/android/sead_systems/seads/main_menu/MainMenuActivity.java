@@ -1,4 +1,4 @@
-package android.sead_systems.seads.dashboard;
+package android.sead_systems.seads.main_menu;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -10,7 +10,6 @@ import android.sead_systems.seads.devices.DeviceObject;
 import android.sead_systems.seads.energy_cost.EnergyCostActivity;
 import android.sead_systems.seads.graph.DemoActivity;
 import android.sead_systems.seads.http.WebInterface;
-import android.sead_systems.seads.http.WebInterfacer;
 import android.sead_systems.seads.rooms.RoomManagerFactory;
 import android.sead_systems.seads.rooms.RoomObject;
 import android.support.annotation.IdRes;
@@ -34,13 +33,14 @@ import com.roughike.bottombar.OnTabSelectListener;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+
 /**
  * Main activity which obtains and displays a list of rooms.
  * @author Talal Abou Haiba
  * @author Chris Persons
  */
 
-public class DashboardActivity extends AppCompatActivity implements WebInterface{
+public class MainMenuActivity extends AppCompatActivity implements WebInterface {
 
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
@@ -57,8 +57,8 @@ public class DashboardActivity extends AppCompatActivity implements WebInterface
         mAuth = FirebaseAuth.getInstance();
 
         setBottomBar();
-        WebInterfacer test = new WebInterfacer(this);
-        test.getJSONObject(1477395900,1477395910,"energy",1,"Panel3", "P");
+//        WebInterfacer test = new WebInterfacer(this);
+//        test.getJSONObject(1477395900,1477395910,"energy",1,"Panel3", "P");
 
     }
 
@@ -219,14 +219,14 @@ public class DashboardActivity extends AppCompatActivity implements WebInterface
     }
 
     /**
-     * Sets the {@link DashboardAdapter} using room information obtained from
+     * Sets the {@link MainMenuAdapter} using room information obtained from
      * {@link RoomManagerFactory}
      */
     private void updateAdapter() {
         GridView gridView = (GridView) findViewById(R.id.gridview);
 
         if (gridView != null) {
-            gridView.setAdapter(new DashboardAdapter(this));
+            gridView.setAdapter(new MainMenuAdapter(this));
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

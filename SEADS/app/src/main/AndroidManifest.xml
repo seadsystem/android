@@ -57,6 +57,11 @@
 
         <activity
             android:screenOrientation="sensorPortrait"
+            android:name=".main_menu.MainMenuActivity">
+        </activity>
+
+        <activity
+            android:screenOrientation="sensorPortrait"
             android:name=".graph.DemoActivity">         
         </activity>
 
