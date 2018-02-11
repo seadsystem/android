@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#9CCC65</color>
-    <color name="colorPrimaryDark">#33691E</color>
-    <color name="colorAccent">#795548</color>
-    <color name="colorSecondaryAccent">#00C853</color>
+    <color name="colorPrimary">#C0CCDA</color>
+    <color name="colorPrimaryDark">#C0CCDA</color>
+    <color name="colorSecondary">#DBE1E8</color>
+    <color name="colorTertiary">#ECEEF0</color>
+    <color name="colorAccent">#000000</color>
+    <color name="colorSecondaryAccent">#000000</color>
     <color name="light_gray">#E0E0E0</color>
     <color name="primary_text_light_bckgrnd">#87000000</color>
 
@@ -47,5 +49,9 @@
     <color name="bar_chart_color_6">#FF9800</color>
     <color name="bar_chart_color_7">#FF5722</color>
     <color name="bar_chart_color_8">#F44336</color>
+
+    <!--Text colors-->
+    <color name="body_text">#8492A6</color>
+    <color name="body_text_dark">#1F2D3D</color>
 
 </resources>

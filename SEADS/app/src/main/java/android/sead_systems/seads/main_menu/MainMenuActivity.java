@@ -1,34 +1,26 @@
 package android.sead_systems.seads.main_menu;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.sead_systems.seads.LoginActivity;
 import android.sead_systems.seads.R;
-import android.sead_systems.seads.SettingsActivity;
-import android.sead_systems.seads.devices.DeviceObject;
-import android.sead_systems.seads.energy_cost.EnergyCostActivity;
-import android.sead_systems.seads.graph.DemoActivity;
 import android.sead_systems.seads.http.WebInterface;
-import android.sead_systems.seads.rooms.RoomManagerFactory;
-import android.sead_systems.seads.rooms.RoomObject;
-import android.support.annotation.IdRes;
+import android.sead_systems.seads.page_management.PagerAdapterSEADS;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.TextView;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.OnTabReselectListener;
-import com.roughike.bottombar.OnTabSelectListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -40,211 +32,66 @@ import org.json.JSONObject;
  * @author Chris Persons
  */
 
-public class MainMenuActivity extends AppCompatActivity implements WebInterface {
+public class MainMenuActivity extends AppCompatActivity implements WebInterface, NavigationView.OnNavigationItemSelectedListener {
 
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
-    private ProgressDialog mProgressDialog;
-    private BottomBar bottomBar;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_menu);
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager.setAdapter(new PagerAdapterSEADS(getSupportFragmentManager(),
+                MainMenuActivity.this));
+
+        // Give the TabLayout the ViewPager
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+
+        setupToolBar();
+        setupNavigationDrawer();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
-        setBottomBar();
 //        WebInterfacer test = new WebInterfacer(this);
 //        test.getJSONObject(1477395900,1477395910,"energy",1,"Panel3", "P");
+    }
 
+    private void setupToolBar() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+    }
+
+    private void setupNavigationDrawer() {
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        bottomBar.selectTabAtPosition(0);
-        runUpdate();
     }
 
-    /**
-     * Instantiates the bottom navigation bar.
-     */
-    private void setBottomBar() {
-        bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
-        if (bottomBar != null) {
-            bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
-                @Override
-                public void onTabSelected(@IdRes int tabId) {
-                    Intent intent;
-                    switch(tabId) {
-
-                        case R.id.tab_left:
-                            break;
-
-                        case R.id.tab_center:
-                            intent = new Intent(getApplicationContext(), EnergyCostActivity.class);
-                            startActivity(intent);
-                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                            break;
-
-                        case R.id.tab_right:
-                            intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                            startActivity(intent);
-                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                            break;
-                    }
-                }
-            });
-        }
-
-        if (bottomBar != null) {
-            bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
-                @Override
-                public void onTabReSelected(@IdRes int tabId) {
-                    Intent intent;
-                    switch(tabId) {
-
-                        case R.id.tab_left:
-                            break;
-
-                        case R.id.tab_center:
-                            intent = new Intent(getApplicationContext(), EnergyCostActivity.class);
-                            startActivity(intent);
-                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                            break;
-
-                        case R.id.tab_right:
-                            intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                            startActivity(intent);
-                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                            break;
-                    }
-                }
-            });
-        }
-
-    }
-
-    /**
-     * Populates rooms and devices from Firebase. If the list of rooms is empty, display a progress
-     * dialog. Otherwise, continue with the update in the background.
-     */
-    private void runUpdate() {
-        if (RoomManagerFactory.getInstance().generateListOfRooms().isEmpty()) {
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage("Updating");
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.show();
-        }
-        updateData();
-    }
-
-    /**
-     * Makes a connection to the server and obtains recent the most recent database.
-     */
-    private void updateData() {
-
-        // If there is an error obtaining the current user, sign out and return to LoginActivity
-        if (mAuth.getCurrentUser() == null) {
-            RoomManagerFactory.getInstance().clearRoomData();
-            FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
-            return;
-        }
-
-        final DatabaseReference roomRef = mDatabase.child("users")
-                .child(mAuth.getCurrentUser().getUid()).child("rooms").getRef();
-
-        roomRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                boolean dataUpdated = false;
-                for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                    final String currentRoomName = dsp.getKey();
-                    if (RoomManagerFactory.getInstance().getRoom(dsp.getKey()) == null) {
-                        RoomObject newRoom = new RoomObject(dsp.getKey(),
-                                ((Long) dsp.child("room_image").getValue()).intValue());
-                        RoomManagerFactory.getInstance().insertRoom(newRoom);
-                        dataUpdated = true;
-                    }
-
-                    // Insert devices into room
-
-                    DatabaseReference deviceRef = roomRef.child(currentRoomName).child("devices").getRef();
-                    deviceRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            System.out.println("In snapshot "  + currentRoomName);
-                            for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                                boolean newDeviceStatus = dsp.child("status").getValue().toString()
-                                        .equals("1");
-                                double newDeviceUsage = Double.valueOf(dsp.child("usage").getValue()
-                                        .toString());
-                                DeviceObject newDevice = new DeviceObject(dsp.getKey(),
-                                        newDeviceStatus, newDeviceUsage);
-                                RoomManagerFactory.getInstance().getRoom(currentRoomName).
-                                        manageDevices().insertDevice(newDevice);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-
-                }
-                GridView gridView = (GridView) findViewById(R.id.gridview);
-                if (dataUpdated) {
-                    updateAdapter();
-                } else if (gridView == null || gridView.getAdapter() == null ||
-                        gridView.getAdapter().isEmpty()) {
-                    updateAdapter();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-    }
-
-    /**
-     * Sets the {@link MainMenuAdapter} using room information obtained from
-     * {@link RoomManagerFactory}
-     */
-    private void updateAdapter() {
-        GridView gridView = (GridView) findViewById(R.id.gridview);
-
-        if (gridView != null) {
-            gridView.setAdapter(new MainMenuAdapter(this));
-            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    TextView textView = (TextView) view.findViewById(R.id.text);
-
-                    Intent intent = new Intent(getApplicationContext(), DemoActivity.class);
-                    intent.putExtra("ROOM_NAME", textView.getText());
-                    startActivity(intent);
-                }
-            });
-        }
-
-        // Dismiss the progress dialog if it is currently active
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
-
-    }
 
     @Override
     public void onJSONRetrieved(JSONObject result) {
@@ -256,5 +103,61 @@ public class MainMenuActivity extends AppCompatActivity implements WebInterface 
 
         }
 
+    }
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
