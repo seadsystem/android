@@ -1,4 +1,4 @@
-package android.sead_systems.seads.page_management;
+package android.sead_systems.seads.page_management_main_menu;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -11,12 +11,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 public class PagerAdapterSEADS extends FragmentPagerAdapter {
     final int PAGE_COUNT = 3;
-    private String tabTitles[] = new String[] { "Tab1", "Tab2", "Tab3" };
-    private Context context;
+    private String tabTitles[] = new String[] { "Devices", "Rooms", "Overview" };
+    private Context mContext;
 
     public PagerAdapterSEADS(FragmentManager fm, Context context) {
         super(fm);
-        this.context = context;
+        this.mContext = context;
     }
 
     @Override
@@ -26,7 +26,9 @@ public class PagerAdapterSEADS extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return PageFragment.newInstance(position + 1);
+
+        PageFragmentConfig pageFragmentConfig = new PageFragmentConfig(position);
+        return PageFragmentFactory.newInstance(pageFragmentConfig);
     }
 
     @Override

@@ -51,7 +51,9 @@
     <color name="bar_chart_color_8">#F44336</color>
 
     <!--Text colors-->
-    <color name="body_text">#8492A6</color>
-    <color name="body_text_dark">#1F2D3D</color>
+    <color name="text_body">#8492A6</color>
+    <color name="text_body_dark">#1F2D3D</color>
+    <color name="text_title">#FFFFFF</color>
 
+    <color name="indicator">#8190A5</color>
 </resources>

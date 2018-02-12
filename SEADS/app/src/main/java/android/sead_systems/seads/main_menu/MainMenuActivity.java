@@ -3,7 +3,7 @@ package android.sead_systems.seads.main_menu;
 import android.os.Bundle;
 import android.sead_systems.seads.R;
 import android.sead_systems.seads.http.WebInterface;
-import android.sead_systems.seads.page_management.PagerAdapterSEADS;
+import android.sead_systems.seads.page_management_main_menu.PagerAdapterSEADS;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;

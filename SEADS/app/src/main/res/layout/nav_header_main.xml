@@ -25,6 +25,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Smart Energy Analytic Disaggregation System"
-        android:textColor="@color/body_text"/>
+        android:textColor="@color/text_body"/>
 
 </LinearLayout>

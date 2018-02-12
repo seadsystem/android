@@ -16,5 +16,8 @@
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
     <dimen name="nav_header_height">176dp</dimen>
 
+    <!--devices_item dimensions-->
+    <dimen name="devices_item_height">95dp</dimen>
+
 
 </resources>

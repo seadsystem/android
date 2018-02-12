@@ -24,10 +24,11 @@
             android:background="@color/colorPrimary"
             android:minHeight="?attr/actionBarSize"
             app:tabGravity="fill"
-            app:tabTextColor="#000000"
-            app:tabSelectedTextColor="@color/colorAccent"
+            app:tabTextColor="@color/text_title"
+            app:tabIndicatorColor="@color/indicator"
+            app:tabSelectedTextColor="@color/indicator"
             />
-        
+
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
