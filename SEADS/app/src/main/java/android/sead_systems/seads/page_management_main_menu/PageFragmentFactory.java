@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.sead_systems.seads.R;
 import android.sead_systems.seads.page_management_main_menu.page_fragment_components.AdapterRecyclerViewDevices;
 import android.sead_systems.seads.page_management_main_menu.page_fragment_components.DeviceViewInfo;
+import android.sead_systems.seads.page_management_main_menu.page_fragment_components.RecyclerViewItemDecoration;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -61,27 +62,17 @@ public class PageFragmentFactory extends Fragment {
         if(mPage == FRAGMENT_DEVICES) {
             final Activity parent = getActivity();
             RecyclerView recyclerView = (RecyclerView) parent.findViewById(R.id.my_recycler_view);
-            DeviceViewInfo[] xdd = new DeviceViewInfo[3];
+            DeviceViewInfo[] dummyData = new DeviceViewInfo[3];
             // TODO populate this with real data. Panel names should come from server
-            xdd[0] = new DeviceViewInfo("Panel 1");
-            xdd[1] = new DeviceViewInfo("Panel 2");
-            xdd[2] = new DeviceViewInfo("Panel 3");
+            dummyData[0] = new DeviceViewInfo("Panel 1");
+            dummyData[1] = new DeviceViewInfo("Panel 2");
+            dummyData[2] = new DeviceViewInfo("Panel 3");
 
-            AdapterRecyclerViewDevices x = new AdapterRecyclerViewDevices(xdd);
-//            recyclerView.addOnItemTouchListener(new DeviceRecyclerViewTouchListener(parent, recyclerView, new DeviceRecyclerViewClickListener() {
-//                @Override
-//                public void onClick(View view, int position) {
-//                    Log.d("PageFragmentFactory", "in onClick!");
-//                    Toast.makeText(parent, "position: " + position, Toast.LENGTH_SHORT).show();
-//                }
-//
-//                @Override
-//                public void onLongClick(View view, int position) {
-//                    Log.d("PageFragmentFactory", "in onLongClick!");
-//                }
-//            }));
+            AdapterRecyclerViewDevices adapterRecyclerViewDevices =
+                    new AdapterRecyclerViewDevices(dummyData);
 
-            recyclerView.setAdapter(x);
+            recyclerView.addItemDecoration(new RecyclerViewItemDecoration(parent));
+            recyclerView.setAdapter(adapterRecyclerViewDevices);
             recyclerView.setLayoutManager(new LinearLayoutManager(parent));
         }
 

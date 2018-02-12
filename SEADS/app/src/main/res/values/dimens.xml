@@ -17,7 +17,7 @@
     <dimen name="nav_header_height">176dp</dimen>
 
     <!--devices_item dimensions-->
-    <dimen name="devices_item_height">95dp</dimen>
+    <dimen name="devices_item_height">80dp</dimen>
 
 
 </resources>
