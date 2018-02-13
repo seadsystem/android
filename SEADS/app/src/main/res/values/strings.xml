@@ -26,7 +26,6 @@
     <string name="welcome_button_skip">Skip</string>
 
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_add_device">Sign in</string>
 
@@ -48,5 +47,9 @@
     </string>
 
     <string name="electricity_cost">Electricity Cost</string>
-    
+
+    <!--Navigation drawer accessibility text-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 </resources>

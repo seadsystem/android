@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/devices_item_height"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:clickable= "true"
+    android:focusable= "true"
+    android:focusableInTouchMode = "false"
+    android:background="?android:attr/selectableItemBackground">
+    <RelativeLayout
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp">
+        <TextView
+            android:id="@+id/sample_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="----"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_weight="5"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp">
+        <TextView
+            android:id="@+id/text_view_device_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Device Name Unknown"
+            android:textColor="@color/text_body_dark"
+            android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/text_view_device_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cost in the past day: N/A"
+            android:textColor="@color/text_body"
+            android:textSize="14sp"/>
+    </LinearLayout>
+</LinearLayout>
