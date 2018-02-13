@@ -10,6 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class AdapterRecyclerViewDevices extends RecyclerView.Adapter<AdapterRecyclerViewDevices.ViewHolder> {
+
+    private final int DEVICE_HEADER = 1;
+    private final int DEVICE_ITEM = 0;
     private DeviceViewInfo[] mDataset;
 
     // Provide a reference to the views for each data item
@@ -25,7 +28,6 @@ public class AdapterRecyclerViewDevices extends RecyclerView.Adapter<AdapterRecy
 
         @Override
         public void onClick(View v) {
-
             Log.d("Page", "onClick " + getLayoutPosition());
         }
     }
@@ -41,22 +43,51 @@ public class AdapterRecyclerViewDevices extends RecyclerView.Adapter<AdapterRecy
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.devices_item, parent, false);
-        // set the view's size, margins, paddings and layout parameters
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        LinearLayout linearLayout;
+        switch(viewType) {
+            case DEVICE_HEADER:
+                linearLayout = (LinearLayout) layoutInflater
+                        .inflate(R.layout.devices_item_title_bar, parent, false);
+                break;
+            case DEVICE_ITEM:
+                linearLayout = (LinearLayout) layoutInflater
+                        .inflate(R.layout.devices_item, parent, false);
+                break;
+            default:
+                // TODO: This needs to be an error view!
+                linearLayout = (LinearLayout) layoutInflater
+                        .inflate(R.layout.devices_item, parent, false);
+                break;
+        }
 
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        // set the view's size, margins, paddings and layout parameters
+        ViewHolder viewHolder = new ViewHolder(linearLayout);
+        return viewHolder;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if(position == 0 || position == 2) {
+            return DEVICE_HEADER;
+        } else {
+            return DEVICE_ITEM;
+        }
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        // On some viewholders we need a variable to indicate whether it's a ui element or a device
-        ((TextView)holder.mView.findViewById(R.id.sample_text_view)).setText("--\n--");
-        ((TextView)holder.mView.findViewById(R.id.text_view_device_name)).setText(
-                mDataset[position].getDeviceName());
-        ((TextView)holder.mView.findViewById(R.id.text_view_device_cost)).setText(
-                mDataset[position].getCostInPastDay());
+        if(!mDataset[position].isHeader()) {
+            // On some viewholders we need a variable to indicate whether it's a ui element or a device
+            ((TextView) holder.mView.findViewById(R.id.sample_text_view)).setText("--\n--");
+            ((TextView) holder.mView.findViewById(R.id.text_view_device_name)).setText(
+                    mDataset[position].getDeviceName());
+            ((TextView) holder.mView.findViewById(R.id.text_view_device_cost)).setText(
+                    mDataset[position].getCostInPastDay());
+        } else {
+            ((TextView) holder.mView.findViewById(R.id.text_view_devices_item_title)).setText(
+                    mDataset[position].getTitle());
+        }
     }
 
     @Override

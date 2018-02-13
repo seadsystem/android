@@ -62,11 +62,13 @@ public class PageFragmentFactory extends Fragment {
         if(mPage == FRAGMENT_DEVICES) {
             final Activity parent = getActivity();
             RecyclerView recyclerView = (RecyclerView) parent.findViewById(R.id.my_recycler_view);
-            DeviceViewInfo[] dummyData = new DeviceViewInfo[3];
+            DeviceViewInfo[] dummyData = new DeviceViewInfo[5];
             // TODO populate this with real data. Panel names should come from server
-            dummyData[0] = new DeviceViewInfo("Panel 1");
-            dummyData[1] = new DeviceViewInfo("Panel 2");
-            dummyData[2] = new DeviceViewInfo("Panel 3");
+            dummyData[0] = new DeviceViewInfo("Devices in Sample Room", true);
+            dummyData[1] = new DeviceViewInfo("Panel 1");
+            dummyData[2] = new DeviceViewInfo("Devices with no room assigned", true);
+            dummyData[3] = new DeviceViewInfo("Panel 2");
+            dummyData[4] = new DeviceViewInfo("Panel 3");
 
             AdapterRecyclerViewDevices adapterRecyclerViewDevices =
                     new AdapterRecyclerViewDevices(dummyData);
