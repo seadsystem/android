@@ -16,70 +16,52 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:screenOrientation="sensorPortrait"
             android:name=".SplashActivity"
+            android:screenOrientation="sensorPortrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:screenOrientation="sensorPortrait"
-            android:name=".WelcomeActivity">
-        </activity>
-
+            android:name=".WelcomeActivity"
+            android:screenOrientation="sensorPortrait"></activity>
         <activity
-            android:screenOrientation="sensorPortrait"
-            android:name=".LoginActivity">
-        </activity>
-
+            android:name=".LoginActivity"
+            android:screenOrientation="sensorPortrait"></activity>
         <activity
-            android:screenOrientation="sensorPortrait"
-            android:name=".SignupActivity">
-        </activity>
-
+            android:name=".SignupActivity"
+            android:screenOrientation="sensorPortrait"></activity>
         <activity
-            android:screenOrientation="sensorPortrait"
-            android:name=".energy_cost.EnergyCostActivity">
-        </activity>
-
+            android:name=".energy_cost.EnergyCostActivity"
+            android:screenOrientation="sensorPortrait"></activity>
         <activity
-            android:screenOrientation="sensorPortrait"
-            android:name=".SettingsActivity">
-        </activity>
-
+            android:name=".SettingsActivity"
+            android:screenOrientation="sensorPortrait"></activity>
         <activity
-            android:screenOrientation="sensorPortrait"
-            android:name=".dashboard.DashboardActivity">
-        </activity>
-
+            android:name=".dashboard.DashboardActivity"
+            android:screenOrientation="sensorPortrait"></activity>
         <activity
-            android:screenOrientation="sensorPortrait"
-            android:name=".main_menu.MainMenuActivity">
-        </activity>
-
+            android:name=".main_menu.MainMenuActivity"
+            android:screenOrientation="sensorPortrait"></activity>
         <activity
-            android:screenOrientation="sensorPortrait"
-            android:name=".graph.DemoActivity">         
-        </activity>
-
+            android:name=".graph.DemoActivity"
+            android:screenOrientation="sensorPortrait"></activity>
         <activity
-            android:screenOrientation="sensorPortrait"
-            android:name=".device_list.DeviceListActivity">
-        </activity>
-
+            android:name=".device_list.DeviceListActivity"
+            android:screenOrientation="sensorPortrait"></activity>
         <activity
-            android:screenOrientation="sensorPortrait"
-            android:name=".DeviceInfo">
-        </activity>
-
+            android:name=".DeviceInfo"
+            android:screenOrientation="sensorPortrait"></activity>
         <activity
-            android:screenOrientation="sensorPortrait"
-            android:name=".AddDeviceActivity">
-        </activity>
-        
+            android:name=".AddDeviceActivity"
+            android:screenOrientation="sensorPortrait"></activity>
+        <activity
+            android:name=".device_panel_page.Device_panel_main"
+            android:label="@string/title_activity_device_panel_main"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

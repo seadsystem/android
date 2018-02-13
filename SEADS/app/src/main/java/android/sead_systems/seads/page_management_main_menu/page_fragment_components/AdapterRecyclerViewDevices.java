@@ -1,6 +1,10 @@
 package android.sead_systems.seads.page_management_main_menu.page_fragment_components;
 
+import android.content.Context;
+import android.content.Intent;
+import android.sead_systems.seads.DeviceInfo;
 import android.sead_systems.seads.R;
+import android.sead_systems.seads.device_panel_page.Device_panel_main;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,15 +24,19 @@ public class AdapterRecyclerViewDevices extends RecyclerView.Adapter<AdapterRecy
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public View mView;
+        private final Context mContext;
         public ViewHolder(View v) {
             super(v);
             this.mView = v;
             v.setOnClickListener(this);
+            mContext = v.getContext();
         }
-
         @Override
         public void onClick(View v) {
             Log.d("Page", "onClick " + getLayoutPosition());
+            Intent intent = new Intent(mContext, Device_panel_main.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            intent.putExtra("device", getLayoutPosition());
+            mContext.startActivity(intent);
         }
     }
 
