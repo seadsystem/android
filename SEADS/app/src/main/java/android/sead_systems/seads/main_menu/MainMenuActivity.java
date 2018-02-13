@@ -28,8 +28,7 @@ import org.json.JSONObject;
 
 /**
  * Main activity which obtains and displays a list of rooms.
- * @author Talal Abou Haiba
- * @author Chris Persons
+
  */
 
 public class MainMenuActivity extends AppCompatActivity implements WebInterface, NavigationView.OnNavigationItemSelectedListener {
@@ -47,14 +46,7 @@ public class MainMenuActivity extends AppCompatActivity implements WebInterface,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(new PagerAdapterSEADS(getSupportFragmentManager(),
-                MainMenuActivity.this));
-
-        // Give the TabLayout the ViewPager
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-
+        setupViewPager();
         setupToolBar();
         setupNavigationDrawer();
 
@@ -64,7 +56,14 @@ public class MainMenuActivity extends AppCompatActivity implements WebInterface,
 //        WebInterfacer test = new WebInterfacer(this);
 //        test.getJSONObject(1477395900,1477395910,"energy",1,"Panel3", "P");
     }
+    private void setupViewPager() {
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager.setAdapter(new PagerAdapterSEADS(getSupportFragmentManager(),
+                MainMenuActivity.this));
 
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+    }
     private void setupToolBar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(mToolbar);
@@ -104,6 +103,7 @@ public class MainMenuActivity extends AppCompatActivity implements WebInterface,
         }
 
     }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -142,20 +142,28 @@ public class MainMenuActivity extends AppCompatActivity implements WebInterface,
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        switch(id) {
+            case R.id.nav_device:
+                Log.d("MainMenuActivity", "nav_device!");
+                break;
+            case R.id.nav_rooms:
+                Log.d("MainMenuActivity", "nav_rooms!");
+                break;
+            case R.id.nav_overview:
+                Log.d("MainMenuActivity", "nav_overview!");
+                break;
+            case R.id.nav_setup:
+                Log.d("MainMenuActivity", "nav_setup!");
+                break;
+            case R.id.nav_about:
+                Log.d("MainMenuActivity", "nav_about!");
+                break;
+            case R.id.nav_settings:
+                Log.d("MainMenuActivity", "nav_settings!");
+                break;
+            default:
+                Log.d("MainMenuActivity", "error in onNavigationItemSelected!");
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
