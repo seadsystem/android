@@ -41,7 +41,7 @@ public class MainMenuActivity extends AppCompatActivity implements WebInterface,
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar mToolbar;
     private TabLayout mTabLayout;
-
+    private ViewPager mViewPager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,13 +58,13 @@ public class MainMenuActivity extends AppCompatActivity implements WebInterface,
 //        test.getJSONObject(1477395900,1477395910,"energy",1,"Panel3", "P");
     }
     private void setupViewPager() {
-        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = (ViewPager) findViewById(R.id.pager_main_menu);
         PagerAdapterSEADS pagerAdapterSEADS = new PagerAdapterSEADS(getSupportFragmentManager(),
                 MainMenuActivity.this);
-        viewPager.setAdapter(pagerAdapterSEADS);
+        mViewPager.setAdapter(pagerAdapterSEADS);
 
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
-        mTabLayout.setupWithViewPager(viewPager);
+        mTabLayout.setupWithViewPager(mViewPager);
         for (int tabIndex = 0; tabIndex < mTabLayout.getTabCount(); tabIndex++) {
 //            tabLayout.getTabAt(tabIndex).setIcon(R.drawable.rounded_button);
             mTabLayout.getTabAt(tabIndex).setCustomView(pagerAdapterSEADS.getTabView(tabIndex));
@@ -148,21 +148,17 @@ public class MainMenuActivity extends AppCompatActivity implements WebInterface,
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        TabLayout.Tab tab;
         switch(id) {
             case R.id.nav_device:
-                tab = mTabLayout.getTabAt(EnumNavBarNames.DEVICES.getIndex());
-                tab.select();
+                mViewPager.setCurrentItem(EnumNavBarNames.DEVICES.getIndex());
                 Log.d("MainMenuActivity", "nav_device!");
                 break;
             case R.id.nav_rooms:
-                tab = mTabLayout.getTabAt(EnumNavBarNames.ROOMS.getIndex());
-                tab.select();
+                mViewPager.setCurrentItem(EnumNavBarNames.ROOMS.getIndex());
                 Log.d("MainMenuActivity", "nav_rooms!");
                 break;
             case R.id.nav_overview:
-                tab = mTabLayout.getTabAt(EnumNavBarNames.OVERVIEW.getIndex());
-                tab.select();
+                mViewPager.setCurrentItem(EnumNavBarNames.OVERVIEW.getIndex());
                 Log.d("MainMenuActivity", "nav_overview!");
                 break;
             case R.id.nav_setup:
@@ -185,6 +181,7 @@ public class MainMenuActivity extends AppCompatActivity implements WebInterface,
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         // Change selector on the nav drawer
+        Log.d("MainMenu", "Tab clicked!");
     }
 
     @Override

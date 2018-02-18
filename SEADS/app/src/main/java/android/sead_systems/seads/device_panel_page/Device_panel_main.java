@@ -44,7 +44,7 @@ public class Device_panel_main extends AppCompatActivity implements NavigationVi
     }
 
     private void setupViewPager() {
-        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager_main_menu);
         viewPager.setAdapter(new Device_pager_adapter(getSupportFragmentManager(),
                 Device_panel_main.this));
 
