@@ -1,11 +1,11 @@
-package android.sead_systems.seads.page_management_main_menu;
+package android.sead_systems.seads.main_menu_pages;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.sead_systems.seads.R;
-import android.sead_systems.seads.page_management_main_menu.page_fragment_components.AdapterRecyclerViewDevices;
-import android.sead_systems.seads.page_management_main_menu.page_fragment_components.DeviceViewInfo;
-import android.sead_systems.seads.page_management_main_menu.page_fragment_components.RecyclerViewItemDecoration;
+import android.sead_systems.seads.main_menu_pages.devices_fragment.AdapterRecyclerViewDevices;
+import android.sead_systems.seads.main_menu_pages.devices_fragment.DeviceViewInfo;
+import android.sead_systems.seads.main_menu_pages.devices_fragment.RecyclerViewItemDecoration;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;

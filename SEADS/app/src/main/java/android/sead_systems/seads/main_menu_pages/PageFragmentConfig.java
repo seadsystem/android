@@ -1,4 +1,4 @@
-package android.sead_systems.seads.page_management_main_menu;
+package android.sead_systems.seads.main_menu_pages;
 
 public class PageFragmentConfig {
     private int mPage;

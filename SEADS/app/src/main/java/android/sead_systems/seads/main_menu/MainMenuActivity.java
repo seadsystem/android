@@ -3,7 +3,7 @@ package android.sead_systems.seads.main_menu;
 import android.os.Bundle;
 import android.sead_systems.seads.R;
 import android.sead_systems.seads.http.WebInterface;
-import android.sead_systems.seads.page_management_main_menu.PagerAdapterSEADS;
+import android.sead_systems.seads.main_menu_pages.PagerAdapterSEADS;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
@@ -31,7 +31,7 @@ import org.json.JSONObject;
 
  */
 
-public class MainMenuActivity extends AppCompatActivity implements WebInterface, NavigationView.OnNavigationItemSelectedListener {
+public class MainMenuActivity extends AppCompatActivity implements WebInterface, NavigationView.OnNavigationItemSelectedListener, TabLayout.OnTabSelectedListener {
 
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
@@ -69,9 +69,7 @@ public class MainMenuActivity extends AppCompatActivity implements WebInterface,
 //            tabLayout.getTabAt(tabIndex).setIcon(R.drawable.rounded_button);
             mTabLayout.getTabAt(tabIndex).setCustomView(pagerAdapterSEADS.getTabView(tabIndex));
         }
-
-
-
+        mTabLayout.setOnTabSelectedListener(this);
     }
     private void setupToolBar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
@@ -150,17 +148,21 @@ public class MainMenuActivity extends AppCompatActivity implements WebInterface,
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        TabLayout.Tab tab;
         switch(id) {
             case R.id.nav_device:
-                TabLayout.Tab tab = mTabLayout.getTabAt(EnumNavBarNames.DEVICES.getIndex());
+                tab = mTabLayout.getTabAt(EnumNavBarNames.DEVICES.getIndex());
                 tab.select();
                 Log.d("MainMenuActivity", "nav_device!");
                 break;
             case R.id.nav_rooms:
+                tab = mTabLayout.getTabAt(EnumNavBarNames.ROOMS.getIndex());
+                tab.select();
                 Log.d("MainMenuActivity", "nav_rooms!");
                 break;
             case R.id.nav_overview:
+                tab = mTabLayout.getTabAt(EnumNavBarNames.OVERVIEW.getIndex());
+                tab.select();
                 Log.d("MainMenuActivity", "nav_overview!");
                 break;
             case R.id.nav_setup:
@@ -178,5 +180,20 @@ public class MainMenuActivity extends AppCompatActivity implements WebInterface,
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        // Change selector on the nav drawer
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
     }
 }

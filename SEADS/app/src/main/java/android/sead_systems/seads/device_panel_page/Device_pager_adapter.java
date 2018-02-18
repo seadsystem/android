@@ -2,8 +2,6 @@ package android.sead_systems.seads.device_panel_page;
 
 import android.content.Context;
 import android.sead_systems.seads.graph.TabFragment5;
-import android.sead_systems.seads.page_management_main_menu.PageFragmentConfig;
-import android.sead_systems.seads.page_management_main_menu.PageFragmentFactory;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;

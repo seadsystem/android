@@ -1,4 +1,4 @@
-package android.sead_systems.seads.page_management_main_menu;
+package android.sead_systems.seads.main_menu_pages;
 
 import android.content.Context;
 import android.sead_systems.seads.R;

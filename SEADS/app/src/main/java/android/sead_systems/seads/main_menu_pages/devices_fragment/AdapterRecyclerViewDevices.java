@@ -1,8 +1,7 @@
-package android.sead_systems.seads.page_management_main_menu.page_fragment_components;
+package android.sead_systems.seads.main_menu_pages.devices_fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.sead_systems.seads.DeviceInfo;
 import android.sead_systems.seads.R;
 import android.sead_systems.seads.device_panel_page.Device_panel_main;
 import android.support.v7.widget.RecyclerView;
