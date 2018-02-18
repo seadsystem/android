@@ -40,6 +40,7 @@ public class MainMenuActivity extends AppCompatActivity implements WebInterface,
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar mToolbar;
+    private TabLayout mTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +59,19 @@ public class MainMenuActivity extends AppCompatActivity implements WebInterface,
     }
     private void setupViewPager() {
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(new PagerAdapterSEADS(getSupportFragmentManager(),
-                MainMenuActivity.this));
+        PagerAdapterSEADS pagerAdapterSEADS = new PagerAdapterSEADS(getSupportFragmentManager(),
+                MainMenuActivity.this);
+        viewPager.setAdapter(pagerAdapterSEADS);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        mTabLayout = (TabLayout) findViewById(R.id.tabs);
+        mTabLayout.setupWithViewPager(viewPager);
+        for (int tabIndex = 0; tabIndex < mTabLayout.getTabCount(); tabIndex++) {
+//            tabLayout.getTabAt(tabIndex).setIcon(R.drawable.rounded_button);
+            mTabLayout.getTabAt(tabIndex).setCustomView(pagerAdapterSEADS.getTabView(tabIndex));
+        }
+
+
+
     }
     private void setupToolBar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
@@ -144,6 +153,8 @@ public class MainMenuActivity extends AppCompatActivity implements WebInterface,
 
         switch(id) {
             case R.id.nav_device:
+//                TabLayout.Tab tab = mTabLayout.getTabAt(someIndex);
+//                tab.select();
                 Log.d("MainMenuActivity", "nav_device!");
                 break;
             case R.id.nav_rooms:
