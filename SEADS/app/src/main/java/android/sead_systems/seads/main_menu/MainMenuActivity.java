@@ -153,8 +153,8 @@ public class MainMenuActivity extends AppCompatActivity implements WebInterface,
 
         switch(id) {
             case R.id.nav_device:
-//                TabLayout.Tab tab = mTabLayout.getTabAt(someIndex);
-//                tab.select();
+                TabLayout.Tab tab = mTabLayout.getTabAt(EnumNavBarNames.DEVICES.getIndex());
+                tab.select();
                 Log.d("MainMenuActivity", "nav_device!");
                 break;
             case R.id.nav_rooms:

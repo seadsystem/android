@@ -2,6 +2,7 @@ package android.sead_systems.seads.page_management_main_menu;
 
 import android.content.Context;
 import android.sead_systems.seads.R;
+import android.sead_systems.seads.main_menu.EnumNavBarNames;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -15,12 +16,19 @@ import android.widget.TextView;
  */
 
 public class PagerAdapterSEADS extends FragmentPagerAdapter {
-    final int PAGE_COUNT = 3;
-    private String tabTitles[] = new String[] { "Devices", "Rooms", "Overview" };
+    private int PAGE_COUNT = 3;
+    private String tabTitles[];// = new String[] { "Devices", "Rooms", "Overview" };
     private Context mContext;
 
     public PagerAdapterSEADS(FragmentManager fm, Context context) {
         super(fm);
+        this.PAGE_COUNT = EnumNavBarNames.values().length;
+        this.tabTitles = new String[this.PAGE_COUNT];
+        int index = 0;
+        for(EnumNavBarNames x : EnumNavBarNames.values()) {
+            this.tabTitles[index] = x.getTitle();
+            index++;
+        }
         this.mContext = context;
     }
 
