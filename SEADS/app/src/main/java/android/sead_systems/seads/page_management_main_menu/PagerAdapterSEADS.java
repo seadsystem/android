@@ -1,9 +1,14 @@
 package android.sead_systems.seads.page_management_main_menu;
 
 import android.content.Context;
+import android.sead_systems.seads.R;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * Created by jungk on 2/11/2018.
@@ -30,10 +35,21 @@ public class PagerAdapterSEADS extends FragmentPagerAdapter {
         PageFragmentConfig pageFragmentConfig = new PageFragmentConfig(position);
         return PageFragmentFactory.newInstance(pageFragmentConfig);
     }
+//
+//    @Override
+//    public CharSequence getPageTitle(int position) {
+//        // Generate title based on item position
+//        return tabTitles[position];
+//    }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        // Generate title based on item position
-        return tabTitles[position];
+    public View getTabView(int position) {
+        // Given you have a custom layout in `res/layout/custom_tab.xml` with a TextView and ImageView
+        View v = LayoutInflater.from(mContext).inflate(R.layout.tab_main, null);
+        TextView tv = (TextView) v.findViewById(R.id.tab_title);
+        tv.setText(tabTitles[position]);
+        ImageView img = (ImageView) v.findViewById(R.id.tab_image);
+        img.setImageResource(R.drawable.rounded_button);
+        return v;
     }
+
 }

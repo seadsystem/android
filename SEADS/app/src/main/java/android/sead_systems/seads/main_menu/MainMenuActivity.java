@@ -58,11 +58,19 @@ public class MainMenuActivity extends AppCompatActivity implements WebInterface,
     }
     private void setupViewPager() {
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(new PagerAdapterSEADS(getSupportFragmentManager(),
-                MainMenuActivity.this));
+        PagerAdapterSEADS pagerAdapterSEADS = new PagerAdapterSEADS(getSupportFragmentManager(),
+                MainMenuActivity.this);
+        viewPager.setAdapter(pagerAdapterSEADS);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+        for (int tabIndex = 0; tabIndex < tabLayout.getTabCount(); tabIndex++) {
+//            tabLayout.getTabAt(tabIndex).setIcon(R.drawable.rounded_button);
+            tabLayout.getTabAt(tabIndex).setCustomView(pagerAdapterSEADS.getTabView(tabIndex));
+        }
+
+
+
     }
     private void setupToolBar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
