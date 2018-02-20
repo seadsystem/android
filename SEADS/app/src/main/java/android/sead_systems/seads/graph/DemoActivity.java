@@ -45,7 +45,7 @@ public class DemoActivity extends AppCompatActivity {
             mCurrentRoomName = getIntent().getStringExtra("ROOM_NAME");
         }
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager_main_menu);
         final PagerAdapter adapter = new PagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);

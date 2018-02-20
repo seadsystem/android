@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
-import android.sead_systems.seads.dashboard.DashboardActivity;
+import android.sead_systems.seads.main_menu.MainMenuActivity;
 import android.sead_systems.seads.rooms.RoomManagerFactory;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -62,7 +62,7 @@ public class SettingsActivity extends PreferenceActivity {
                                             .child("rooms").child(roomName).child("room_image")
                                             .setValue(R.mipmap.bathroom);
                                     Intent i = new Intent(getApplicationContext(),
-                                            DashboardActivity.class);
+                                            MainMenuActivity.class);
                                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                                             Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(i);

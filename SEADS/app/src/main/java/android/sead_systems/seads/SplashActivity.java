@@ -2,10 +2,10 @@ package android.sead_systems.seads;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.sead_systems.seads.dashboard.DashboardActivity;
-import android.sead_systems.seads.graph.DemoActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.sead_systems.seads.dashboard.DashboardActivity;
+import android.sead_systems.seads.main_menu.MainMenuActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -40,7 +40,7 @@ public class SplashActivity extends AppCompatActivity {
             //intent = new Intent(this, DemoActivity.class);
             intent = new Intent(this, LoginActivity.class);
         } else {
-            intent = new Intent(this, DashboardActivity.class);
+            intent = new Intent(this, MainMenuActivity.class);
         }
 
         startActivity(intent);

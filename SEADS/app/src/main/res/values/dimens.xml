@@ -12,4 +12,12 @@
     <dimen name="slide_desc">16sp</dimen>
     <dimen name="desc_padding">40dp</dimen>
 
+    <!--Navigation bar-->
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+
+    <!--devices_item dimensions-->
+    <dimen name="devices_item_height">80dp</dimen>
+
+
 </resources>

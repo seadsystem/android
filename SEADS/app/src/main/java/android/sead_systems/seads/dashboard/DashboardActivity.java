@@ -4,15 +4,18 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.sead_systems.seads.LoginActivity;
-import android.sead_systems.seads.energy_cost.EnergyCostActivity;
 import android.sead_systems.seads.R;
 import android.sead_systems.seads.SettingsActivity;
 import android.sead_systems.seads.devices.DeviceObject;
+import android.sead_systems.seads.energy_cost.EnergyCostActivity;
 import android.sead_systems.seads.graph.DemoActivity;
+import android.sead_systems.seads.http.WebInterface;
+import android.sead_systems.seads.http.WebInterfacer;
 import android.sead_systems.seads.rooms.RoomManagerFactory;
 import android.sead_systems.seads.rooms.RoomObject;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -28,13 +31,16 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 /**
  * Main activity which obtains and displays a list of rooms.
  * @author Talal Abou Haiba
  * @author Chris Persons
  */
 
-public class DashboardActivity extends AppCompatActivity {
+public class DashboardActivity extends AppCompatActivity implements WebInterface{
 
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
@@ -51,6 +57,9 @@ public class DashboardActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         setBottomBar();
+        WebInterfacer test = new WebInterfacer(this);
+        test.getJSONObject(1477395900,1477395910,"energy",1,"Panel3", "P");
+
     }
 
     @Override
@@ -237,4 +246,15 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onJSONRetrieved(JSONObject result) {
+        try {
+            JSONArray data = result.getJSONArray("data");
+            JSONObject index0 = data.getJSONObject(0);
+            Log.d("DashboardActivity","index0 time: "+index0.getString("time"));
+        } catch (Exception e) {
+
+        }
+
+    }
 }
