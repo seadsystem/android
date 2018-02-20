@@ -1,13 +1,16 @@
 package android.sead_systems.seads.device_panel_page;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.sead_systems.seads.BaseActivityWithDrawer;
 import android.sead_systems.seads.R;
+import android.sead_systems.seads.main_menu.MainMenuActivity;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -64,5 +67,10 @@ public class DeviceAndRoomStatsActivity extends BaseActivityWithDrawer implement
         }
     }
 
-
+    @Override
+    public void onBackPressed(){
+        Log.d("DEVICE_STATS:", "Back pressed");
+        Intent intent = new Intent(this, MainMenuActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+    }
 }

@@ -59,7 +59,7 @@ public class TabFragment5 extends Fragment implements View.OnClickListener {
         mChart = (LineChart) v.findViewById(R.id.chart1);
 
         // enable description text
-        mChart.getDescription().setEnabled(true);
+        mChart.getDescription().setEnabled(false);
 
         // enable touch gestures
         mChart.setTouchEnabled(true);
@@ -73,15 +73,16 @@ public class TabFragment5 extends Fragment implements View.OnClickListener {
         mChart.setPinchZoom(true);
 
         // set an alternative background color
-        mChart.setBackgroundColor(Color.LTGRAY);
+        mChart.setBackgroundColor(Color.WHITE);
 
         LineData data = new LineData();
-        data.setValueTextColor(Color.WHITE);
+        data.setValueTextColor(Color.BLACK);
 
         // add empty data
         mChart.setData(data);
-
         YAxis rightAxis = mChart.getAxisRight();
+        XAxis xAxis = mChart.getXAxis();
+        //xAxis.
         rightAxis.setEnabled(false);
 
         //set button
@@ -154,16 +155,16 @@ public class TabFragment5 extends Fragment implements View.OnClickListener {
     private LineDataSet createSet() {
         LineDataSet set = new LineDataSet(null, "Dynamic Data");
         set.setAxisDependency(AxisDependency.LEFT);
-        set.setColor(ColorTemplate.getHoloBlue());
-        set.setCircleColor(Color.WHITE);
-        set.setLineWidth(2f);
-        set.setCircleRadius(4f);
-        set.setFillAlpha(65);
+        set.setColor(Color.GREEN);
+        set.setCircleColor(Color.BLACK);
+        set.setLineWidth(0.5f);
+        set.setCircleRadius(2f);
+        set.setFillAlpha(100);
         set.setFillColor(ColorTemplate.getHoloBlue());
-        set.setHighLightColor(Color.rgb(244, 117, 117));
-        set.setValueTextColor(Color.WHITE);
-        set.setValueTextSize(9f);
-        set.setDrawValues(false);
+        set.setHighLightColor(Color.rgb(0, 0, 0));
+        set.setValueTextColor(Color.BLACK);
+        set.setValueTextSize(1f);
+        set.setDrawValues(true);
         return set;
     }
 

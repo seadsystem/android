@@ -1,6 +1,7 @@
 package android.sead_systems.seads.device_panel_page;
 
 import android.content.Context;
+import android.sead_systems.seads.graph.TabFragment4;
 import android.sead_systems.seads.graph.TabFragment5;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
