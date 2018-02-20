@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -86,7 +87,9 @@ public class AdapterRecyclerViewDevices extends RecyclerView.Adapter<AdapterRecy
     public void onBindViewHolder(ViewHolder holder, int position) {
         if(!mDataset[position].isHeader()) {
             // On some viewholders we need a variable to indicate whether it's a ui element or a device
-            ((TextView) holder.mView.findViewById(R.id.sample_text_view)).setText("--\n--");
+//            ((TextView) holder.mView.findViewById(R.id.sample_text_view)).setText("--\n--");
+            ((ImageView) holder.mView.findViewById(R.id.devices_item_image)).setImageResource(R.drawable.rounded_button);
+
             ((TextView) holder.mView.findViewById(R.id.text_view_device_name)).setText(
                     mDataset[position].getDeviceName());
             ((TextView) holder.mView.findViewById(R.id.text_view_device_cost)).setText(

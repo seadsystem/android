@@ -3,6 +3,7 @@ package android.sead_systems.seads.main_menu_pages;
 import android.app.Activity;
 import android.os.Bundle;
 import android.sead_systems.seads.R;
+import android.sead_systems.seads.main_menu.EnumNavBarNames;
 import android.sead_systems.seads.main_menu_pages.devices_fragment.AdapterRecyclerViewDevices;
 import android.sead_systems.seads.main_menu_pages.devices_fragment.DeviceViewInfo;
 import android.sead_systems.seads.main_menu_pages.devices_fragment.RecyclerViewItemDecoration;
@@ -15,9 +16,6 @@ import android.view.ViewGroup;
 
 public class PageFragmentFactory extends Fragment {
     private static final String ARG_PAGE = "ARG_PAGE";
-    private final int FRAGMENT_DEVICES = 0;
-    private final int FRAGMENT_ROOMS = 1;
-    private final int FRAGMENT_OVERVIEW = 2;
     private int mPage;
 
     public static PageFragmentFactory newInstance(PageFragmentConfig pageFragmentConfig) {
@@ -38,20 +36,19 @@ public class PageFragmentFactory extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view;
-        switch(mPage) {
-            case FRAGMENT_DEVICES:
-                view = inflater.inflate(R.layout.fragment_device_main_menu, container, false);
-                break;
-            case FRAGMENT_ROOMS:
-                view = inflater.inflate(R.layout.fragment_room_main_menu, container, false);
-
-                break;
-            case FRAGMENT_OVERVIEW:
-                view = inflater.inflate(R.layout.fragment_room_main_menu, container, false);
-                break;
-            default:
-                // TODO replace with report error view
-                view = inflater.inflate(R.layout.fragment_room_main_menu, container, false);
+        if(mPage == EnumNavBarNames.DEVICES.getIndex()) {
+            view = inflater.inflate(EnumNavBarNames.DEVICES.getLayoutId(), container, false);
+        } else if (mPage == EnumNavBarNames.ROOMS.getIndex()) {
+            view = inflater.inflate(EnumNavBarNames.ROOMS.getLayoutId(), container, false);
+        } else if (mPage == EnumNavBarNames.OVERVIEW.getIndex()) {
+            view = inflater.inflate(EnumNavBarNames.OVERVIEW.getLayoutId(), container, false);
+        }else if (mPage == EnumNavBarNames.AWARDS.getIndex()) {
+            view = inflater.inflate(EnumNavBarNames.AWARDS.getLayoutId(), container, false);
+        }else if (mPage == EnumNavBarNames.SETTINGS.getIndex()) {
+            view = inflater.inflate(EnumNavBarNames.SETTINGS.getLayoutId(), container, false);
+        } else {
+            // TODO replace with error view
+            view = inflater.inflate(EnumNavBarNames.ROOMS.getLayoutId(), container, false);
         }
         return view;
     }
@@ -59,7 +56,7 @@ public class PageFragmentFactory extends Fragment {
     @Override
     public void onActivityCreated (Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(mPage == FRAGMENT_DEVICES) {
+        if(mPage == EnumNavBarNames.DEVICES.getIndex()) {
             final Activity parent = getActivity();
             RecyclerView recyclerView = (RecyclerView) parent.findViewById(R.id.my_recycler_view);
             DeviceViewInfo[] dummyData = new DeviceViewInfo[5];

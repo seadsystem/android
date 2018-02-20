@@ -1,22 +1,18 @@
 package android.sead_systems.seads.main_menu;
 
 import android.os.Bundle;
+import android.sead_systems.seads.BaseActivityWithDrawer;
 import android.sead_systems.seads.R;
 import android.sead_systems.seads.http.WebInterface;
 import android.sead_systems.seads.main_menu_pages.PagerAdapterSEADS;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -31,17 +27,14 @@ import org.json.JSONObject;
 
  */
 
-public class MainMenuActivity extends AppCompatActivity implements WebInterface, NavigationView.OnNavigationItemSelectedListener, TabLayout.OnTabSelectedListener {
+public class MainMenuActivity extends BaseActivityWithDrawer implements WebInterface, NavigationView.OnNavigationItemSelectedListener, TabLayout.OnTabSelectedListener {
 
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    private ActionBarDrawerToggle mDrawerToggle;
-    private Toolbar mToolbar;
     private TabLayout mTabLayout;
-    private ViewPager mViewPager;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +49,11 @@ public class MainMenuActivity extends AppCompatActivity implements WebInterface,
 
 //        WebInterfacer test = new WebInterfacer(this);
 //        test.getJSONObject(1477395900,1477395910,"energy",1,"Panel3", "P");
+    }
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        setupNavigationDrawer();
     }
     private void setupViewPager() {
         mViewPager = (ViewPager) findViewById(R.id.pager_main_menu);
@@ -79,19 +77,6 @@ public class MainMenuActivity extends AppCompatActivity implements WebInterface,
         actionBar.setHomeButtonEnabled(true);
     }
 
-    private void setupNavigationDrawer() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -109,16 +94,6 @@ public class MainMenuActivity extends AppCompatActivity implements WebInterface,
 
         }
 
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
     }
 
     @Override
@@ -143,44 +118,18 @@ public class MainMenuActivity extends AppCompatActivity implements WebInterface,
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        switch(id) {
-            case R.id.nav_device:
-                mViewPager.setCurrentItem(EnumNavBarNames.DEVICES.getIndex());
-                Log.d("MainMenuActivity", "nav_device!");
-                break;
-            case R.id.nav_rooms:
-                mViewPager.setCurrentItem(EnumNavBarNames.ROOMS.getIndex());
-                Log.d("MainMenuActivity", "nav_rooms!");
-                break;
-            case R.id.nav_overview:
-                mViewPager.setCurrentItem(EnumNavBarNames.OVERVIEW.getIndex());
-                Log.d("MainMenuActivity", "nav_overview!");
-                break;
-            case R.id.nav_setup:
-                Log.d("MainMenuActivity", "nav_setup!");
-                break;
-            case R.id.nav_about:
-                Log.d("MainMenuActivity", "nav_about!");
-                break;
-            case R.id.nav_settings:
-                Log.d("MainMenuActivity", "nav_settings!");
-                break;
-            default:
-                Log.d("MainMenuActivity", "error in onNavigationItemSelected!");
-        }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
+        int position = tab.getPosition();
+        mViewPager.setCurrentItem(position);
         // Change selector on the nav drawer
+        if (position == EnumNavBarNames.DEVICES.getIndex()){
+            mNavigationView.setCheckedItem(R.id.nav_device);
+        } else if (position == EnumNavBarNames.ROOMS.getIndex()) {
+            mNavigationView.setCheckedItem(R.id.nav_rooms);
+        } else if (position == EnumNavBarNames.OVERVIEW.getIndex()) {
+            mNavigationView.setCheckedItem(R.id.nav_overview);
+        }
         Log.d("MainMenu", "Tab clicked!");
     }
 
