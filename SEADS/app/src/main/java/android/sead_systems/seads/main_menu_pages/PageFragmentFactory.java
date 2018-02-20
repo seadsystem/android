@@ -57,23 +57,31 @@ public class PageFragmentFactory extends Fragment {
     public void onActivityCreated (Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if(mPage == EnumNavBarNames.DEVICES.getIndex()) {
-            final Activity parent = getActivity();
-            RecyclerView recyclerView = (RecyclerView) parent.findViewById(R.id.my_recycler_view);
-            DeviceViewInfo[] dummyData = new DeviceViewInfo[5];
-            // TODO populate this with real data. Panel names should come from server
-            dummyData[0] = new DeviceViewInfo("Devices in Sample Room", true);
-            dummyData[1] = new DeviceViewInfo("Panel 1");
-            dummyData[2] = new DeviceViewInfo("Devices with no room assigned", true);
-            dummyData[3] = new DeviceViewInfo("Panel 2");
-            dummyData[4] = new DeviceViewInfo("Panel 3");
-
-            AdapterRecyclerViewDevices adapterRecyclerViewDevices =
-                    new AdapterRecyclerViewDevices(dummyData);
-
-            recyclerView.addItemDecoration(new RecyclerViewItemDecoration(parent));
-            recyclerView.setAdapter(adapterRecyclerViewDevices);
-            recyclerView.setLayoutManager(new LinearLayoutManager(parent));
+            setupDevicesFragment();
         }
+    }
 
+    private void setupDevicesFragment() {
+        final Activity parent = getActivity();
+        RecyclerView recyclerView = (RecyclerView) parent.findViewById(R.id.my_recycler_view);
+        DeviceViewInfo[] dummyData = new DeviceViewInfo[10];
+        // TODO populate this with real data. Panel names should come from server
+        dummyData[0] = new DeviceViewInfo("Devices in Sample Room", true);
+        dummyData[1] = new DeviceViewInfo("Panel 1");
+        dummyData[2] = new DeviceViewInfo("Devices with no room assigned", true);
+        dummyData[3] = new DeviceViewInfo("Panel 2");
+        dummyData[4] = new DeviceViewInfo("Panel 3");
+        dummyData[5] = new DeviceViewInfo("Panel 4");
+        dummyData[6] = new DeviceViewInfo("Panel 5");
+        dummyData[7] = new DeviceViewInfo("Panel 6");
+        dummyData[8] = new DeviceViewInfo("Panel 7");
+        dummyData[9] = new DeviceViewInfo("Panel 8");
+
+        AdapterRecyclerViewDevices adapterRecyclerViewDevices =
+                new AdapterRecyclerViewDevices(dummyData);
+
+        recyclerView.addItemDecoration(new RecyclerViewItemDecoration(parent));
+        recyclerView.setAdapter(adapterRecyclerViewDevices);
+        recyclerView.setLayoutManager(new LinearLayoutManager(parent));
     }
 }

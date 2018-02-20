@@ -59,7 +59,7 @@
             android:name=".AddDeviceActivity"
             android:screenOrientation="sensorPortrait"></activity>
         <activity
-            android:name=".device_panel_page.Device_panel_main"
+            android:name=".device_panel_page.DeviceAndRoomStatsActivity"
             android:label="@string/title_activity_device_panel_main"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>

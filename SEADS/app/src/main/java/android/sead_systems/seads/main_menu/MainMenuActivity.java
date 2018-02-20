@@ -55,13 +55,14 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
         super.onPostCreate(savedInstanceState);
         setupNavigationDrawer();
     }
+
     private void setupViewPager() {
-        mViewPager = (ViewPager) findViewById(R.id.pager_main_menu);
+        mViewPager = (ViewPager) findViewById(R.id.pager_rooms_and_devices);
         PagerAdapterSEADS pagerAdapterSEADS = new PagerAdapterSEADS(getSupportFragmentManager(),
                 MainMenuActivity.this);
         mViewPager.setAdapter(pagerAdapterSEADS);
 
-        mTabLayout = (TabLayout) findViewById(R.id.tabs);
+        mTabLayout = (TabLayout) findViewById(R.id.tabs_main_menu);
         mTabLayout.setupWithViewPager(mViewPager);
         for (int tabIndex = 0; tabIndex < mTabLayout.getTabCount(); tabIndex++) {
 //            tabLayout.getTabAt(tabIndex).setIcon(R.drawable.rounded_button);
@@ -69,6 +70,7 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
         }
         mTabLayout.setOnTabSelectedListener(this);
     }
+
     private void setupToolBar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(mToolbar);
@@ -110,7 +112,6 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }

@@ -36,4 +36,5 @@ public class Device_pager_adapter extends FragmentPagerAdapter {
         // Generate title based on item position
         return tabTitles[position];
     }
+
 }

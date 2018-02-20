@@ -16,7 +16,7 @@ public class RecyclerViewItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void onDrawOver(Canvas canvas, RecyclerView recyclerView, RecyclerView.State state) {
+    public void onDraw(Canvas canvas, RecyclerView recyclerView, RecyclerView.State state) {
         int right = recyclerView.getWidth();
         for (int i = 0; i < recyclerView.getChildCount(); i++) {
             View curView = recyclerView.getChildAt(i);

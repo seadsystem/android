@@ -7,17 +7,9 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
-
-    <!--app_bar_main contains everything except the nav bar-->
     <include
-        layout="@layout/app_bar_main"
+        layout="@layout/app_bar_about"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-    <!--nav bar xml-->
     <include layout="@layout/nav_drawer" />
-
-
-
-
 </android.support.v4.widget.DrawerLayout>

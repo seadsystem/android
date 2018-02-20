@@ -1,6 +1,7 @@
 package android.sead_systems.seads;
 
 import android.sead_systems.seads.main_menu.EnumNavBarNames;
+import android.sead_systems.seads.main_menu.MainMenuActivity;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -13,7 +14,7 @@ import android.view.MenuItem;
 
 /**
  * Activities that extend BaseActivityWithDrawer should:
- *      use an xml that includes the nav_drawer layout:
+ *      use a DrawerLayout that includes the nav_drawer layout with the following line:
  *          <include layout="@layout/nav_drawer" />
  *      instantiate mToolbar, needed for drawer to work
  *      only instantiate mViewPager if in the MainMenuActivity
@@ -65,12 +66,18 @@ public class BaseActivityWithDrawer extends AppCompatActivity implements Navigat
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        boolean closeDrawer = true;
         switch(id) {
             case R.id.nav_device:
-                if (mViewPager!=null) {
-                    mViewPager.setCurrentItem(EnumNavBarNames.DEVICES.getIndex());
+                if (!(this instanceof MainMenuActivity)) {
+                    //TODO setResult should be called so that we can tell the MainMenu which of nav_device or nav_rooms was clicked
+                    this.finish();
+//                    overridePendingTransition(0,R.anim.fade_out);
+                    closeDrawer = false;
                 } else {
-                    // close current activity
+                    if (mViewPager != null) {
+                        mViewPager.setCurrentItem(EnumNavBarNames.DEVICES.getIndex());
+                    }
                 }
                 Log.d("MainMenuActivity", "nav_device!");
                 break;
@@ -99,13 +106,23 @@ public class BaseActivityWithDrawer extends AppCompatActivity implements Navigat
                 Log.d("MainMenuActivity", "nav_settings!");
                 break;
             case R.id.nav_about:
+                // TODO check if instance of mainmenu, if not, close, then start about activity
+//                Intent intent = new Intent(this, AboutActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(intent);
+                if (!(this instanceof MainMenuActivity)) {
+                    this.finish();
+                    closeDrawer = false;
+                }
                 Log.d("MainMenuActivity", "nav_about!");
                 break;
             default:
                 Log.d("MainMenuActivity", "error in onNavigationItemSelected!");
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        if(closeDrawer) {
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
         return true;
     }
 }
