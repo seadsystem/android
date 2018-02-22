@@ -1,5 +1,7 @@
 package android.sead_systems.seads;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.sead_systems.seads.main_menu.EnumNavBarNames;
 import android.sead_systems.seads.main_menu.MainMenuActivity;
 import android.support.design.widget.NavigationView;
@@ -25,6 +27,9 @@ public class BaseActivityWithDrawer extends AppCompatActivity implements Navigat
     protected Toolbar mToolbar;
     protected ViewPager mViewPager;
     protected NavigationView mNavigationView;
+    public static int REQUEST_CODE = 2;
+    public static int ABOUT_PAGE_FAKE_INDEX;
+    public String requestDataKey = "nav";
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
@@ -69,52 +74,34 @@ public class BaseActivityWithDrawer extends AppCompatActivity implements Navigat
         boolean closeDrawer = true;
         switch(id) {
             case R.id.nav_device:
-                if (!(this instanceof MainMenuActivity)) {
-                    //TODO setResult should be called so that we can tell the MainMenu which of nav_device or nav_rooms was clicked
-                    this.finish();
-//                    overridePendingTransition(0,R.anim.fade_out);
-                    closeDrawer = false;
-                } else {
-                    if (mViewPager != null) {
-                        mViewPager.setCurrentItem(EnumNavBarNames.DEVICES.getIndex());
-                    }
-                }
-                Log.d("MainMenuActivity", "nav_device!");
+                closeDrawer = handleDrawerOnPressWithPage(EnumNavBarNames.DEVICES.getIndex());
                 break;
             case R.id.nav_rooms:
-                if (mViewPager!=null) {
-                    mViewPager.setCurrentItem(EnumNavBarNames.ROOMS.getIndex());
-                }
-                Log.d("MainMenuActivity", "nav_rooms!");
+                closeDrawer = handleDrawerOnPressWithPage(EnumNavBarNames.ROOMS.getIndex());
                 break;
             case R.id.nav_overview:
-                if (mViewPager!=null) {
-                    mViewPager.setCurrentItem(EnumNavBarNames.OVERVIEW.getIndex());
-                }
-                Log.d("MainMenuActivity", "nav_overview!");
+                closeDrawer = handleDrawerOnPressWithPage(EnumNavBarNames.OVERVIEW.getIndex());
                 break;
             case R.id.nav_awards:
-                if (mViewPager!=null) {
-                    mViewPager.setCurrentItem(EnumNavBarNames.AWARDS.getIndex());
-                }
-                Log.d("MainMenuActivity", "nav_setup!");
+                closeDrawer = handleDrawerOnPressWithPage(EnumNavBarNames.AWARDS.getIndex());
                 break;
             case R.id.nav_settings:
-                if (mViewPager!=null) {
-                    mViewPager.setCurrentItem(EnumNavBarNames.SETTINGS.getIndex());
-                }
+                closeDrawer = handleDrawerOnPressWithPage(EnumNavBarNames.SETTINGS.getIndex());
                 Log.d("MainMenuActivity", "nav_settings!");
                 break;
             case R.id.nav_about:
-                // TODO check if instance of mainmenu, if not, close, then start about activity
-//                Intent intent = new Intent(this, AboutActivity.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                startActivity(intent);
+
                 if (!(this instanceof MainMenuActivity)) {
+                    Intent resultData = new Intent();
+                    resultData.putExtra(requestDataKey, 99);
+                    setResult(Activity.RESULT_OK, resultData);
                     this.finish();
                     closeDrawer = false;
+                } else {
+                    Intent intent = new Intent(this, AboutActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivityForResult(intent, REQUEST_CODE);
                 }
-                Log.d("MainMenuActivity", "nav_about!");
                 break;
             default:
                 Log.d("MainMenuActivity", "error in onNavigationItemSelected!");
@@ -125,4 +112,27 @@ public class BaseActivityWithDrawer extends AppCompatActivity implements Navigat
         }
         return true;
     }
+
+    private boolean handleDrawerOnPressWithPage(int pageIndex) {
+        if (!(this instanceof MainMenuActivity)) {
+            Intent resultData = new Intent();
+            resultData.putExtra(requestDataKey, pageIndex);
+            setResult(Activity.RESULT_OK, resultData);
+            Log.d("BaseActivity","nav rooms clicked and finishing!");
+            this.finish();
+//                    overridePendingTransition(0,R.anim.fade_out);
+            return false;
+        } else {
+            if (mViewPager != null) {
+                mViewPager.setCurrentItem(pageIndex);
+            }
+        }
+        return true;
+    }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        Log.d("Base activity","In onActivityResult");
+//
+//    }
 }

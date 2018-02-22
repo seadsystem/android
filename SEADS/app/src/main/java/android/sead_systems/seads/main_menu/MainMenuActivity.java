@@ -1,6 +1,9 @@
 package android.sead_systems.seads.main_menu;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.sead_systems.seads.AboutActivity;
 import android.sead_systems.seads.BaseActivityWithDrawer;
 import android.sead_systems.seads.R;
 import android.sead_systems.seads.http.WebInterface;
@@ -143,4 +146,32 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
     public void onTabReselected(TabLayout.Tab tab) {
 
     }
+
+    /**
+     * Listen for any attempt to change the page view
+     * @param requestCode request code used by finishing activity
+     * @param resultCode whether the activity finished successfully or was cancelled
+     * @param data data from finishing activity
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("MainMenuActivity","In onActivityResult");
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                int resultForPageIndex = data.getIntExtra(requestDataKey,EnumNavBarNames.ROOMS.getIndex());
+                Log.d("MainMenuActivity", "result:" + resultForPageIndex);
+                if (mViewPager != null) {
+                    if (resultForPageIndex == 99) {
+                        // Launch about
+                        Intent intent = new Intent(this, AboutActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivityForResult(intent, REQUEST_CODE);
+                    } else {
+                        mViewPager.setCurrentItem(resultForPageIndex);
+                    }
+                }
+            }
+        }
+    }
+
 }

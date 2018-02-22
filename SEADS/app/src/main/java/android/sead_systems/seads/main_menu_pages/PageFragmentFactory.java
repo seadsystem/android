@@ -56,8 +56,10 @@ public class PageFragmentFactory extends Fragment {
     @Override
     public void onActivityCreated (Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(mPage == EnumNavBarNames.DEVICES.getIndex()) {
+        if (mPage == EnumNavBarNames.DEVICES.getIndex()) {
             setupDevicesFragment();
+        } else if (mPage == EnumNavBarNames.ROOMS.getIndex()) {
+            // Setup rooms fragment
         }
     }
 
@@ -78,7 +80,7 @@ public class PageFragmentFactory extends Fragment {
         dummyData[9] = new DeviceViewInfo("Panel 8");
 
         AdapterRecyclerViewDevices adapterRecyclerViewDevices =
-                new AdapterRecyclerViewDevices(dummyData);
+                new AdapterRecyclerViewDevices(dummyData, this);
 
         recyclerView.addItemDecoration(new RecyclerViewItemDecoration(parent));
         recyclerView.setAdapter(adapterRecyclerViewDevices);
