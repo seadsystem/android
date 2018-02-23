@@ -30,6 +30,7 @@ public class BaseActivityWithDrawer extends AppCompatActivity implements Navigat
     public static int REQUEST_CODE = 2;
     public static int ABOUT_PAGE_FAKE_INDEX;
     public String requestDataKey = "nav";
+    public static final int ABOUT_CODE = 99;
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
@@ -93,7 +94,7 @@ public class BaseActivityWithDrawer extends AppCompatActivity implements Navigat
 
                 if (!(this instanceof MainMenuActivity)) {
                     Intent resultData = new Intent();
-                    resultData.putExtra(requestDataKey, 99);
+                    resultData.putExtra(requestDataKey, ABOUT_CODE);
                     setResult(Activity.RESULT_OK, resultData);
                     this.finish();
                     closeDrawer = false;
@@ -120,7 +121,6 @@ public class BaseActivityWithDrawer extends AppCompatActivity implements Navigat
             setResult(Activity.RESULT_OK, resultData);
             Log.d("BaseActivity","nav rooms clicked and finishing!");
             this.finish();
-//                    overridePendingTransition(0,R.anim.fade_out);
             return false;
         } else {
             if (mViewPager != null) {

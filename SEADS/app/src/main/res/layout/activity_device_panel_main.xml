@@ -9,10 +9,13 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
+    <!--contents-->
     <include
         layout="@layout/app_bar_rooms_and_devices"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <!--nav bar-->
     <include
         layout="@layout/nav_drawer" />
 </android.support.v4.widget.DrawerLayout>

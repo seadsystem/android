@@ -87,8 +87,10 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
         super.onResume();
     }
 
-
-
+    /**
+     * upon retreiving data from the server we should update the costs in the past day
+     * @param result the result of the HTTP response
+     */
     @Override
     public void onJSONRetrieved(JSONObject result) {
         try {
@@ -122,19 +124,17 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * When a tab is selected update the navigation view
+     * @param tab Given tab in tablayout
+     */
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         int position = tab.getPosition();
+        // Set the viewpager to the correct position
         mViewPager.setCurrentItem(position);
         // Change selector on the nav drawer
-        if (position == EnumNavBarNames.DEVICES.getIndex()){
-            mNavigationView.setCheckedItem(R.id.nav_device);
-        } else if (position == EnumNavBarNames.ROOMS.getIndex()) {
-            mNavigationView.setCheckedItem(R.id.nav_rooms);
-        } else if (position == EnumNavBarNames.OVERVIEW.getIndex()) {
-            mNavigationView.setCheckedItem(R.id.nav_overview);
-        }
-        Log.d("MainMenu", "Tab clicked!");
+        setNavigationViewToPage(position);
     }
 
     @Override
@@ -148,7 +148,9 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
     }
 
     /**
-     * Listen for any attempt to change the page view
+     * Listen for any attempt to change the page view when another activity finishes
+     * In the event of an event to start the about activity, the about activity will be started
+     * When an activity is cancelled, the NavigationView's selection is reset.
      * @param requestCode request code used by finishing activity
      * @param resultCode whether the activity finished successfully or was cancelled
      * @param data data from finishing activity
@@ -161,16 +163,36 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
                 int resultForPageIndex = data.getIntExtra(requestDataKey,EnumNavBarNames.ROOMS.getIndex());
                 Log.d("MainMenuActivity", "result:" + resultForPageIndex);
                 if (mViewPager != null) {
-                    if (resultForPageIndex == 99) {
+                    if (resultForPageIndex == ABOUT_CODE) {
                         // Launch about
                         Intent intent = new Intent(this, AboutActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivityForResult(intent, REQUEST_CODE);
                     } else {
+                        // Change the page
                         mViewPager.setCurrentItem(resultForPageIndex);
+                        setNavigationViewToPage(resultForPageIndex);
                     }
                 }
+            } else {
+                // Reset navigation view
+                Log.d("MainMenuActivity", "result cancelled");
+                setNavigationViewToPage(mViewPager.getCurrentItem());
             }
+        }
+    }
+
+    private void setNavigationViewToPage(int page) {
+        if (page == EnumNavBarNames.DEVICES.getIndex()){
+            mNavigationView.setCheckedItem(R.id.nav_device);
+        } else if (page == EnumNavBarNames.ROOMS.getIndex()) {
+            mNavigationView.setCheckedItem(R.id.nav_rooms);
+        } else if (page == EnumNavBarNames.OVERVIEW.getIndex()) {
+            mNavigationView.setCheckedItem(R.id.nav_overview);
+        } else if (page == EnumNavBarNames.AWARDS.getIndex()) {
+            mNavigationView.setCheckedItem(R.id.nav_awards);
+        } else if (page == EnumNavBarNames.SETTINGS.getIndex()) {
+            mNavigationView.setCheckedItem(R.id.nav_settings);
         }
     }
 

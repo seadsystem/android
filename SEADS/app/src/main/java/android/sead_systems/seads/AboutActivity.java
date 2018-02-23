@@ -1,5 +1,6 @@
 package android.sead_systems.seads;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -11,8 +12,8 @@ public class AboutActivity extends BaseActivityWithDrawer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-
         setupNavigationDrawer();
+        mNavigationView.setCheckedItem(R.id.nav_about);
         setupToolBar();
     }
 
@@ -28,6 +29,7 @@ public class AboutActivity extends BaseActivityWithDrawer {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                setResult(Activity.RESULT_CANCELED);
                 finish();
                 return true;
             default:

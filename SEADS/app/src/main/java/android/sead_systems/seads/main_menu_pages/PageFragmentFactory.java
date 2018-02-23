@@ -7,6 +7,8 @@ import android.sead_systems.seads.main_menu.EnumNavBarNames;
 import android.sead_systems.seads.main_menu_pages.devices_fragment.AdapterRecyclerViewDevices;
 import android.sead_systems.seads.main_menu_pages.devices_fragment.DeviceViewInfo;
 import android.sead_systems.seads.main_menu_pages.devices_fragment.RecyclerViewItemDecoration;
+import android.sead_systems.seads.main_menu_pages.rooms_fragment.AdapterRecyclerViewRooms;
+import android.sead_systems.seads.main_menu_pages.rooms_fragment.RoomViewInfo;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -60,12 +62,13 @@ public class PageFragmentFactory extends Fragment {
             setupDevicesFragment();
         } else if (mPage == EnumNavBarNames.ROOMS.getIndex()) {
             // Setup rooms fragment
+            setupRoomsFragment();
         }
     }
 
     private void setupDevicesFragment() {
         final Activity parent = getActivity();
-        RecyclerView recyclerView = (RecyclerView) parent.findViewById(R.id.my_recycler_view);
+        RecyclerView recyclerView = (RecyclerView) parent.findViewById(R.id.recycler_view_devices);
         DeviceViewInfo[] dummyData = new DeviceViewInfo[10];
         // TODO populate this with real data. Panel names should come from server
         dummyData[0] = new DeviceViewInfo("Devices in Sample Room", true);
@@ -84,6 +87,22 @@ public class PageFragmentFactory extends Fragment {
 
         recyclerView.addItemDecoration(new RecyclerViewItemDecoration(parent));
         recyclerView.setAdapter(adapterRecyclerViewDevices);
+        recyclerView.setLayoutManager(new LinearLayoutManager(parent));
+    }
+
+    private void setupRoomsFragment() {
+        final Activity parent = getActivity();
+        RecyclerView recyclerView = (RecyclerView) parent.findViewById(R.id.recycler_view_room);
+        RoomViewInfo[] dummyData = new RoomViewInfo[2];
+        // TODO populate this with real data. Panel names should come from server
+        dummyData[0] = new RoomViewInfo("Sample room", 1);
+        dummyData[1] = new RoomViewInfo("Empty room" , 0);
+
+        AdapterRecyclerViewRooms adapterRecyclerViewRooms =
+                new AdapterRecyclerViewRooms(dummyData, this);
+
+        recyclerView.addItemDecoration(new RecyclerViewItemDecoration(parent));
+        recyclerView.setAdapter(adapterRecyclerViewRooms);
         recyclerView.setLayoutManager(new LinearLayoutManager(parent));
     }
 }
