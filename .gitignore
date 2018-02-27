@@ -56,3 +56,4 @@ Thumbs.db
 *.iml
 .idea
 app/app.iml
+*.keystore
