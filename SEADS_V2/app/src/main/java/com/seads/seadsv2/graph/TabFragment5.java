@@ -1,65 +1,72 @@
 package com.seads.seadsv2.graph;
 
 
-import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import com.seads.seadsv2.R;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.support.v4.app.Fragment;
 
 import android.graphics.Color;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.Toast;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.Legend.LegendForm;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.components.YAxis.AxisDependency;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.seads.seadsv2.http.WebInterface;
+import com.seads.seadsv2.http.WebInterfacer;
 
+import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
+
 
 /*
     Dymanic real-time updated chart fragment used in conjunction with DynamicChartActivity and
     DemoBase.
  */
 
-public class TabFragment5 extends Fragment implements View.OnClickListener {
+public class TabFragment5 extends Fragment implements WebInterface {
 
     LineChart mChart;
     private boolean killMe = false;
     private boolean running = false;
+    private final long DAY_INT = 86400000;
+    private Spinner mSpinner;
+    private WebInterfacer webInterfacer;
+    private int indexCount;
+    private TextView textView_Peak;
+    private TextView textView_Average;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_fragment_5, container, false);
         mChart = (LineChart) v.findViewById(R.id.chart1);
+        textView_Average = v.findViewById(R.id.graph_panel_avg);
+        textView_Peak = v.findViewById(R.id.graph_panel_peak);
 
         // enable description text
         mChart.getDescription().setEnabled(false);
+        setUpSpinner(v);
 
         // enable touch gestures
         mChart.setTouchEnabled(true);
@@ -86,43 +93,158 @@ public class TabFragment5 extends Fragment implements View.OnClickListener {
         rightAxis.setEnabled(false);
 
         //set button
-        final Button button = (Button) v.findViewById(R.id.actionFeedMultiple);
-        button.setOnClickListener(this);
-        final Button button2 = (Button) v.findViewById(R.id.stopThread);
-        button2.setOnClickListener(this);
+
+        webInterfacer = new WebInterfacer(this);
+
+        //test.getJSONObject();
+
         return v;
     }
 
+    public void setUpSpinner(View v){
+        mSpinner = (Spinner) v.findViewById(R.id.select_time_spinner);
+        ArrayAdapter<CharSequence> adapter= ArrayAdapter.createFromResource(
+                getContext(),
+                R.array.time_selection,
+                android.R.layout.simple_spinner_item
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                long current_time = System.currentTimeMillis();
+                switch (position){
+                    case 0:
+                        webInterfacer.getJSONObject(
+                                (current_time-current_time%DAY_INT-DAY_INT)/1000,
+                                (current_time-current_time%DAY_INT)/1000,
+                                "energy",
+                                900,
+                                "Panel3",
+                                "P"
+                                );
+                        indexCount = 96;
+
+                        break;
+                    case 1:
+                        Log.d("Selected:", parent.getItemAtPosition(position).toString());
+                        webInterfacer.getJSONObject(
+                                (current_time-current_time%DAY_INT-7*DAY_INT)/1000,
+                                (current_time-current_time%DAY_INT)/1000,
+                                "energy",
+                                900*7,
+                                "Panel3",
+                                "P"
+                        );
+                        indexCount = 96;
+
+                        break;
+                    case 2:
+                        Log.d("Selected:", parent.getItemAtPosition(position).toString());
+                        webInterfacer.getJSONObject(
+                                (current_time-current_time%DAY_INT-31*DAY_INT)/1000,
+                                (current_time-current_time%DAY_INT)/1000,
+                                "energy",
+                                900*31,
+                                "Panel3",
+                                "P"
+                        );
+                        indexCount = 88;
+
+                        break;
+                    case 3:
+                        Log.d("Selected:", parent.getItemAtPosition(position).toString());
+                        webInterfacer.getJSONObject(
+                                (current_time-current_time%DAY_INT-365*DAY_INT)/1000,
+                                (current_time-current_time%DAY_INT)/1000,
+                                "energy",
+                                900*365,
+                                "Panel3",
+                                "P"
+                        );
+                        indexCount = 96;
+
+                        break;
+                    case 4:
+                        Log.d("Selected:", parent.getItemAtPosition(position).toString());
+                        break;
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        mSpinner.setAdapter(adapter);
+
+    }
+
+
     @Override
-    public void onClick(View v){
-        switch(v.getId()){
-            case R.id.actionFeedMultiple:
-                killMe = false;
-                if (running == true){
+    public void onJSONRetrieved(JSONObject result){
+        try{
+            JSONArray data= result.getJSONArray("data");
+            JSONObject index0 = data.getJSONObject(0);
+            Log.d("DashboardActivity","index0 time: "+index0.getString("time"));
+            Log.d("DashboardActivity","index0 energy: "+index0.getString("energy"));
+            Float energy_values[] = new Float[indexCount];
+            LineData lineData = mChart.getData();
+            lineData.removeDataSet(0);
+            ILineDataSet iLineDataSet = lineData.getDataSetByIndex(0);
+            if(iLineDataSet == null){
+                iLineDataSet = createSet();
+                lineData.addDataSet(iLineDataSet);
+            }
+            double average = 0;
+            double peak = 0;
 
-                }
-                else {
-                    running = true;
-                    Context context = this.getContext();
-                    CharSequence text = "Connected to Live";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                    feedMultiple();
-                }
-                break;
+            for(int i = 0; i<energy_values.length; i++) {
+                energy_values[i] = Float.parseFloat(data.getJSONObject(i).getString("energy"));
+                lineData.addEntry(new Entry(i, energy_values[i]), 0);
+                if (energy_values[i] > peak)
+                    peak = energy_values[i];
+                average += energy_values[i];
+            }
+            average = average/indexCount;
+            textView_Peak.setText("Peak:\n"+truncate(""+peak)+"kW");
+            textView_Average.setText("Avg\n"+truncate(""+average)+"kW");
+            lineData.notifyDataChanged();
+            mChart.notifyDataSetChanged();
+            mChart.setVisibleXRangeMaximum(120);
+            mChart.moveViewToX(lineData.getEntryCount());
 
-            case R.id.stopThread:
-                killMe = true;
-                running = false;
-                Context context2 = this.getContext();
-                CharSequence text2 = "Disconnected";
-                int duration2 = Toast.LENGTH_SHORT;
-                Toast toast2 = Toast.makeText(context2, text2, duration2);
-                toast2.show();
-                stopUIThread();
-                break;
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
+    }
+
+    private static String truncate(String value){
+        return new BigDecimal(value)
+                .setScale(2, RoundingMode.DOWN)
+                .stripTrailingZeros()
+                .toString();
+    }
+
+    private Double[] parseData(String data){
+
+        Double values[] = new Double[StringUtils.countMatches(data, "time")];
+        String tmp[] = data.split("\\[");
+        tmp = tmp[1].split("\\]");
+        tmp = tmp[0].split(",");
+        int i = 0;
+        for (String item : tmp){
+            item = item.replaceAll("\\{", "");
+            item = item.replaceAll("\\}", "");
+            item = item.replaceAll("\"", "");
+            double energy = Double.parseDouble(item.split(",")[1].split(":")[1]);
+            values[i++] = energy;
+        }
+        return values;
+
     }
 
     private void addEntry() {
@@ -153,18 +275,23 @@ public class TabFragment5 extends Fragment implements View.OnClickListener {
     }
 
     private LineDataSet createSet() {
-        LineDataSet set = new LineDataSet(null, "Dynamic Data");
+        LineDataSet set = new LineDataSet(null, "Energy Usage");
         set.setAxisDependency(AxisDependency.LEFT);
-        set.setColor(Color.GREEN);
-        set.setCircleColor(Color.BLACK);
+        set.setColor(Color.RED);
+        set.setDrawCircles(false);
+        //set.setCircleColor(Color.BLACK);
         set.setLineWidth(0.5f);
-        set.setCircleRadius(2f);
-        set.setFillAlpha(100);
-        set.setFillColor(ColorTemplate.getHoloBlue());
+        //set.setCircleRadius(2f);
+        //set.setFillAlpha(100);
+        //set.setFillColor(ColorTemplate.getHoloBlue());
         set.setHighLightColor(Color.rgb(0, 0, 0));
-        set.setValueTextColor(Color.BLACK);
-        set.setValueTextSize(1f);
-        set.setDrawValues(true);
+        //set.setValueTextColor(Color.BLACK);
+        //set.setValueTextSize(1f);
+        set.setDrawValues(false);
+        //set.setDrawValues(true);
+        set.setDrawFilled(true);
+        Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.fade_green);
+        set.setFillDrawable(drawable);
         return set;
     }
 

@@ -73,8 +73,8 @@ public class HTTPGetRequestAsyncTask extends AsyncTask<URL, Void, String> {
         }
         try {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setReadTimeout(5000);
-            connection.setConnectTimeout(5000);
+            connection.setReadTimeout(60000);
+            connection.setConnectTimeout(60000);
             connection.connect();
             return connection;
         } catch (IOException e) {
