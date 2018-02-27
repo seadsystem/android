@@ -28,7 +28,6 @@ public class WebInterfacer implements HTTPGetRequestAsyncTask.HTTPResponse {
         this.instantiator = instantiator;
     }
 
-
     /**
      * returns URL
      * @param startTime start time in unix time
