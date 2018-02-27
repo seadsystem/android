@@ -57,3 +57,4 @@ Thumbs.db
 .idea
 app/app.iml
 *.keystore
+*keystore.properties*
