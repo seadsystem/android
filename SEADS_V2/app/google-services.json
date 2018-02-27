@@ -86,11 +86,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "479035987448-f2qbcd6flr5hpdlkbc6grplp56i6pmku.apps.googleusercontent.com",
+          "client_id": "479035987448-fo19gapvi235uopj1h52e0vo8mnau4bp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.seads.seadsv2",
-            "certificate_hash": "95859105c9282a41aa9f6f6dcd07a21445588058"
+            "certificate_hash": "e9ca6db74a7d2be521f28c88f83c59aa01bfac51"
           }
         },
         {
