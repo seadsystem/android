@@ -15,15 +15,18 @@ import android.widget.TextView;
 public class PagerAdapterSEADS extends FragmentPagerAdapter {
     private int PAGE_COUNT;
     private String tabTitles[];// = new String[] { "Devices", "Rooms", "Overview" };
+    private int tabIcons[]; // = new int[] {R.drawable.home, R.drawable.device, etc};
     private Context mContext;
 
     public PagerAdapterSEADS(FragmentManager fm, Context context) {
         super(fm);
         this.PAGE_COUNT = EnumNavBarNames.values().length;
         this.tabTitles = new String[this.PAGE_COUNT];
+        this.tabIcons = new int[this.PAGE_COUNT];
         int index = 0;
         for(EnumNavBarNames x : EnumNavBarNames.values()) {
             this.tabTitles[index] = x.getTitle();
+            this.tabIcons[index] = x.getIconName();
             index++;
         }
         this.mContext = context;
@@ -47,7 +50,8 @@ public class PagerAdapterSEADS extends FragmentPagerAdapter {
         TextView textView = (TextView) view.findViewById(R.id.tab_title);
         textView.setText(tabTitles[position]);
         ImageView img = (ImageView) view.findViewById(R.id.tab_image);
-        img.setImageResource(R.drawable.rounded_button);
+        // set image resource based on position
+        img.setImageResource(tabIcons[position]);
         return view;
     }
 
