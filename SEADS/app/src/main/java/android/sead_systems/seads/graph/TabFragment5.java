@@ -2,9 +2,11 @@ package android.sead_systems.seads.graph;
 
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.sead_systems.seads.R;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,7 +21,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -53,13 +57,16 @@ public class TabFragment5 extends Fragment implements View.OnClickListener {
     LineChart mChart;
     private boolean killMe = false;
     private boolean running = false;
+    private Spinner mSpinner;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_fragment_5, container, false);
         mChart = (LineChart) v.findViewById(R.id.chart1);
 
         // enable description text
-        mChart.getDescription().setEnabled(true);
+        mChart.getDescription().setEnabled(false);
+        setUpSpinner(v);
+        mSpinner.setOnItemSelectedListener(new SpinnerHandler());
 
         // enable touch gestures
         mChart.setTouchEnabled(true);
@@ -73,23 +80,29 @@ public class TabFragment5 extends Fragment implements View.OnClickListener {
         mChart.setPinchZoom(true);
 
         // set an alternative background color
-        mChart.setBackgroundColor(Color.LTGRAY);
+        mChart.setBackgroundColor(Color.WHITE);
 
         LineData data = new LineData();
-        data.setValueTextColor(Color.WHITE);
+        data.setValueTextColor(Color.BLACK);
 
         // add empty data
         mChart.setData(data);
-
         YAxis rightAxis = mChart.getAxisRight();
+        XAxis xAxis = mChart.getXAxis();
+        //xAxis.
         rightAxis.setEnabled(false);
 
         //set button
-        final Button button = (Button) v.findViewById(R.id.actionFeedMultiple);
-        button.setOnClickListener(this);
-        final Button button2 = (Button) v.findViewById(R.id.stopThread);
-        button2.setOnClickListener(this);
+
         return v;
+    }
+
+    public void setUpSpinner(View v){
+        mSpinner = (Spinner) v.findViewById(R.id.select_time_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.time_selection, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinner.setAdapter(adapter);
     }
 
     @Override
@@ -154,16 +167,20 @@ public class TabFragment5 extends Fragment implements View.OnClickListener {
     private LineDataSet createSet() {
         LineDataSet set = new LineDataSet(null, "Dynamic Data");
         set.setAxisDependency(AxisDependency.LEFT);
-        set.setColor(ColorTemplate.getHoloBlue());
-        set.setCircleColor(Color.WHITE);
-        set.setLineWidth(2f);
-        set.setCircleRadius(4f);
-        set.setFillAlpha(65);
+        set.setColor(Color.GREEN);
+        set.setCircleColor(Color.BLACK);
+        set.setLineWidth(0.5f);
+        set.setCircleRadius(2f);
+        set.setFillAlpha(100);
         set.setFillColor(ColorTemplate.getHoloBlue());
-        set.setHighLightColor(Color.rgb(244, 117, 117));
-        set.setValueTextColor(Color.WHITE);
-        set.setValueTextSize(9f);
-        set.setDrawValues(false);
+        set.setHighLightColor(Color.rgb(0, 0, 0));
+        set.setValueTextColor(Color.BLACK);
+        set.setValueTextSize(1f);
+        set.setDrawValues(true);
+        set.setDrawFilled(true);
+        Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.fade_green);
+        set.setFillDrawable(drawable);
+
         return set;
     }
 
