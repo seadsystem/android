@@ -120,7 +120,7 @@ public class TabFragment5 extends Fragment implements WebInterface {
                                 (current_time-current_time%DAY_INT-DAY_INT)/1000,
                                 (current_time-current_time%DAY_INT)/1000,
                                 "energy",
-                                900,
+                                60*15/**/,
                                 "Panel3",
                                 "P"
                                 );
@@ -133,11 +133,11 @@ public class TabFragment5 extends Fragment implements WebInterface {
                                 (current_time-current_time%DAY_INT-7*DAY_INT)/1000,
                                 (current_time-current_time%DAY_INT)/1000,
                                 "energy",
-                                900*7,
+                                60*60*3,
                                 "Panel3",
                                 "P"
                         );
-                        indexCount = 96;
+                        indexCount = 48;
 
                         break;
                     case 2:
@@ -146,11 +146,11 @@ public class TabFragment5 extends Fragment implements WebInterface {
                                 (current_time-current_time%DAY_INT-31*DAY_INT)/1000,
                                 (current_time-current_time%DAY_INT)/1000,
                                 "energy",
-                                900*31,
+                                60*60*3*2*2*2,
                                 "Panel3",
                                 "P"
                         );
-                        indexCount = 88;
+                        indexCount = 28;
 
                         break;
                     case 3:
@@ -159,11 +159,11 @@ public class TabFragment5 extends Fragment implements WebInterface {
                                 (current_time-current_time%DAY_INT-365*DAY_INT)/1000,
                                 (current_time-current_time%DAY_INT)/1000,
                                 "energy",
-                                900*365,
+                                60*60*3*2*2*2*7,
                                 "Panel3",
                                 "P"
                         );
-                        indexCount = 96;
+                        indexCount = 50;
 
                         break;
                     case 4:

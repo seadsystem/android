@@ -1,22 +1,29 @@
-package com.seads.seadsv2.device_panel_page;
+package com.seads.seadsv2.overview_page;
+
+/**
+ * Created by root on 3/2/18.
+ */
+
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.seads.seadsv2.graph.TabFragment4;
 import com.seads.seadsv2.graph.TabFragment5;
+import com.seads.seadsv2.graph.TabFragment6;
 
 /**
  * Created by Home on 2/13/18.
  */
 
-public class Device_pager_adapter extends FragmentPagerAdapter {
+public class Overview_page_adapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 1;
-    private String tabTitles[] = new String[] { "Energy Stats"};
+    private String tabTitles[] = new String[] { "Overview"};
     private Context mContext;
 
-    public Device_pager_adapter(FragmentManager fm, Context context) {
+    public Overview_page_adapter(FragmentManager fm, Context context) {
         super(fm);
         this.mContext = context;
     }
@@ -28,8 +35,8 @@ public class Device_pager_adapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        TabFragment5 tabFragment5 = new TabFragment5();
-        return tabFragment5;
+        TabFragment6 tabFragment6 = new TabFragment6();
+        return tabFragment6;
     }
 
     @Override

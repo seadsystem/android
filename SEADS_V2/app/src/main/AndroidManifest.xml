@@ -20,23 +20,24 @@
         </activity>
         <activity
             android:name=".WelcomeActivity"
-            android:screenOrientation="sensorPortrait"></activity>
+            android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".LoginActivity"
-            android:screenOrientation="sensorPortrait"></activity>
+            android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".SignupActivity"
-            android:screenOrientation="sensorPortrait"></activity>
+            android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".main_menu.MainMenuActivity"
-            android:screenOrientation="sensorPortrait"></activity>
+            android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".device_panel_page.DeviceAndRoomStatsActivity"
             android:label="@string/title_activity_device_panel_main"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".AboutActivity"
-            android:screenOrientation="sensorPortrait"></activity>
+            android:screenOrientation="sensorPortrait" />
+        <activity android:name=".overview_page.Overview_Page"></activity>
     </application>
 
 </manifest>

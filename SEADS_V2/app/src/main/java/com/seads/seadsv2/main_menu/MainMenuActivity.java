@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.seads.seadsv2.AboutActivity;
 import com.seads.seadsv2.BaseActivityWithDrawer;
 import com.seads.seadsv2.R;
+import com.seads.seadsv2.graph.TabFragment6;
 import com.seads.seadsv2.http.WebInterface;
 import com.seads.seadsv2.main_menu_pages.PagerAdapterSEADS;
 
@@ -130,6 +133,8 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
      */
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
+        Fragment mFragment;
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         int position = tab.getPosition();
         // Set the viewpager to the correct position
         mViewPager.setCurrentItem(position);
