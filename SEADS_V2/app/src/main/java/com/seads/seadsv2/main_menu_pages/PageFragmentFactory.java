@@ -8,12 +8,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 
 import com.seads.seadsv2.R;
 import com.seads.seadsv2.main_menu.EnumNavBarNames;
 import com.seads.seadsv2.main_menu_pages.devices_fragment.AdapterRecyclerViewDevices;
 import com.seads.seadsv2.main_menu_pages.devices_fragment.DeviceViewInfo;
 import com.seads.seadsv2.main_menu_pages.devices_fragment.RecyclerViewItemDecoration;
+import com.seads.seadsv2.main_menu_pages.overview_fragment.GridViewAdapter;
 import com.seads.seadsv2.main_menu_pages.rooms_fragment.AdapterRecyclerViewRooms;
 import com.seads.seadsv2.main_menu_pages.rooms_fragment.RoomViewInfo;
 
@@ -64,7 +66,16 @@ public class PageFragmentFactory extends Fragment {
         } else if (mPage == EnumNavBarNames.ROOMS.getIndex()) {
             // Setup rooms fragment
             setupRoomsFragment();
+        } else if (mPage == EnumNavBarNames.AWARDS.getIndex()) {
+            // Setup rooms fragment
+            setupAwardsFragment();
         }
+    }
+
+    private void setupAwardsFragment() {
+        final Activity parent = getActivity();
+        GridView gridview = (GridView) parent.findViewById(R.id.grid_view_about);
+        gridview.setAdapter(new GridViewAdapter(parent));
     }
 
     private void setupDevicesFragment() {
