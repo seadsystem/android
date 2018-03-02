@@ -6,23 +6,23 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_device"
-            android:icon="@drawable/rounded_button"
+            android:icon="@drawable/home"
             android:title="Devices" />
         <item
             android:id="@+id/nav_rooms"
-            android:icon="@drawable/rounded_button"
+            android:icon="@drawable/rooms"
             android:title="Rooms" />
         <item
             android:id="@+id/nav_overview"
-            android:icon="@drawable/rounded_button"
+            android:icon="@drawable/overview"
             android:title="Overview" />
         <item
             android:id="@+id/nav_awards"
-            android:icon="@drawable/rounded_button"
+            android:icon="@drawable/awards"
             android:title="Awards" />
         <item
             android:id="@+id/nav_settings"
-            android:icon="@drawable/rounded_button"
+            android:icon="@drawable/settings"
             android:title="Settings" />
 
 

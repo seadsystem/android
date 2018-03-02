@@ -181,7 +181,15 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
             }
         }
     }
+    @Override
+    public void onBackPressed() {
 
+        if (mViewPager.getCurrentItem() != 0) {
+          mViewPager.setCurrentItem(0,true);
+        }else{
+            finish();
+        }
+    }
     private void setNavigationViewToPage(int page) {
         if (page == EnumNavBarNames.DEVICES.getIndex()){
             mNavigationView.setCheckedItem(R.id.nav_device);
