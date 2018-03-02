@@ -2,6 +2,13 @@ package com.seads.seadsv2.main_menu_pages;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.seads.seadsv2.R;
 import com.seads.seadsv2.main_menu.EnumNavBarNames;
 import com.seads.seadsv2.main_menu_pages.devices_fragment.AdapterRecyclerViewDevices;
@@ -9,12 +16,6 @@ import com.seads.seadsv2.main_menu_pages.devices_fragment.DeviceViewInfo;
 import com.seads.seadsv2.main_menu_pages.devices_fragment.RecyclerViewItemDecoration;
 import com.seads.seadsv2.main_menu_pages.rooms_fragment.AdapterRecyclerViewRooms;
 import com.seads.seadsv2.main_menu_pages.rooms_fragment.RoomViewInfo;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 public class PageFragmentFactory extends Fragment {
     private static final String ARG_PAGE = "ARG_PAGE";
@@ -69,18 +70,13 @@ public class PageFragmentFactory extends Fragment {
     private void setupDevicesFragment() {
         final Activity parent = getActivity();
         RecyclerView recyclerView = (RecyclerView) parent.findViewById(R.id.recycler_view_devices);
-        DeviceViewInfo[] dummyData = new DeviceViewInfo[10];
+        DeviceViewInfo[] dummyData = new DeviceViewInfo[5];
         // TODO populate this with real data. Panel names should come from server
         dummyData[0] = new DeviceViewInfo("Devices in Sample Room", true);
         dummyData[1] = new DeviceViewInfo("Panel 1");
         dummyData[2] = new DeviceViewInfo("Devices with no room assigned", true);
         dummyData[3] = new DeviceViewInfo("Panel 2");
         dummyData[4] = new DeviceViewInfo("Panel 3");
-        dummyData[5] = new DeviceViewInfo("Panel 4");
-        dummyData[6] = new DeviceViewInfo("Panel 5");
-        dummyData[7] = new DeviceViewInfo("Panel 6");
-        dummyData[8] = new DeviceViewInfo("Panel 7");
-        dummyData[9] = new DeviceViewInfo("Panel 8");
 
         AdapterRecyclerViewDevices adapterRecyclerViewDevices =
                 new AdapterRecyclerViewDevices(dummyData, this);
