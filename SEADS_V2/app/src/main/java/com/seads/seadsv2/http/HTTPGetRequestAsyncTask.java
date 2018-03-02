@@ -75,6 +75,7 @@ public class HTTPGetRequestAsyncTask extends AsyncTask<URL, Void, String> {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setReadTimeout(120000);
             connection.setConnectTimeout(120000);
+
             connection.connect();
             return connection;
         } catch (IOException e) {
@@ -100,6 +101,7 @@ public class HTTPGetRequestAsyncTask extends AsyncTask<URL, Void, String> {
             String curLine;
             try {
                 while ((curLine = reader.readLine()) != null) {
+                    Log.d("HTTP", curLine);
                     sb.append(curLine);
                 }
             } finally {

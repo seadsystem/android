@@ -2,9 +2,6 @@ package com.seads.seadsv2.device_panel_page;
 
 import android.content.Intent;
 import android.os.Bundle;
-import com.seads.seadsv2.BaseActivityWithDrawer;
-import com.seads.seadsv2.R;
-import com.seads.seadsv2.main_menu.MainMenuActivity;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -16,6 +13,9 @@ import android.view.MenuItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.seads.seadsv2.BaseActivityWithDrawer;
+import com.seads.seadsv2.R;
+import com.seads.seadsv2.main_menu.MainMenuActivity;
 
 public class DeviceAndRoomStatsActivity extends BaseActivityWithDrawer implements NavigationView.OnNavigationItemSelectedListener{
 

@@ -42,6 +42,9 @@ public class WebInterfacer implements HTTPGetRequestAsyncTask.HTTPResponse {
     private URL getURL(long startTime, long endTime, String listFormat,
                                          int granularity, String device, String type) {
         try {
+            Log.d("WebInterface", "http://db.sead.systems:8080/466419818?start_time="+startTime+"&"
+                    + "end_time="+endTime+"&list_format=" + listFormat +
+                    "&granularity="+granularity+"&device="+device+"&type="+type);
             return new URL("http://db.sead.systems:8080/466419818?start_time="+startTime+"&"
                     + "end_time="+endTime+"&list_format=" + listFormat +
                     "&granularity="+granularity+"&device="+device+"&type="+type);
@@ -75,6 +78,7 @@ public class WebInterfacer implements HTTPGetRequestAsyncTask.HTTPResponse {
      */
     @Override
     public void httpResponseFinished(String result) {
+        Log.d("WebInterfacer", "len:" + result.length());
         Log.d("WebInterfacer", "http result: "+result);
         if (result == null) {
             instantiator.onJSONRetrieved(null);

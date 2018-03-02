@@ -1,18 +1,15 @@
 package com.seads.seadsv2.graph;
 
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import com.seads.seadsv2.R;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-
-import android.graphics.Color;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -26,8 +23,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
-
+import com.seads.seadsv2.R;
 import com.seads.seadsv2.http.WebInterface;
 import com.seads.seadsv2.http.WebInterfacer;
 
@@ -35,10 +31,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
 
 
 /*
@@ -120,11 +114,11 @@ public class TabFragment5 extends Fragment implements WebInterface {
                                 (current_time-current_time%DAY_INT-DAY_INT)/1000,
                                 (current_time-current_time%DAY_INT)/1000,
                                 "energy",
-                                60*15/**/,
+                                60/**/,
                                 "Panel3",
                                 "P"
                                 );
-                        indexCount = 96;
+                        indexCount = 1439;
 
                         break;
                     case 1:
@@ -213,7 +207,7 @@ public class TabFragment5 extends Fragment implements WebInterface {
             textView_Average.setText("Avg\n"+truncate(""+average)+"kW");
             lineData.notifyDataChanged();
             mChart.notifyDataSetChanged();
-            mChart.setVisibleXRangeMaximum(120);
+            mChart.setVisibleXRangeMaximum(2000);
             mChart.moveViewToX(lineData.getEntryCount());
 
         }catch (Exception e){

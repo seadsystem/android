@@ -20,11 +20,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.seads.seadsv2.AboutActivity;
 import com.seads.seadsv2.BaseActivityWithDrawer;
 import com.seads.seadsv2.R;
-import com.seads.seadsv2.graph.TabFragment6;
 import com.seads.seadsv2.http.WebInterface;
+import com.seads.seadsv2.http.WebInterfacer;
 import com.seads.seadsv2.main_menu_pages.PagerAdapterSEADS;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 
@@ -53,8 +52,8 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
-//        WebInterfacer test = new WebInterfacer(this);
-//        test.getJSONObject(1477395900,1477395910,"energy",1,"Panel3", "P");
+        WebInterfacer test = new WebInterfacer(this);
+        test.getJSONObject(1519862400,1519948800,"energy",60,"Panel3", "P");
     }
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -97,9 +96,10 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
     @Override
     public void onJSONRetrieved(JSONObject result) {
         try {
-            JSONArray data = result.getJSONArray("data");
-            JSONObject index0 = data.getJSONObject(0);
-            Log.d("DashboardActivity","index0 time: "+index0.getString("time"));
+            Log.d("DashboardWebtest", result.toString());
+//            JSONArray data = result.getJSONArray("data");
+//            JSONObject index0 = data.getJSONObject(0);
+//            Log.d("DashboardActivity",result.toString());
         } catch (Exception e) {
 
         }
