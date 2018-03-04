@@ -1,6 +1,7 @@
 package android.sead_systems.seads.device_list;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.sead_systems.seads.AddDeviceActivity;
 import android.sead_systems.seads.R;
 import android.sead_systems.seads.dashboard.DashboardActivity;
@@ -9,7 +10,6 @@ import android.sead_systems.seads.rooms.RoomListManager;
 import android.sead_systems.seads.rooms.RoomManagerFactory;
 import android.sead_systems.seads.rooms.RoomObject;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
