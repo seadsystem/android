@@ -13,10 +13,10 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 android {
     signingConfigs {
         configkey0 {
-            keyAlias 'key0'
-            keyPassword 'passwordseads3000'
-            storeFile file('C:/Users/jungk/Desktop/cmps116/SEADS_Android/SEADS_V2/keystorepathnew.jks')
-            storePassword 'passwordseads3000'
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
         }
     }
     compileSdkVersion 26
