@@ -3,6 +3,14 @@ package com.seads.seadsv2.main_menu_pages;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.GridView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -13,22 +21,15 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.seads.seadsv2.R;
-import com.seads.seadsv2.graph.TabFragment6;
 import com.seads.seadsv2.http.WebInterface;
 import com.seads.seadsv2.http.WebInterfacer;
 import com.seads.seadsv2.main_menu.EnumNavBarNames;
 import com.seads.seadsv2.main_menu_pages.devices_fragment.AdapterRecyclerViewDevices;
 import com.seads.seadsv2.main_menu_pages.devices_fragment.DeviceViewInfo;
 import com.seads.seadsv2.main_menu_pages.devices_fragment.RecyclerViewItemDecoration;
+import com.seads.seadsv2.main_menu_pages.overview_fragment.GridViewAdapter;
 import com.seads.seadsv2.main_menu_pages.rooms_fragment.AdapterRecyclerViewRooms;
 import com.seads.seadsv2.main_menu_pages.rooms_fragment.RoomViewInfo;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -87,6 +88,8 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
             setupRoomsFragment();
         } else if(mPage == EnumNavBarNames.OVERVIEW.getIndex()){
             setupOverviewFragment();
+        } else if(mPage == EnumNavBarNames.AWARDS.getIndex()) {
+            setupAwardsFragment();
         }
     }
 
@@ -303,21 +306,22 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
         mChart.invalidate();
     }
 
+    private void setupAwardsFragment() {
+        final Activity parent = getActivity();
+        GridView gridview = (GridView) parent.findViewById(R.id.grid_view_about);
+        gridview.setAdapter(new GridViewAdapter(parent));
+    }
+
     private void setupDevicesFragment() {
         final Activity parent = getActivity();
         RecyclerView recyclerView = (RecyclerView) parent.findViewById(R.id.recycler_view_devices);
-        DeviceViewInfo[] dummyData = new DeviceViewInfo[10];
+        DeviceViewInfo[] dummyData = new DeviceViewInfo[5];
         // TODO populate this with real data. Panel names should come from server
         dummyData[0] = new DeviceViewInfo("Devices in Sample Room", true);
         dummyData[1] = new DeviceViewInfo("Panel 1");
         dummyData[2] = new DeviceViewInfo("Devices with no room assigned", true);
         dummyData[3] = new DeviceViewInfo("Panel 2");
         dummyData[4] = new DeviceViewInfo("Panel 3");
-        dummyData[5] = new DeviceViewInfo("Panel 4");
-        dummyData[6] = new DeviceViewInfo("Panel 5");
-        dummyData[7] = new DeviceViewInfo("Panel 6");
-        dummyData[8] = new DeviceViewInfo("Panel 7");
-        dummyData[9] = new DeviceViewInfo("Panel 8");
 
         AdapterRecyclerViewDevices adapterRecyclerViewDevices =
                 new AdapterRecyclerViewDevices(dummyData, this);

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -43,31 +42,31 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        mNameField = (EditText) findViewById(R.id.input_name);
-        mEmailField = (EditText) findViewById(R.id.input_email);
-        mPasswordField = (EditText) findViewById(R.id.input_password);
+//        mNameField = (EditText) findViewById(R.id.input_name);
+//        mEmailField = (EditText) findViewById(R.id.input_email);
+//        mPasswordField = (EditText) findViewById(R.id.input_password);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
-        mLoginButton = (TextView) findViewById(R.id.button_login);
-        mSignupButton = (Button) findViewById(R.id.button_signup);
+//        mLoginButton = (TextView) findViewById(R.id.button_login);
+//        mSignupButton = (Button) findViewById(R.id.button_signup);
+//
+//        mLoginButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                startActivity(intent);
+//            }
+//        });
 
-        mLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
-            }
-        });
-
-        mSignupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signup();
-            }
-        });
+//        mSignupButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                signup();
+//            }
+//        });
 
     }
 

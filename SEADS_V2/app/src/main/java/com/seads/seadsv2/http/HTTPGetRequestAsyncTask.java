@@ -55,7 +55,7 @@ public class HTTPGetRequestAsyncTask extends AsyncTask<URL, Void, String> {
             // Read from the connection
             result = readConnection(connection);
         } catch(Exception e){
-            Log.d("HTTP", "Exception:" + e.toString());
+            Log.d("HTTP", "Excbreption:" + e.toString());
 
             result = null;
         }

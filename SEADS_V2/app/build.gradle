@@ -13,10 +13,10 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 android {
     signingConfigs {
         configkey0 {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
+            keyAlias 'key0'
+            keyPassword 'passwordseads3000'
+            storeFile file('C:/Users/jungk/Desktop/cmps116/SEADS_Android/SEADS_V2/keystorepathnew.jks')
+            storePassword 'passwordseads3000'
         }
     }
     compileSdkVersion 26
@@ -32,6 +32,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.configkey0
         }
         debug {
             signingConfig signingConfigs.configkey0

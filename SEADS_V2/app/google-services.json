@@ -8,77 +8,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:479035987448:android:c31aa213ed2e0f32",
-        "android_client_info": {
-          "package_name": "android.sead_systems.seads"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "479035987448-i7m6be9m6cr5qcnktt9j3hvqf3deivdk.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "479035987448-61nghc016q94c93nm1hn5e4kpqgfuedo.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "android.sead_systems.seads",
-            "certificate_hash": "8b475dac75b2eb9ae472d93ea7615c70d664f4e6"
-          }
-        },
-        {
-          "client_id": "479035987448-njgcggl0ot49qucegmqovf4bds7ql45t.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "479035987448-lu76rr3vm043ki5upvjifsuir1k9kjcf.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "479035987448-ncgoc22ff7t2dqs9ej0tk0q3bfgs753o.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "479035987448-iuboaq8r1bmhl7nhset1b1obfgfh52f4.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "479035987448-o7k79vd2rpdc4g7qhk4njjpl0ek1vhv4.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDKU8klg0BrlFSLbtiNEj08ApRGwxpe3YU"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "479035987448-tl4hfd0ksje1alk5ai0kudql9unci1go.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.SEAD-Systems.SEAD-Systems-iOS-Application.SEAD-Systems-iOS-Application"
-              }
-            },
-            {
-              "client_id": "479035987448-i7m6be9m6cr5qcnktt9j3hvqf3deivdk.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:479035987448:android:57d5d6698dc62cbc",
         "android_client_info": {
           "package_name": "com.seads.seadsv2"
@@ -86,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "479035987448-fo19gapvi235uopj1h52e0vo8mnau4bp.apps.googleusercontent.com",
+          "client_id": "479035987448-hidjus3hsll5sga6t5fgco8frogf3rqs.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.seads.seadsv2",
-            "certificate_hash": "e9ca6db74a7d2be521f28c88f83c59aa01bfac51"
+            "certificate_hash": "ced64b4339a7bc0b066e1530e40a948f268a65d0"
           }
         },
         {
@@ -131,15 +60,15 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
+              "client_id": "479035987448-i7m6be9m6cr5qcnktt9j3hvqf3deivdk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
               "client_id": "479035987448-tl4hfd0ksje1alk5ai0kudql9unci1go.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.SEAD-Systems.SEAD-Systems-iOS-Application.SEAD-Systems-iOS-Application"
               }
-            },
-            {
-              "client_id": "479035987448-i7m6be9m6cr5qcnktt9j3hvqf3deivdk.apps.googleusercontent.com",
-              "client_type": 3
             }
           ]
         },

@@ -61,4 +61,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_device_panel_main">SEADS > Devices</string>
 
+
+    <!--about information-->
+    <string name="title_about"><H1>About SEADS</H1></string>
+    <string name="body_about">More details to come!</string>
+
+
 </resources>

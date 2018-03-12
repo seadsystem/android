@@ -1,6 +1,5 @@
 package com.seads.seadsv2.device_panel_page;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -15,7 +14,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.seads.seadsv2.BaseActivityWithDrawer;
 import com.seads.seadsv2.R;
-import com.seads.seadsv2.main_menu.MainMenuActivity;
 
 public class DeviceAndRoomStatsActivity extends BaseActivityWithDrawer implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -70,7 +68,8 @@ public class DeviceAndRoomStatsActivity extends BaseActivityWithDrawer implement
     @Override
     public void onBackPressed(){
         Log.d("DEVICE_STATS:", "Back pressed");
-        Intent intent = new Intent(this, MainMenuActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(intent);
+//        Intent intent = new Intent(this, MainMenuActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//        startActivity(intent);
+        finish();
     }
 }
