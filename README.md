@@ -6,10 +6,9 @@ CMPS115 Fall 2016
 |--------|---------|
 | master | [![Build Status](http://24.4.229.205:8080/buildStatus/icon?job=SEADS)](http://24.4.229.205:8080/job/SEADS/) | 
 
-[Documentation](http://24.4.229.205:8080/job/cmps115/ws/FastAndCustomizableSms/build/docs/com/beckoningtech/fastandcustomizablesms/package-summary.html)
+[Documentation](http://24.4.229.205:8080/job/SEADS/ws/SEADS_V2/build/docs/overview-tree.html)
 
-[APK](http://24.4.229.205:8080/job/cmps115/ws/FastAndCustomizableSms/app/build/outputs/apk/debug/app-debug.apk)
-
+[APK](http://24.4.229.205:8080/job/SEADS/ws/SEADS_V2/app/build/outputs/apk/release/app-release.apk)
 
 ## Github how-to
 ### Setup
