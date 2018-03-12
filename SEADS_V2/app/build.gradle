@@ -38,6 +38,9 @@ android {
             signingConfig signingConfigs.configkey0
         }
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {

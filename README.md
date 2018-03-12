@@ -1,6 +1,16 @@
 ## SEADS Android App
 CMPS115 Fall 2016
 
+## Build Status
+| Branch | Jenkins Builder | 
+|--------|---------|
+| master | [![Build Status](http://24.4.229.205:8080/buildStatus/icon?job=SEADS)](http://24.4.229.205:8080/job/SEADS/) | 
+
+[Documentation](http://24.4.229.205:8080/job/cmps115/ws/FastAndCustomizableSms/build/docs/com/beckoningtech/fastandcustomizablesms/package-summary.html)
+
+[APK](http://24.4.229.205:8080/job/cmps115/ws/FastAndCustomizableSms/app/build/outputs/apk/debug/app-debug.apk)
+
+
 ## Github how-to
 ### Setup
 1. Fork the repo from https://github.com/seadsystem/android into your account
