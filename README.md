@@ -8,7 +8,7 @@ CMPS115 Fall 2016
 
 [Documentation](http://24.4.229.205:8080/job/SEADS/ws/SEADS_V2/build/docs/overview-tree.html)
 
-[APK](http://24.4.229.205:8080/job/SEADS/ws/SEADS_V2/app/build/outputs/apk/release/app-release-unsigned.apk)
+[APK](http://24.4.229.205:8080/job/SEADS/ws/SEADS_V2/app/build/outputs/apk/release/app-release.apk)
 
 ## Github how-to
 ### Setup
