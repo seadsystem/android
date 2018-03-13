@@ -6,8 +6,15 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+/**
+ * Activity that displays information about the SEADS project to the user
+ */
 public class AboutActivity extends BaseActivityWithDrawer {
 
+    /**
+     * initialize the view
+     * @param savedInstanceState android's instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,6 +24,9 @@ public class AboutActivity extends BaseActivityWithDrawer {
         setupToolBar();
     }
 
+    /**
+     * sets up tool bars with appropriate buttons (back button)
+     */
     private void setupToolBar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar_about);
         setSupportActionBar(mToolbar);
@@ -25,6 +35,12 @@ public class AboutActivity extends BaseActivityWithDrawer {
         actionBar.setHomeButtonEnabled(true);
     }
 
+    /**
+     * this is over-ridden so we can return to the proper activity when the user is done
+     * checking out the about section
+     * @param item there's only 1 back button item
+     * @return success or not, handled by OS
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -2,8 +2,6 @@ package com.seads.seadsv2;
 
 import android.app.Activity;
 import android.content.Intent;
-import com.seads.seadsv2.main_menu.EnumNavBarNames;
-import com.seads.seadsv2.main_menu.MainMenuActivity;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -14,8 +12,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.seads.seadsv2.main_menu.EnumNavBarNames;
+import com.seads.seadsv2.main_menu.MainMenuActivity;
+
 /**
  * Activities that extend BaseActivityWithDrawer should:
+ *      call setupNavigationDrawer() in onCreate()
  *      use a DrawerLayout that includes the nav_drawer layout with the following line:
  *          <include layout="@layout/nav_drawer" />
  *      instantiate mToolbar, needed for drawer to work
@@ -39,7 +41,9 @@ public class BaseActivityWithDrawer extends AppCompatActivity implements Navigat
 //    }
 
 
-
+    /**
+     * This should be called by any children of this class
+     */
     protected void setupNavigationDrawer() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -57,7 +61,10 @@ public class BaseActivityWithDrawer extends AppCompatActivity implements Navigat
         mNavigationView.setCheckedItem(R.id.nav_device);
     }
 
-
+    /**
+     * If the drawer is open back press should close the drawer.
+     * If not we should resolve it normally
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -68,6 +75,11 @@ public class BaseActivityWithDrawer extends AppCompatActivity implements Navigat
         }
     }
 
+    /**
+     * Handles navigation drawer icon clicks
+     * @param item the navigation drawer item
+     * @return let os handle bool return
+     */
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -114,6 +126,17 @@ public class BaseActivityWithDrawer extends AppCompatActivity implements Navigat
         return true;
     }
 
+    /**
+     * When we aren't on the main menu we have to give the app functionality to go to the correct
+     * tab of the main menu.
+     * This is done by finishing the current activity with a result indicating which page we're
+     * trying to go to.
+     *
+     * nav drawer shouldn't play close animation if we're closing the current activity hence
+     * the return
+     * @param pageIndex desired page to switch to
+     * @return whether or not the navigation drawer needs to be closed
+     */
     private boolean handleDrawerOnPressWithPage(int pageIndex) {
         if (!(this instanceof MainMenuActivity)) {
             Intent resultData = new Intent();
