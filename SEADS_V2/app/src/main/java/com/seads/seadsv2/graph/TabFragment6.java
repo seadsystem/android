@@ -76,7 +76,7 @@ public class TabFragment6 extends Fragment implements WebInterface {
         mChart.getDescription().setEnabled(false);
         mChart.setUsePercentValues(true);
         mChart.setDrawHoleEnabled(true);
-        mChart.setTouchEnabled(true);
+        mChart.setTouchEnabled(false);
         mChart.setBackgroundColor(Color.WHITE);
         mChart.setUsePercentValues(true);
         mChart.getDescription().setEnabled(false);
@@ -90,7 +90,7 @@ public class TabFragment6 extends Fragment implements WebInterface {
         mChart.setTransparentCircleRadius(61f);
         mChart.setDrawCenterText(true);
         mChart.setRotationAngle(0);
-        mChart.setRotationEnabled(true);
+        mChart.setRotationEnabled(false);
         mChart.setHighlightPerTapEnabled(true);
         Legend l = mChart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
@@ -127,7 +127,7 @@ public class TabFragment6 extends Fragment implements WebInterface {
                 (current_time-current_time%DAY_INT)/1000,
                 "energy",
                 60*60*12,
-                "Panel2",
+                "asdf",
                 "P"
         );
         webInterfacer.getJSONObject(
@@ -144,11 +144,11 @@ public class TabFragment6 extends Fragment implements WebInterface {
         if(counter<3){
             return;
         }
-        Log.d("Sucessfully got shit", "yay");
+        Log.d("Sucessfully got data", "yay");
         ArrayList<PieEntry> entries = new ArrayList<>();
 
         for(int i = 0; i<power_data.length; i++){
-            entries.add(new PieEntry(power_data[i], "Panel "+ i));
+            entries.add(new PieEntry(power_data[i], "Room "+ i));
         }
         PieDataSet dataSet = new PieDataSet(entries, "Power Data");
         dataSet.setDrawIcons(false);

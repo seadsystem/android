@@ -21,7 +21,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                TabFragment5 tab5 = new TabFragment5();
+                RoomVisualizationFragment tab5 = new RoomVisualizationFragment();
                 return tab5;
             case 1:
                 TabFragment2 tab2 = new TabFragment2();

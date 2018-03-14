@@ -15,12 +15,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 public class AdapterRecyclerViewDevices extends RecyclerView.Adapter<AdapterRecyclerViewDevices.ViewHolder> {
 
     private final int DEVICE_HEADER = 1;
     private final int DEVICE_ITEM = 0;
     private DeviceViewInfo[] mDataset;
     private Fragment mFragment;
+    private HashMap<String, String> room_map;
     /**
      * Provide a reference to the views for each data item
      * Complex data items may need more than one view per item, and
@@ -37,10 +40,11 @@ public class AdapterRecyclerViewDevices extends RecyclerView.Adapter<AdapterRecy
         }
         @Override
         public void onClick(View v) {
-            Log.d("Page", "onClick " + getLayoutPosition());
+            Log.d("Devices", "onClick " + getLayoutPosition());
             Intent intent = new Intent(mContext, DeviceAndRoomStatsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            intent.putExtra("device", getLayoutPosition());
-            Log.d("Adapter",mFragment.getActivity().getLocalClassName());
+            intent.putExtra("Device", room_map.get(""+getLayoutPosition()));
+            Log.d("Devices", room_map.toString());
+            Log.d("Devices",mFragment.getActivity().getLocalClassName());
             mFragment.getActivity().startActivityForResult(intent, BaseActivityWithDrawer.REQUEST_CODE);
         }
 
@@ -64,6 +68,11 @@ public class AdapterRecyclerViewDevices extends RecyclerView.Adapter<AdapterRecy
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
+        this.room_map = new HashMap<>();
+        this.room_map.put(""+1, "Panel1");
+        this.room_map.put(""+3, "Panel2");
+        this.room_map.put(""+4, "Panel3");
+
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         LinearLayout linearLayout;
         switch(viewType) {
@@ -106,7 +115,7 @@ public class AdapterRecyclerViewDevices extends RecyclerView.Adapter<AdapterRecy
     public void onBindViewHolder(ViewHolder holder, int position) {
         if(!mDataset[position].isHeader()) {
             // On some viewholders we need a variable to indicate whether it's a ui element or a device
-            ((ImageView) holder.mView.findViewById(R.id.devices_item_image)).setImageResource(R.drawable.rounded_button);
+            ((ImageView) holder.mView.findViewById(R.id.devices_item_image)).setImageResource(R.drawable.rooms);
 
             ((TextView) holder.mView.findViewById(R.id.text_view_device_name)).setText(
                     mDataset[position].getDeviceName());

@@ -10,8 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.seads.seadsv2.graph.TabFragment4;
-import com.seads.seadsv2.graph.TabFragment5;
 import com.seads.seadsv2.graph.TabFragment6;
 
 /**

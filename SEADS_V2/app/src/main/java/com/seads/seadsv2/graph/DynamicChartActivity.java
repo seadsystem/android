@@ -19,7 +19,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 /*
-    This is the activity that supports the Real Time Chart Fragment (TabFragment5) to add
+    This is the activity that supports the Real Time Chart Fragment (RoomVisualizationFragment) to add
     entries to graph in real-time with a separate thread. Currently we are not connected to API
     so data is generated randomly.
  */

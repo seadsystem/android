@@ -150,7 +150,7 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
         mChart.setTransparentCircleRadius(61f);
         mChart.setDrawCenterText(true);
         mChart.setRotationAngle(0);
-        mChart.setRotationEnabled(true);
+        mChart.setRotationEnabled(false);
         mChart.setHighlightPerTapEnabled(true);
         Legend l = mChart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
@@ -209,7 +209,7 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
         ArrayList<PieEntry> entries = new ArrayList<>();
 
         for(int i = 0; i<power_data.length; i++){
-            entries.add(new PieEntry(power_data[i], "Panel "+ (i+1) ));
+            entries.add(new PieEntry(power_data[i], "Room "+ (i+1) ));
         }
         PieDataSet dataSet = new PieDataSet(entries, "% Power Usage");
         dataSet.setDrawIcons(false);
@@ -244,7 +244,7 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
         mChart.setData(data);
         mChart.highlightValues(null);
         mChart.invalidate();
-
+        mChart.animateXY(500, 500);
         mChart.notifyDataSetChanged();
     }
 

@@ -23,6 +23,7 @@ public class DeviceAndRoomStatsActivity extends BaseActivityWithDrawer implement
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private TabLayout mTabLayout;
+    private String room;
 
     /**
      * Setup the views and nav drawer
@@ -32,6 +33,7 @@ public class DeviceAndRoomStatsActivity extends BaseActivityWithDrawer implement
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_panel_main);
+        room = getIntent().getExtras().getString("Device");
 
         setupViewPager();
         setupNavigationDrawer();
@@ -49,7 +51,7 @@ public class DeviceAndRoomStatsActivity extends BaseActivityWithDrawer implement
     private void setupViewPager() {
         mViewPager = (ViewPager) findViewById(R.id.pager_rooms_and_devices);
         Device_pager_adapter device_pager_adapter = new Device_pager_adapter(getSupportFragmentManager(),
-                DeviceAndRoomStatsActivity.this);
+                DeviceAndRoomStatsActivity.this, this.room);
         mViewPager.setAdapter(device_pager_adapter);
 
         mTabLayout = (TabLayout) findViewById(R.id.tabs_rooms_and_devices);
