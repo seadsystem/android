@@ -78,8 +78,6 @@ public class WebInterfacer implements HTTPGetRequestAsyncTask.HTTPResponse {
      */
     @Override
     public void httpResponseFinished(String result) {
-        Log.d("WebInterfacer", "len:" + result.length());
-        Log.d("WebInterfacer", "http result: "+result);
         if (result == null) {
             instantiator.onJSONRetrieved(null);
         }
@@ -89,6 +87,9 @@ public class WebInterfacer implements HTTPGetRequestAsyncTask.HTTPResponse {
         } catch(JSONException e) {
             // Print json error message
             instantiator.onJSONRetrieved(null);
+        } catch (Exception e) {
+            //TODO check for no internet
+            Log.d("WebInterfacer", "No internet likely");
         }
     }
 }

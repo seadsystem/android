@@ -16,6 +16,7 @@ import com.seads.seadsv2.main_menu.EnumNavBarNames;
 import com.seads.seadsv2.main_menu.MainMenuActivity;
 
 /**
+ * If an activity in this app needs a navigation drawer use this as a super class.
  * Activities that extend BaseActivityWithDrawer should:
  *      call setupNavigationDrawer() in onCreate()
  *      use a DrawerLayout that includes the nav_drawer layout with the following line:
