@@ -63,15 +63,20 @@ public class BaseActivityWithDrawer extends AppCompatActivity implements Navigat
 
     /**
      * If the drawer is open back press should close the drawer.
-     * If not we should resolve it normally
+     * If the current mviewpage isn't on home return to home
+     * if neither of the above is true we minimize the app
      */
     @Override
     public void onBackPressed() {
+        Log.d("baseMenuActivity","testing status of the thin222g");
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+        }
+        else if (mViewPager.getCurrentItem() != 0) {
+            mViewPager.setCurrentItem(0,true);
+        }else{
+            finish();
         }
     }
 

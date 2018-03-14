@@ -8,6 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -225,19 +226,7 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
         }
     }
 
-    /**
-     * Move back to the default screen if we're not on it
-     * Close the app if we're on the main page
-     */
-    @Override
-    public void onBackPressed() {
 
-        if (mViewPager.getCurrentItem() != 0) {
-          mViewPager.setCurrentItem(0,true);
-        }else{
-            finish();
-        }
-    }
 
     /**
      * Handle changing pages
