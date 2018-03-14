@@ -48,16 +48,12 @@ import java.util.HashMap;
 public class RoomVisualizationFragment extends Fragment implements WebInterface {
 
     LineChart mChart;
-    private boolean killMe = false;
-    private boolean running = false;
     private final long DAY_INT = 86400000;
     private Spinner mSpinner;
     private WebInterfacer webInterfacer;
     private int indexCount;
-    private TextView textView_Peak;
-    private TextView textView_Average;
-    private String panel = "Panel3";
-    private HashMap<Integer, String> data_point_date_map;
+    private String panel;
+    public HashMap<Integer, String> data_point_date_map;
 
     /**
      * Populate the layout with the chart and instantiate data aggregation
@@ -69,8 +65,6 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_fragment_5, container, false);
         mChart = (LineChart) v.findViewById(R.id.chart1);
-        textView_Average = v.findViewById(R.id.graph_panel_avg);
-        textView_Peak = v.findViewById(R.id.graph_panel_peak);
         panel = getArguments().getString("device");
         data_point_date_map = new HashMap<>();
 
@@ -119,7 +113,7 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
      * @param nPoints How many points there are in this dataset
      * @param type Hour, Day, Date of month
      */
-    private void fillXAxis(long start_time, long end_time, int granularity, int nPoints, int type){
+    public void fillXAxis(long start_time, long end_time, int granularity, int nPoints, int type){
         Log.d("Viz/Time", new Date(start_time).toString());
         Log.d("Viz/Time", new Date(start_time).toString().split(" ")[3]);
         data_point_date_map.clear();
@@ -340,7 +334,7 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
      * Creates the dataset for filling the chart
      * @return LineDataSet for use in the chart
      */
-    private LineDataSet createSet() {
+    public LineDataSet createSet() {
         LineDataSet set = new LineDataSet(null, "Energy Usage");
         set.setAxisDependency(AxisDependency.LEFT);
         set.setColor(Color.RED);
@@ -353,6 +347,5 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
         set.setFillDrawable(drawable);
         return set;
     }
-
 
 }

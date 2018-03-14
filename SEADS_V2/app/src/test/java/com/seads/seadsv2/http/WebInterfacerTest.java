@@ -16,6 +16,6 @@ public class WebInterfacerTest implements WebInterface {
 
     @Override
     public void onJSONRetrieved(JSONObject result) {
-        System.out.printf("TESTING!");
+        System.out.printf("Test success");
     }
 }
