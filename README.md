@@ -6,6 +6,8 @@ CMPS115 Fall 2016
 |--------|---------|
 | master | [![Build Status](http://24.4.229.205:8080/buildStatus/icon?job=SEADS)](http://24.4.229.205:8080/job/SEADS/) | 
 
+[Unit Tests](http://24.4.229.205:8080/job/SEADS/ws/SEADS_V2/app/build/reports/tests/testReleaseUnitTest/index.html)
+
 [Documentation](http://24.4.229.205:8080/job/SEADS/ws/SEADS_V2/build/docs/overview-tree.html)
 
 [APK](http://24.4.229.205:8080/job/SEADS/ws/SEADS_V2/app/build/outputs/apk/release/app-release.apk)
