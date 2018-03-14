@@ -225,19 +225,7 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
         }
     }
 
-    /**
-     * Move back to the default screen if we're not on it
-     * Close the app if we're on the main page
-     */
-    @Override
-    public void onBackPressed() {
 
-        if (mViewPager.getCurrentItem() != 0) {
-          mViewPager.setCurrentItem(0,true);
-        }else{
-            finish();
-        }
-    }
 
     /**
      * Handle changing pages
