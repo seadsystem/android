@@ -49,7 +49,7 @@ import java.util.ArrayList;
     Dymanic real-time updated chart fragment used in conjunction with DynamicChartActivity and
     DemoBase.
  */
-
+@Deprecated
 public class TabFragment6 extends Fragment implements WebInterface {
 
     PieChart mChart;

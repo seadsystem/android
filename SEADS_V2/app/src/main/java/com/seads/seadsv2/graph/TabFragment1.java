@@ -20,6 +20,7 @@ import java.util.ArrayList;
 /*
     Webview Daily Summary Fragment
  */
+@Deprecated
 public class TabFragment1 extends Fragment {
 
     PieChart pieChart;

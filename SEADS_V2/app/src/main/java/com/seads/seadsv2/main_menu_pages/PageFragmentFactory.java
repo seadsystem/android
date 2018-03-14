@@ -36,13 +36,22 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * Factory class for handling fragments
+ */
 public class PageFragmentFactory extends Fragment implements WebInterface{
     private static final String ARG_PAGE = "ARG_PAGE";
     private int mPage;
     private int counter = 0;
     Float power_data [];
-    private PieChart mChart;
+    private PieChart mChart; // This is the holder for the overview activity's piechart, since it requires an activity
 
+    /**
+     * Method PageFramnentFactory
+     * This method parses the arguments from the main class and initializes the factory
+     * @param pageFragmentConfig Configuration settings for fragments
+     * @return Fragment of specified tab
+     */
     public static PageFragmentFactory newInstance(PageFragmentConfig pageFragmentConfig) {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, pageFragmentConfig.getPage());
@@ -51,12 +60,23 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
         return fragment;
     }
 
+    /**
+     * Override method for creating fragment with tab argument specifier
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPage = getArguments().getInt(ARG_PAGE);
     }
 
+    /**
+     * Override method for making the views associated with the fragments
+     * @param inflater Which layout we want to populate
+     * @param container The container for the fragment (subset of activity)
+     * @param savedInstanceState Activity state with optional arguments
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -78,6 +98,10 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
         return view;
     }
 
+    /**
+     * Main method for interfacing and instantiating fragments
+     * @param savedInstanceState Passed from parent activity
+     */
     @Override
     public void onActivityCreated (Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -93,6 +117,11 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
         }
     }
 
+    /**
+     * Method for handling the overview graph fragment
+     * Use to populate graph with results from database server response
+     * @param result the result of the HTTP response
+     */
     @Override
     public void onJSONRetrieved(JSONObject result){
         try{
@@ -102,23 +131,6 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
             Log.d("DashboardActivity","index0 energy: "+index0.getString("energy"));
             power_data[counter++] = Float.parseFloat(index0.getString("energy"));
             setChartData();
-            /*
-            PieData lineData = mChart.getData();
-            if (lineData == null){
-                lineData = new PieData();
-            }
-
-            IPieDataSet iLineDataSet = lineData.getDataSetByIndex(0);
-            if(iLineDataSet == null){
-                iLineDataSet = createSet();
-                lineData.addDataSet(iLineDataSet);
-            }
-
-            lineData.addEntry(new Entry(counter++, Float.parseFloat(index0.getString("energy"))), 0);
-
-            lineData.notifyDataChanged();
-            mChart.notifyDataSetChanged();
-            */
 
         }catch (Exception e){
             e.printStackTrace();
@@ -126,6 +138,11 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
 
     }
 
+    /**
+     * Sets up the pie chart for the overview fragment
+     * Use in conjunction with the http request and set data
+     * Careful not to populate with junk data since this will crash the app
+     */
     private void setupOverviewFragment(){
         final Activity parent = getActivity();
         Log.d("SFragment", "Set up overview");
@@ -134,7 +151,6 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
 
         // enable description text
         mChart.getDescription().setEnabled(false);
-        mChart.setUsePercentValues(true);
         mChart.setDrawHoleEnabled(true);
         mChart.setTouchEnabled(true);
         mChart.setBackgroundColor(Color.WHITE);
@@ -171,6 +187,12 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
         //queryChartData();
     }
 
+    /**
+     * Method for making the database request to get chart data
+     * Note that this method only requests the data for the last day
+     * for all 3 panels.
+     * @param webInterfacer Interface for database request handler
+     */
     public void queryChartData(WebInterfacer webInterfacer){
         long current_time = System.currentTimeMillis();
         int DAY_INT = 86400000;
@@ -201,6 +223,13 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
         );
     }
 
+    /**
+     * Method for setting the piechart data in the overview fragment
+     * We only have 3 panels at this time, so all the energy usage of all 3
+     * panels are stored in a float array
+     * No need to average the data or convert it to percent values, the piechart class
+     * handles all of that internally
+     */
     public void setChartData(){
         if(counter<3){
             return;
@@ -248,70 +277,19 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
         mChart.notifyDataSetChanged();
     }
 
-    private void setData(int count, float range, PieChart mChart) {
-
-        float mult = range;
-
-        ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
-
-        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
-        // the chart.
-        for (int i = 0; i < count ; i++) {
-            entries.add(new PieEntry((float) ((Math.random() * mult) + mult / 5),
-                    "test"));
-        }
-
-        PieDataSet dataSet = new PieDataSet(entries, "Election Results");
-
-        dataSet.setDrawIcons(false);
-
-        dataSet.setSliceSpace(3f);
-        dataSet.setIconsOffset(new MPPointF(0, 40));
-        dataSet.setSelectionShift(5f);
-
-        // add a lot of colors
-
-        ArrayList<Integer> colors = new ArrayList<Integer>();
-
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.JOYFUL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.COLORFUL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.LIBERTY_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);
-
-        colors.add(ColorTemplate.getHoloBlue());
-
-        dataSet.setColors(colors);
-        //dataSet.setSelectionShift(0f);
-
-        PieData data = new PieData(dataSet);
-        data.setValueFormatter(new PercentFormatter());
-        data.setValueTextSize(11f);
-        data.setValueTextColor(Color.WHITE);
-        mChart.setData(data);
-
-        // undo all highlights
-        mChart.highlightValues(null);
-        mChart.notifyDataSetChanged();
-
-        mChart.invalidate();
-    }
-
+    /**
+     * Fragment for making the awards page
+     */
     private void setupAwardsFragment() {
         final Activity parent = getActivity();
         GridView gridview = (GridView) parent.findViewById(R.id.grid_view_about);
         gridview.setAdapter(new GridViewAdapter(parent));
     }
 
+    /**
+     * Internal method for instantiating the device page fragment. This will
+     * need to be changed once we have disaggregration data
+     */
     private void setupDevicesFragment() {
         final Activity parent = getActivity();
         RecyclerView recyclerView = (RecyclerView) parent.findViewById(R.id.recycler_view_devices);
@@ -331,6 +309,10 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
         recyclerView.setLayoutManager(new LinearLayoutManager(parent));
     }
 
+    /**
+     * Rooms fragment instantiatior
+     * This method creates all the rooms for which we have registered with the SEADS system
+     */
     private void setupRoomsFragment() {
         final Activity parent = getActivity();
         RecyclerView recyclerView = (RecyclerView) parent.findViewById(R.id.recycler_view_room);

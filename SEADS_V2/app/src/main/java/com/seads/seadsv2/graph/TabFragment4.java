@@ -22,6 +22,7 @@ import java.util.ArrayList;
 /*
     Compary today's power usage with historical averages via radarchart
  */
+@Deprecated
 public class TabFragment4 extends Fragment {
 
     RadarChart radarChart;

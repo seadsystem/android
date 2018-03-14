@@ -18,6 +18,7 @@ import java.util.ArrayList;
 /*
     Displays historical power usage via a bargraph
  */
+@Deprecated
 public class TabFragment2 extends Fragment {
 
     BarChart barChart;

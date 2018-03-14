@@ -20,6 +20,7 @@ import java.util.ArrayList;
 /*
     Displays a room/device's power usage over time in detail
  */
+@Deprecated
 public class TabFragment3 extends Fragment {
 
     LineChart lineChart;

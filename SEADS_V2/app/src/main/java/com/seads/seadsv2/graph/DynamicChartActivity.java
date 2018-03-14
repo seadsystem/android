@@ -23,7 +23,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
     entries to graph in real-time with a separate thread. Currently we are not connected to API
     so data is generated randomly.
  */
-
+@Deprecated
 public class  DynamicChartActivity extends Activity {
     private LineChart mChart;
     private Thread thread;

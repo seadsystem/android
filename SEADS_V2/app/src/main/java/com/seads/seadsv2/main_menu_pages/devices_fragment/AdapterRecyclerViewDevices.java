@@ -60,9 +60,9 @@ public class AdapterRecyclerViewDevices extends RecyclerView.Adapter<AdapterRecy
     }
 
     /**
-     *
-     * @param parent
-     * @param viewType
+     * Creates the rooms for which the user can select for further viewing
+     * @param parent Parent viewgroup, passed from fragment manager
+     * @param viewType Also passed from fragment manager
      * @return
      */
     @Override
@@ -96,6 +96,11 @@ public class AdapterRecyclerViewDevices extends RecyclerView.Adapter<AdapterRecy
         return viewHolder;
     }
 
+    /**
+     * Method for disassembling the Recycler view item
+     * @param position Which item is selected
+     * @return enum for identifying what type of item it is
+     */
     @Override
     public int getItemViewType(int position) {
         if(mDataset[position].isHeader()) {
