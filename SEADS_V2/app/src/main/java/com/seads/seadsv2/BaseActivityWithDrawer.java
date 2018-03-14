@@ -68,7 +68,7 @@ public class BaseActivityWithDrawer extends AppCompatActivity implements Navigat
      */
     @Override
     public void onBackPressed() {
-        Log.d("baseMenuActivity","testing status of the thin222g");
+        Log.d("baseMenuActivity","Back Pressed");
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
