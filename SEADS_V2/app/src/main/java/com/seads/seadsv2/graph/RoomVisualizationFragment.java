@@ -47,7 +47,7 @@ import java.util.HashMap;
 
 public class RoomVisualizationFragment extends Fragment implements WebInterface {
 
-    LineChart mChart;
+    private LineChart mChart;
     private final long DAY_INT = 86400000;
     private Spinner mSpinner;
     private WebInterfacer webInterfacer;

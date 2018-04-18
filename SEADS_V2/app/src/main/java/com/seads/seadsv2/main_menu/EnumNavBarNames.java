@@ -3,8 +3,8 @@ package com.seads.seadsv2.main_menu;
 import com.seads.seadsv2.R;
 
 public enum EnumNavBarNames {
-    DEVICES(0, "Devices", R.layout.fragment_device_main_menu, R.drawable.home),
-    ROOMS(1, "Rooms", R.layout.fragment_room_main_menu, R.drawable.rooms),
+    DEVICES(0, "Rooms", R.layout.fragment_device_main_menu, R.drawable.home),
+    ROOMS(1, "Devices", R.layout.fragment_room_main_menu, R.drawable.rooms),
     OVERVIEW(2, "Overview", R.layout.fragment_overview_main_menu,R.drawable.overview),
     AWARDS(3, "Awards", R.layout.fragment_awards_main_menu,R.drawable.awards),
     SETTINGS(4, "Settings", R.layout.fragment_settings_main_menu,R.drawable.settings);
