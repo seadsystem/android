@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.seads.seadsv2.device_panel_page.DeviceAndRoomStatsActivity">
+    tools:context="com.seads.seadsv3.device_panel_page.DeviceAndRoomStatsActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
