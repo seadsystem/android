@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.seads.seadsv2">
+    package="com.seads.seadsv3"
+    android:versionCode="1"
+    android:versionName="SEADS V1">
 
     <application
         android:allowBackup="true"
@@ -9,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".SplashActivity"
+            android:name="com.seads.seadsv3.SplashActivity"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -19,25 +21,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".WelcomeActivity"
+            android:name="com.seads.seadsv3.WelcomeActivity"
             android:screenOrientation="sensorPortrait" />
         <activity
-            android:name=".LoginActivity"
+            android:name="com.seads.seadsv3.LoginActivity"
             android:screenOrientation="sensorPortrait" />
         <activity
-            android:name=".SignupActivity"
+            android:name="com.seads.seadsv3.SignupActivity"
             android:screenOrientation="sensorPortrait" />
         <activity
-            android:name=".main_menu.MainMenuActivity"
+            android:name="com.seads.seadsv3.main_menu.MainMenuActivity"
             android:screenOrientation="sensorPortrait" />
         <activity
-            android:name=".device_panel_page.DeviceAndRoomStatsActivity"
+            android:name="com.seads.seadsv3.device_panel_page.DeviceAndRoomStatsActivity"
             android:label="@string/title_activity_device_panel_main"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".AboutActivity"
+            android:name="com.seads.seadsv3.AboutActivity"
             android:screenOrientation="sensorPortrait" />
-        <activity android:name=".overview_page.Overview_Page"></activity>
+        <activity android:name="com.seads.seadsv3.overview_page.Overview_Page"></activity>
     </application>
 
 </manifest>
