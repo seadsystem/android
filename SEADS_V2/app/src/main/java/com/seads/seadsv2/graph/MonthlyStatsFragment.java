@@ -11,13 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.seads.seadsv2.R;
@@ -46,7 +50,13 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface {
     private WebInterfacer webInterfacer;
     private int indexCount;
     private String panel;
+    private int recv=0;
+    private ArrayList<BarEntry> barEntryList;
     public HashMap<Integer, String> data_point_date_map;
+    private TextView daily_cost;
+    private TextView yesterday_cost;
+    private TextView last_week_cost;
+    private ProgressBar progressBar;
     /**
      * 1523923200
      * 86400
@@ -66,12 +76,28 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface {
         View v = inflater.inflate(R.layout.monthly_stats_fragment, container, false);
         mBarChart = (BarChart) v.findViewById(R.id.MonthlyStatsChart);
         panel = getArguments().getString("device");
-        data_point_date_map = new HashMap<>();
-
+        mBarChart.setMaxVisibleValueCount(60);
+        mBarChart.setDrawGridBackground(false);
+        barEntryList = new ArrayList<>();
+        mBarChart.setDrawBarShadow(false);
         webInterfacer = new WebInterfacer(this);
-        setUpQuery();
+        progressBar = (ProgressBar) v.findViewById(R.id.weekly_progress);
+
+
 
         //test.getJSONObject();
+        //mBarChart.setOnChartValueSelectedListener(this);
+        mBarChart.setDrawBarShadow(true);
+        mBarChart.getDescription().setEnabled(false);
+
+        XAxis xAxis = mBarChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+        xAxis.setGranularity(1);
+        mBarChart.invalidate();
+
+        setUpQuery();
+
 
         return v;
     }
@@ -84,37 +110,7 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface {
      * @param nPoints How many points there are in this dataset
      * @param type Hour, Day, Date of month
      */
-    public void fillXAxis(long start_time, long end_time, int granularity, int nPoints, int type){
-        Log.d("Viz/Time", new Date(start_time).toString());
-        Log.d("Viz/Time", new Date(start_time).toString().split(" ")[3]);
-        data_point_date_map.clear();
-        long current_time = start_time;
-        switch (type){
-            case 0:
-                for(int i = 0;i<nPoints; i++){
-                    String hour_min_sec= new Date(current_time).toString().split(" ")[3];
-                    hour_min_sec = hour_min_sec.split(":")[0] + ":" +hour_min_sec.split(":")[1];
-                    this.data_point_date_map.put(i, hour_min_sec);
-                    current_time = current_time+(granularity*1000);
-                }
-                break;
-            case 1:
-                for(int i = 0;i<nPoints; i++){
-                    String hour_min_sec= new Date(current_time).toString().split(" ")[0];
-                    this.data_point_date_map.put(i, hour_min_sec);
-                    current_time = current_time+(granularity*1000);
-                }
-                break;
-            case 2:
-                for(int i = 0;i<nPoints; i++){
-                    String[] hour_min_sec= new Date(current_time).toString().split(" ");
-                    String dates = hour_min_sec[1] + " " +hour_min_sec[2];
-                    this.data_point_date_map.put(i, dates);
-                    current_time = current_time+(granularity*1000);
-                }
-                break;
-        }
-    }
+
 
     /**
      * Sets up drop down menu for selecting the data set to be analyzed
@@ -127,11 +123,12 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface {
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         long current_time = System.currentTimeMillis();
-        long start_time = (current_time-current_time%DAY_INT-1*DAY_INT)/1000;
-        long end_time = (current_time-current_time%DAY_INT)/1000;
+        long start_time = (current_time-current_time%DAY_INT-21*DAY_INT)/1000;
+        long end_time = (current_time-current_time%DAY_INT-14)/1000;
         Log.d("Timing", "start_time="+start_time);
         Log.d("Timing", "end_time="+end_time);
-        Log.d("Timing", "granularity="+end_time);
+        Log.d("Timing", "granularity="+(end_time-start_time)/2);
+
 
         webInterfacer.getJSONObject(
                 start_time,
@@ -141,14 +138,28 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface {
                 panel,
                 "P"
         );
-        indexCount = 1;
-        fillXAxis(
-                (current_time-current_time%DAY_INT-31*DAY_INT)/1000,
-                (current_time-current_time%DAY_INT),
-                60*60*3*2*2*2*31,
-                indexCount,
-                2
+
+        start_time = (current_time-current_time%DAY_INT-14*DAY_INT)/1000;
+        end_time = (current_time-current_time%DAY_INT-7*DAY_INT)/1000;
+        webInterfacer.getJSONObject(
+                start_time,
+                end_time,
+                "energy",
+                (int)(end_time-start_time)/2,
+                panel,
+                "P"
         );
+        start_time = (current_time-current_time%DAY_INT-7*DAY_INT)/1000;
+        end_time = (current_time-current_time%DAY_INT)/1000;
+        webInterfacer.getJSONObject(
+                start_time,
+                end_time,
+                "energy",
+                (int)(end_time-start_time)/2,
+                panel,
+                "P"
+        );
+
     }
 
     /**
@@ -165,49 +176,31 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface {
             Log.d("Got:", ""+index0);
             double total_energy = index0.getDouble("energy");
 
-            BarData barData = new BarData();
-            ArrayList<BarEntry> barEntryList = new ArrayList<>();
-            barData.addEntry(new BarEntry(0, (float) CostCalculator.energyCost(total_energy)), 0);
-            barData.addEntry(new BarEntry(1, (float) total_energy), 0);
+            //mBarChart.get
+
+            //barEntryList.add(new BarEntry(recv++, (float) CostCalculator.energyCost(total_energy)));
+            barEntryList.add(new BarEntry(recv++, (float) total_energy));
+
+
+            IBarDataSet iBarDataSet = new BarDataSet(barEntryList, "Test");
+            iBarDataSet.setDrawIcons(false);
+            ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+            dataSets.add(iBarDataSet);
+            BarData barData = new BarData(dataSets);
+            barData.setValueTextSize(14f);
 
             mBarChart.setData(barData);
-            IBarDataSet iBarDataSet = barData.getDataSetByIndex(0);
-            if(iBarDataSet == null){
-                iBarDataSet = createSet(barEntryList);
-                barData.addDataSet(iBarDataSet);
+            if(recv==3) {
+                BarData tmp = mBarChart.getData();
+                mBarChart.setDrawBarShadow(false);
+                mBarChart.invalidate();
+                progressBar.setVisibility(View.INVISIBLE);
             }
-
             //textView_Peak.setText("Peak:\n"+truncate(""+peak)+"kW");
             //textView_Average.setText("Avg\n"+truncate(""+average)+"kW");
-            mBarChart.notifyDataSetChanged();
-            mBarChart.setVisibleXRangeMaximum(1500);
-            mBarChart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
-                @Override
-                public String getFormattedValue(float value, AxisBase axis) {
-                    return data_point_date_map.get((int)value);
-                }
-            });
-            mBarChart.moveViewToX(barData.getEntryCount());
-
+            Log.d("JSONRET", "done");
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
-
-
-    /**
-     * Creates the dataset for filling the chart
-     * @return LineDataSet for use in the chart
-     */
-    public BarDataSet createSet(ArrayList barValues) {
-        BarDataSet set = new BarDataSet(barValues, "Energy Usage");
-        set.setAxisDependency(YAxis.AxisDependency.LEFT);
-        set.setColor(Color.RED);
-        set.setHighLightColor(Color.rgb(0, 0, 0));
-        set.setDrawValues(false);
-        Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.fade_green);
-        return set;
-    }
-
 }

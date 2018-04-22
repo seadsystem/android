@@ -8,6 +8,10 @@
     <color name="colorSecondaryAccent">#000000</color>
     <color name="light_gray">#E0E0E0</color>
     <color name="primary_text_light_bckgrnd">#87000000</color>
+    <color name="orange">#FF4500</color>
+    <color name="gold">#FFD700</color>
+    <color name="green">#A4C639</color>
+
 
     <!-- Screens background color-->
     <color name="bg_screen1">#f64c73</color>
