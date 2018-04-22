@@ -2,10 +2,12 @@ package com.seads.seadsv3.http;
 
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.util.HashMap;
 
 /**
  * WebInterfacer will handle HTTP requests to the server
@@ -53,6 +55,19 @@ public class WebInterfacer implements HTTPGetRequestAsyncTask.HTTPResponse {
             return null;
         }
     }
+    private URL getURL(long endTime, String listFormat, String device, String type) {
+        try {
+            Log.d("WebInterface", "http://db.sead.systems:8080/466419818?start_time="+endTime+"&"
+                    + "end_time="+endTime+"&list_format=" + listFormat +
+                    "&device="+device+"&type="+type);
+            return new URL("http://db.sead.systems:8080/466419818?start_time="+endTime+"&"
+                    + "end_time="+endTime+"&list_format=" + listFormat +
+                    "&device="+device+"&type="+type);
+        } catch (Exception e) {
+            // Insert appropriate toast here
+            return null;
+        }
+    }
 
 
     /**
@@ -67,6 +82,11 @@ public class WebInterfacer implements HTTPGetRequestAsyncTask.HTTPResponse {
     public void getJSONObject(long startTime, long endTime, String listFormat,
                               int granularity, String device, String type) {
         URL url = getURL(startTime, endTime, listFormat, granularity, device, type);
+        new HTTPGetRequestAsyncTask(this).execute(url);
+    }
+    public void getJSONObject(long endTime, String listFormat,
+                               String device, String type) {
+        URL url = getURL(endTime,listFormat, device, type);
         new HTTPGetRequestAsyncTask(this).execute(url);
     }
 

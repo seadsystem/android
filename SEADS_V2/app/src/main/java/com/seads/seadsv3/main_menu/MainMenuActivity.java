@@ -32,7 +32,7 @@ import org.json.JSONObject;
 
  */
 
-public class MainMenuActivity extends BaseActivityWithDrawer implements WebInterface, NavigationView.OnNavigationItemSelectedListener, TabLayout.OnTabSelectedListener {
+public class MainMenuActivity extends BaseActivityWithDrawer implements NavigationView.OnNavigationItemSelectedListener, TabLayout.OnTabSelectedListener {
 
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
@@ -56,8 +56,6 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
-        WebInterfacer test = new WebInterfacer(this);
-        test.getJSONObject(1519862400,1519948800,"energy",60,"Panel3", "P");
     }
 
     /**
@@ -108,22 +106,6 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
         super.onResume();
     }
 
-    /**
-     * upon retreiving data from the server we should update the costs in the past day
-     * @param result the result of the HTTP response
-     */
-    @Override
-    public void onJSONRetrieved(JSONObject result) {
-        try {
-            Log.d("DashboardWebtest", result.toString());
-//            JSONArray data = result.getJSONArray("data");
-//            JSONObject index0 = data.getJSONObject(0);
-//            Log.d("DashboardActivity",result.toString());
-        } catch (Exception e) {
-
-        }
-
-    }
 
     /**
      * TODO: remove the overflow menu

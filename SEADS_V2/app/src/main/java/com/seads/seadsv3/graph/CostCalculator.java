@@ -26,6 +26,6 @@ public class CostCalculator {
         double total_cost = total_energy*hourlyCost[hour];
         Log.d("Current Hour", hour+"");
         Log.d("Current Cost", total_energy * hourlyCost[hour]+"");
-        return total_cost;
+        return (total_cost*100);
     }
 }

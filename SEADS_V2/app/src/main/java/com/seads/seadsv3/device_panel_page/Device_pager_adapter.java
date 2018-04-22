@@ -1,4 +1,4 @@
-package com.seads.seadsv2.device_panel_page;
+package com.seads.seadsv3.device_panel_page;
 
 import android.content.Context;
 import android.os.Bundle;
