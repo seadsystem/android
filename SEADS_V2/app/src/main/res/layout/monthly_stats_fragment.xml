@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/MonthlyStatsChart"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        >
+    </com.github.mikephil.charting.charts.BarChart>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignRight="@id/LastWeekCost"
+        android:layout_alignEnd="@id/LastWeekCost"
+        android:layout_above="@id/MonthlyStatsChart"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/DailyCost"
+        android:background="@color/orange"
+        />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="84dp"
+        android:layout_above="@id/MonthlyStatsChart"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/LastWeekCost"
+        android:background="@color/gold"
+        />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="84dp"
+        android:layout_above="@id/LastWeekCost"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/YesterdayCost"
+        android:background="@color/green"
+        />
+    <ProgressBar
+        android:id="@+id/weekly_progress"
+        style="?android:attr/progressBarStyle"
+        android:layout_centerInParent="true"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
+</RelativeLayout>
