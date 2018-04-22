@@ -21,7 +21,7 @@ android {
     }
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.seads.seadsv2"
+        applicationId "com.seads.seadsv3"
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 1
