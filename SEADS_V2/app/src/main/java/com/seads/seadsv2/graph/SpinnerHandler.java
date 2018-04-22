@@ -7,7 +7,7 @@ import android.widget.AdapterView;
 /**
  * Created by Home on 2/22/18.
  */
-
+@Deprecated
 public class SpinnerHandler implements AdapterView.OnItemSelectedListener {
     private final String[] selections = {};
 

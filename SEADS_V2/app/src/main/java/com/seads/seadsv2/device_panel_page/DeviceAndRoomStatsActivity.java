@@ -1,6 +1,5 @@
 package com.seads.seadsv2.device_panel_page;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -15,18 +14,26 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.seads.seadsv2.BaseActivityWithDrawer;
 import com.seads.seadsv2.R;
-import com.seads.seadsv2.main_menu.MainMenuActivity;
 
+/**
+ * Handle the Device and room page
+ */
 public class DeviceAndRoomStatsActivity extends BaseActivityWithDrawer implements NavigationView.OnNavigationItemSelectedListener{
 
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private TabLayout mTabLayout;
+    private String room;
 
+    /**
+     * Setup the views and nav drawer
+     * @param savedInstanceState Android instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_panel_main);
+        room = getIntent().getExtras().getString("Device");
 
         setupViewPager();
         setupNavigationDrawer();
@@ -38,16 +45,22 @@ public class DeviceAndRoomStatsActivity extends BaseActivityWithDrawer implement
 
     }
 
+    /**
+     * TODO: Consider removing the view pager
+     */
     private void setupViewPager() {
         mViewPager = (ViewPager) findViewById(R.id.pager_rooms_and_devices);
         Device_pager_adapter device_pager_adapter = new Device_pager_adapter(getSupportFragmentManager(),
-                DeviceAndRoomStatsActivity.this);
+                DeviceAndRoomStatsActivity.this, this.room);
         mViewPager.setAdapter(device_pager_adapter);
 
         mTabLayout = (TabLayout) findViewById(R.id.tabs_rooms_and_devices);
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
+    /**
+     * Setup the toolbar
+     */
     private void setupToolBar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar_rooms_and_devices);
         setSupportActionBar(mToolbar);
@@ -56,6 +69,11 @@ public class DeviceAndRoomStatsActivity extends BaseActivityWithDrawer implement
         actionBar.setHomeButtonEnabled(true);
     }
 
+    /**
+     * Handle actionbar buttons
+     * @param item item pressed
+     * @return let os handle bool
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -67,10 +85,14 @@ public class DeviceAndRoomStatsActivity extends BaseActivityWithDrawer implement
         }
     }
 
+    /**
+     * End the activity on back press
+     */
     @Override
     public void onBackPressed(){
         Log.d("DEVICE_STATS:", "Back pressed");
-        Intent intent = new Intent(this, MainMenuActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(intent);
+//        Intent intent = new Intent(this, MainMenuActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//        startActivity(intent);
+        finish();
     }
 }

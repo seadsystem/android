@@ -40,6 +40,10 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
     private TabLayout mTabLayout;
 
 
+    /**
+     * Setup views and references to firebase
+     * @param savedInstanceState Android instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +59,21 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
         WebInterfacer test = new WebInterfacer(this);
         test.getJSONObject(1519862400,1519948800,"energy",60,"Panel3", "P");
     }
+
+    /**
+     * TODO determine if this is overwritten by mistake as setupNavigationDrawer() is already called
+     * Appears to be okay to leave this in the code...
+     * @param savedInstanceState
+     */
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         setupNavigationDrawer();
     }
 
+    /**
+     * Configure the ViewPager that handles the tabular layout
+     */
     private void setupViewPager() {
         mViewPager = (ViewPager) findViewById(R.id.pager_rooms_and_devices);
         PagerAdapterSEADS pagerAdapterSEADS = new PagerAdapterSEADS(getSupportFragmentManager(),
@@ -76,6 +89,9 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
         mTabLayout.setOnTabSelectedListener(this);
     }
 
+    /**
+     * Setup the action bar at the top of the activity
+     */
     private void setupToolBar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(mToolbar);
@@ -84,6 +100,9 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
         actionBar.setHomeButtonEnabled(true);
     }
 
+    /**
+     * Overwritten for future use(unknown)
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -106,6 +125,11 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
 
     }
 
+    /**
+     * TODO: remove the overflow menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -113,6 +137,12 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
         return true;
     }
 
+
+    /**
+     * TODO: remove the overflow menu
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -142,11 +172,19 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
         setNavigationViewToPage(position);
     }
 
+    /**
+     * Unused, mandatory override if we need onTabSelected
+     * @param tab
+     */
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
 
     }
 
+    /**
+     * Unused, mandatory override if we need onTabSelected
+     * @param tab
+     */
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
 
@@ -186,15 +224,15 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements WebInter
             }
         }
     }
-    @Override
-    public void onBackPressed() {
 
-        if (mViewPager.getCurrentItem() != 0) {
-          mViewPager.setCurrentItem(0,true);
-        }else{
-            finish();
-        }
-    }
+
+
+    /**
+     * Handle changing pages
+     * This function is written without a switch statement as java requires constants to be used
+     * within switch cases.
+     * @param page page to switch to
+     */
     private void setNavigationViewToPage(int page) {
         if (page == EnumNavBarNames.DEVICES.getIndex()){
             mNavigationView.setCheckedItem(R.id.nav_device);

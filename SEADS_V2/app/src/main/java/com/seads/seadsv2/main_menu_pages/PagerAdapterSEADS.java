@@ -18,6 +18,11 @@ public class PagerAdapterSEADS extends FragmentPagerAdapter {
     private int tabIcons[]; // = new int[] {R.drawable.home, R.drawable.device, etc};
     private Context mContext;
 
+    /**
+     * Adapter for fragment manager, pass in the Activity context to instantiate the factory
+     * @param fm
+     * @param context
+     */
     public PagerAdapterSEADS(FragmentManager fm, Context context) {
         super(fm);
         this.PAGE_COUNT = EnumNavBarNames.values().length;

@@ -32,10 +32,17 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.configkey0
         }
         debug {
             signingConfig signingConfigs.configkey0
         }
+    }
+    lintOptions {
+        abortOnError false
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
     }
 }
 

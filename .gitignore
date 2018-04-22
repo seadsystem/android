@@ -58,3 +58,4 @@ Thumbs.db
 app/app.iml
 *.keystore
 *keystore.properties*
+*keystorepathnew.jks*

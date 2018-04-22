@@ -16,12 +16,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.components.YAxis.AxisDependency;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.seads.seadsv2.R;
 import com.seads.seadsv2.http.WebInterface;
@@ -33,30 +36,37 @@ import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Date;
+import java.util.HashMap;
 
 
-/*
-    Dymanic real-time updated chart fragment used in conjunction with DynamicChartActivity and
-    DemoBase.
+/**
+ *   Dymanic real-time updated chart fragment used in conjunction with DynamicChartActivity and
+ *   DemoBase.
  */
 
-public class TabFragment5 extends Fragment implements WebInterface {
+public class RoomVisualizationFragment extends Fragment implements WebInterface {
 
-    LineChart mChart;
-    private boolean killMe = false;
-    private boolean running = false;
+    private LineChart mChart;
     private final long DAY_INT = 86400000;
     private Spinner mSpinner;
     private WebInterfacer webInterfacer;
     private int indexCount;
-    private TextView textView_Peak;
-    private TextView textView_Average;
+    private String panel;
+    public HashMap<Integer, String> data_point_date_map;
 
+    /**
+     * Populate the layout with the chart and instantiate data aggregation
+     * @param inflater Base layout
+     * @param container Which view this belongs to
+     * @param savedInstanceState Arguments passed to fragment
+     * @return Populated view
+     */
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_fragment_5, container, false);
         mChart = (LineChart) v.findViewById(R.id.chart1);
-        textView_Average = v.findViewById(R.id.graph_panel_avg);
-        textView_Peak = v.findViewById(R.id.graph_panel_peak);
+        panel = getArguments().getString("device");
+        data_point_date_map = new HashMap<>();
 
         // enable description text
         mChart.getDescription().setEnabled(false);
@@ -95,6 +105,50 @@ public class TabFragment5 extends Fragment implements WebInterface {
         return v;
     }
 
+    /**
+     * Creates the x axis formatted in a more user-friendly readable manner
+     * @param start_time Time of start in unix milliseconds
+     * @param end_time Time of end in unix milliseconds
+     * @param granularity space between points in seconds
+     * @param nPoints How many points there are in this dataset
+     * @param type Hour, Day, Date of month
+     */
+    public void fillXAxis(long start_time, long end_time, int granularity, int nPoints, int type){
+        Log.d("Viz/Time", new Date(start_time).toString());
+        Log.d("Viz/Time", new Date(start_time).toString().split(" ")[3]);
+        data_point_date_map.clear();
+        long current_time = start_time;
+        switch (type){
+            case 0:
+                for(int i = 0;i<nPoints; i++){
+                    String hour_min_sec= new Date(current_time).toString().split(" ")[3];
+                    hour_min_sec = hour_min_sec.split(":")[0] + ":" +hour_min_sec.split(":")[1];
+                    this.data_point_date_map.put(i, hour_min_sec);
+                    current_time = current_time+(granularity*1000);
+                }
+                break;
+            case 1:
+                for(int i = 0;i<nPoints; i++){
+                    String hour_min_sec= new Date(current_time).toString().split(" ")[0];
+                    this.data_point_date_map.put(i, hour_min_sec);
+                    current_time = current_time+(granularity*1000);
+                }
+                break;
+            case 2:
+                for(int i = 0;i<nPoints; i++){
+                    String[] hour_min_sec= new Date(current_time).toString().split(" ");
+                    String dates = hour_min_sec[1] + " " +hour_min_sec[2];
+                    this.data_point_date_map.put(i, dates);
+                    current_time = current_time+(granularity*1000);
+                }
+                break;
+        }
+    }
+
+    /**
+     * Sets up drop down menu for selecting the data set to be analyzed
+     * @param v View which we want to put the drop down menu in
+     */
     public void setUpSpinner(View v){
         mSpinner = (Spinner) v.findViewById(R.id.select_time_spinner);
         ArrayAdapter<CharSequence> adapter= ArrayAdapter.createFromResource(
@@ -115,10 +169,18 @@ public class TabFragment5 extends Fragment implements WebInterface {
                                 (current_time-current_time%DAY_INT)/1000,
                                 "energy",
                                 60/**/,
-                                "Panel3",
+                                panel,
                                 "P"
                                 );
-                        indexCount = 1439;
+                        indexCount = 24*60;
+
+                        fillXAxis(
+                                (current_time-current_time%DAY_INT-DAY_INT),
+                                (current_time-current_time%DAY_INT),
+                                60,
+                                indexCount,
+                                0
+                        );
 
                         break;
                     case 1:
@@ -128,11 +190,17 @@ public class TabFragment5 extends Fragment implements WebInterface {
                                 (current_time-current_time%DAY_INT)/1000,
                                 "energy",
                                 60*60*3,
-                                "Panel3",
+                                panel,
                                 "P"
                         );
                         indexCount = 48;
-
+                        fillXAxis(
+                                (current_time-current_time%DAY_INT-7*DAY_INT),
+                                (current_time-current_time%DAY_INT),
+                                60*60*3,
+                                indexCount,
+                                1
+                        );
                         break;
                     case 2:
                         Log.d("Selected:", parent.getItemAtPosition(position).toString());
@@ -141,11 +209,17 @@ public class TabFragment5 extends Fragment implements WebInterface {
                                 (current_time-current_time%DAY_INT)/1000,
                                 "energy",
                                 60*60*3*2*2*2,
-                                "Panel3",
+                                panel,
                                 "P"
                         );
                         indexCount = 28;
-
+                        fillXAxis(
+                                (current_time-current_time%DAY_INT-31*DAY_INT)/1000,
+                                (current_time-current_time%DAY_INT),
+                                60*60*3*2*2*2,
+                                indexCount,
+                                2
+                        );
                         break;
                     case 3:
                         Log.d("Selected:", parent.getItemAtPosition(position).toString());
@@ -164,7 +238,6 @@ public class TabFragment5 extends Fragment implements WebInterface {
                         Log.d("Selected:", parent.getItemAtPosition(position).toString());
                         break;
                 }
-
             }
 
             @Override
@@ -177,13 +250,17 @@ public class TabFragment5 extends Fragment implements WebInterface {
     }
 
 
+    /**
+     * What to do when we get a response from the server
+     * In this case we populate the chart with the data we get back,
+     * taking into account the different granularies and formattings
+     * @param result the result of the HTTP response
+     */
     @Override
     public void onJSONRetrieved(JSONObject result){
         try{
             JSONArray data= result.getJSONArray("data");
             JSONObject index0 = data.getJSONObject(0);
-            Log.d("DashboardActivity","index0 time: "+index0.getString("time"));
-            Log.d("DashboardActivity","index0 energy: "+index0.getString("energy"));
             Float energy_values[] = new Float[indexCount];
             LineData lineData = mChart.getData();
             lineData.removeDataSet(0);
@@ -203,11 +280,17 @@ public class TabFragment5 extends Fragment implements WebInterface {
                 average += energy_values[i];
             }
             average = average/indexCount;
-            textView_Peak.setText("Peak:\n"+truncate(""+peak)+"kW");
-            textView_Average.setText("Avg\n"+truncate(""+average)+"kW");
+            //textView_Peak.setText("Peak:\n"+truncate(""+peak)+"kW");
+            //textView_Average.setText("Avg\n"+truncate(""+average)+"kW");
             lineData.notifyDataChanged();
             mChart.notifyDataSetChanged();
-            mChart.setVisibleXRangeMaximum(2000);
+            mChart.setVisibleXRangeMaximum(1500);
+            mChart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+                    return data_point_date_map.get((int)value);
+                }
+            });
             mChart.moveViewToX(lineData.getEntryCount());
 
         }catch (Exception e){
@@ -216,31 +299,10 @@ public class TabFragment5 extends Fragment implements WebInterface {
 
     }
 
-    private static String truncate(String value){
-        return new BigDecimal(value)
-                .setScale(2, RoundingMode.DOWN)
-                .stripTrailingZeros()
-                .toString();
-    }
-
-    private Double[] parseData(String data){
-
-        Double values[] = new Double[StringUtils.countMatches(data, "time")];
-        String tmp[] = data.split("\\[");
-        tmp = tmp[1].split("\\]");
-        tmp = tmp[0].split(",");
-        int i = 0;
-        for (String item : tmp){
-            item = item.replaceAll("\\{", "");
-            item = item.replaceAll("\\}", "");
-            item = item.replaceAll("\"", "");
-            double energy = Double.parseDouble(item.split(",")[1].split(":")[1]);
-            values[i++] = energy;
-        }
-        return values;
-
-    }
-
+    /**
+     * Old method for random data. Do not use, we have real data now
+     */
+    @Deprecated
     private void addEntry() {
         LineData data = mChart.getData();
         if (data != null) {
@@ -268,66 +330,22 @@ public class TabFragment5 extends Fragment implements WebInterface {
         }
     }
 
-    private LineDataSet createSet() {
+    /**
+     * Creates the dataset for filling the chart
+     * @return LineDataSet for use in the chart
+     */
+    public LineDataSet createSet() {
         LineDataSet set = new LineDataSet(null, "Energy Usage");
         set.setAxisDependency(AxisDependency.LEFT);
         set.setColor(Color.RED);
         set.setDrawCircles(false);
-        //set.setCircleColor(Color.BLACK);
         set.setLineWidth(0.5f);
-        //set.setCircleRadius(2f);
-        //set.setFillAlpha(100);
-        //set.setFillColor(ColorTemplate.getHoloBlue());
         set.setHighLightColor(Color.rgb(0, 0, 0));
-        //set.setValueTextColor(Color.BLACK);
-        //set.setValueTextSize(1f);
         set.setDrawValues(false);
-        //set.setDrawValues(true);
         set.setDrawFilled(true);
         Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.fade_green);
         set.setFillDrawable(drawable);
         return set;
-    }
-
-    private Thread thread;
-
-    private void feedMultiple() {
-
-        if (thread != null)
-            thread.interrupt();
-
-        final Runnable runnable = new Runnable() {
-
-            @Override
-            public void run() {
-                addEntry();
-            }
-        };
-
-        thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                //live feed continues will it is not stopped
-                while(!killMe) {
-                    // Don't generate garbage runnables inside the loop.
-                    getActivity().runOnUiThread(runnable);
-                    try {
-                        Thread.sleep(50);
-                    } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
-                return;
-            }
-        });
-
-        thread.start();
-    }
-
-    private void stopUIThread(){
-        //thread.stop(); //do not use. kills UIthread and activity crash.
     }
 
 }
