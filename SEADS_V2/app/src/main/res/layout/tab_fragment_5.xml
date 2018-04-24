@@ -11,19 +11,18 @@
         android:layout_height="400dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/select_time_spinner"
+
         android:layout_alignParentBottom="true"
         >
 
     </com.github.mikephil.charting.charts.LineChart>
 
-    <Spinner
-        android:id="@+id/select_time_spinner"
-        android:layout_width="170dp"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="54dp" />
 
-
+    <ProgressBar
+        android:id="@+id/daily_progress"
+        style="?android:attr/progressBarStyle"
+        android:layout_centerInParent="true"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

@@ -30,7 +30,7 @@ public class Overview_Page extends BaseActivityWithDrawer implements NavigationV
 
         setupViewPager();
         setupNavigationDrawer();
-        setupToolBar();
+
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -48,13 +48,7 @@ public class Overview_Page extends BaseActivityWithDrawer implements NavigationV
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
-    private void setupToolBar() {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar_rooms_and_devices);
-        setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

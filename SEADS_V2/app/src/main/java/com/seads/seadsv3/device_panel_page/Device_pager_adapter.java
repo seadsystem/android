@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.seads.seadsv3.graph.MonthlyStatsFragment;
 import com.seads.seadsv3.graph.RoomVisualizationFragment;
 
 /**
@@ -31,11 +32,11 @@ public class Device_pager_adapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        RoomVisualizationFragment roomVisualizationFragment = new RoomVisualizationFragment();
+        MonthlyStatsFragment monthlyStatsFragment = new MonthlyStatsFragment();
         Bundle bundle = new Bundle();
         bundle.putString("device",this.room);
-        roomVisualizationFragment.setArguments(bundle);
-        return roomVisualizationFragment;
+        monthlyStatsFragment.setArguments(bundle);
+        return monthlyStatsFragment;
     }
 
     @Override

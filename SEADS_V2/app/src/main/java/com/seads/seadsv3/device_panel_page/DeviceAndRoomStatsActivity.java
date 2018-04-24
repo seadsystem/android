@@ -41,6 +41,7 @@ public class DeviceAndRoomStatsActivity extends BaseActivityWithDrawer implement
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
         mAuth = FirebaseAuth.getInstance();
 
     }
@@ -54,8 +55,6 @@ public class DeviceAndRoomStatsActivity extends BaseActivityWithDrawer implement
                 DeviceAndRoomStatsActivity.this, this.room);
         mViewPager.setAdapter(device_pager_adapter);
 
-        mTabLayout = (TabLayout) findViewById(R.id.tabs_rooms_and_devices);
-        mTabLayout.setupWithViewPager(mViewPager);
     }
 
     /**

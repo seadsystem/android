@@ -51,7 +51,7 @@ import java.util.ListIterator;
  * Created by Home on 4/17/18.
  */
 
-public class MonthlyStatsFragment extends Fragment implements WebInterface, OnChartValueSelectedListener {
+public class WeeklyStatsFragment extends Fragment implements WebInterface, OnChartValueSelectedListener {
 
     private BarChart mBarChart;
     private final long DAY_INT = 86400000;
@@ -66,6 +66,7 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface, OnCh
     private TextView yesterday_cost;
     private TextView last_week_cost;
     private ProgressBar progressBar;
+    private int week;
     /**
      * 1523923200
      * 86400
@@ -82,20 +83,24 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface, OnCh
      */
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.monthly_stats_fragment, container, false);
-        mBarChart = (BarChart) v.findViewById(R.id.MonthlyStatsChart);
-        daily_cost = v.findViewById(R.id.DailyCost);
-        last_week_cost = v.findViewById(R.id.LastWeekCost);
-        yesterday_cost = v.findViewById(R.id.YesterdayCost);
-        panel = getArguments().getString("device");
+        View v = inflater.inflate(R.layout.weekly_stats_fragment, container, false);
+        mBarChart =  v.findViewById(R.id.WeeklyStatsChart);
+        daily_cost = v.findViewById(R.id.wDailyCost);
+        last_week_cost = v.findViewById(R.id.wLastWeekCost);
+        yesterday_cost = v.findViewById(R.id.wYesterdayCost);
+        panel = getArguments().getString("Panel");
+        week = (int)Float.parseFloat(getArguments().getString("Week"));
         mBarChart.setMaxVisibleValueCount(60);
         mBarChart.setDrawGridBackground(false);
         barEntryList = new ArrayList<>();
         mBarChart.setDrawBarShadow(false);
         webInterfacer = new WebInterfacer(this);
-        progressBar = (ProgressBar) v.findViewById(R.id.weekly_progress);
-        week_data = new double[4];
+        progressBar =  v.findViewById(R.id.wWeekly_progress);
+        progressBar.setVisibility(View.VISIBLE);
+        week_data = new double[7];
         mBarChart.setOnChartValueSelectedListener(this);
+
+
         //test.getJSONObject();
         //mBarChart.setOnChartValueSelectedListener(this);
         mBarChart.setDrawBarShadow(true);
@@ -105,10 +110,8 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface, OnCh
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1);
-        mBarChart.invalidate();
 
         setUpQuery();
-
 
         return v;
     }
@@ -127,54 +130,19 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface, OnCh
      * Sets up drop down menu for selecting the data set to be analyzed
      */
     public void setUpQuery(){
-        ArrayAdapter<CharSequence> adapter= ArrayAdapter.createFromResource(
-                getContext(),
-                R.array.time_selection,
-                android.R.layout.simple_spinner_item
-        );
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         long current_time = System.currentTimeMillis();
-        long start_time = (current_time-current_time%DAY_INT-28*DAY_INT)/1000;
-        long end_time = (current_time-current_time%DAY_INT-21)/1000;
-        Log.d("Timing", "start_time="+start_time);
-        Log.d("Timing", "end_time="+end_time);
-        Log.d("Timing", "granularity="+(end_time-start_time)/2);
 
+        for(int i = 6; i>=0;i--){
+            long end_time = (current_time-current_time%DAY_INT-(4-week)*i*DAY_INT)/1000;
+            Log.d("Timing", "end_time="+end_time);
+            webInterfacer.getJSONObject(
+                    end_time,
+                    "energy",
+                    panel,
+                    "P"
+            );
+        }
 
-        webInterfacer.getJSONObject(
-                end_time,
-                "energy",
-                panel,
-                "P"
-        );
-        start_time = (current_time-current_time%DAY_INT-21*DAY_INT)/1000;
-        end_time = (current_time-current_time%DAY_INT-14*DAY_INT)/1000;
-        webInterfacer.getJSONObject(
-                end_time,
-                "energy",
-
-                panel,
-                "P"
-        );
-
-        start_time = (current_time-current_time%DAY_INT-14*DAY_INT)/1000;
-        end_time = (current_time-current_time%DAY_INT-7*DAY_INT)/1000;
-        webInterfacer.getJSONObject(
-                end_time,
-                "energy",
-
-                panel,
-                "P"
-        );
-        start_time = (current_time-current_time%DAY_INT-7*DAY_INT)/1000;
-        end_time = (current_time-current_time%DAY_INT)/1000;
-        webInterfacer.getJSONObject(
-                end_time,
-                "energy",
-
-                panel,
-                "P"
-        );
     }
 
     /**
@@ -192,10 +160,10 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface, OnCh
             double total_energy = index0.getDouble("energy");
             week_data[recv++] = total_energy;
 
-            if(recv==4) {
+            if(recv==7) {
                 ArrayList<Float> weekly_values= new ArrayList<>();
-                for (int i = 0; i< 3; i++) {
-                    weekly_values.add((float) (Math.abs(week_data[4 - i - 1] - week_data[4 - i - 2]) / (1000.0 * 60 * 60)));
+                for (int i = 0; i< 6; i++) {
+                    weekly_values.add((float) (Math.abs(week_data[7 - i - 1] - week_data[7 - i - 2]) / (1000.0 * 60 * 60)));
                 }
                 float avg_cost = 0;
                 for(float value : weekly_values){
@@ -241,15 +209,16 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface, OnCh
 
     @Override
     public void onValueSelected(Entry e, Highlight h){
+
         Log.d("Position", ""+e.getX());
         Bundle bundle = new Bundle();
         bundle.putString("Panel", panel);
-        bundle.putString("Week", e.getX()+"");
-        Fragment fragment = new WeeklyStatsFragment();
+        bundle.putString("Day", e.getX()+"");
+        Fragment fragment = new RoomVisualizationFragment();
         fragment.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.monthly_layout, fragment);
+        fragmentTransaction.replace(R.id.weekly_layout, fragment);
         mBarChart.clear();
         fragmentTransaction.commit();
     }

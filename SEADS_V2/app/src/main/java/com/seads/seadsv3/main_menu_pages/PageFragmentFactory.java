@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -44,6 +45,7 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
     private int mPage;
     private int counter = 0;
     Float power_data [];
+    private ProgressBar progressBar;
     private PieChart mChart; // This is the holder for the overview activity's piechart, since it requires an activity
 
     /**
@@ -131,6 +133,7 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
             Log.d("DashboardActivity","index0 energy: "+index0.getString("energy"));
             power_data[counter++] = Float.parseFloat(index0.getString("energy"));
             setChartData();
+            progressBar.setVisibility(View.INVISIBLE);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -147,6 +150,7 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
         final Activity parent = getActivity();
         Log.d("SFragment", "Set up overview");
         mChart = (PieChart) parent.findViewById(R.id.overview_chart);
+        progressBar = parent.findViewById(R.id.overview_progress_bar);
         power_data = new Float[3];
 
         // enable description text
@@ -272,9 +276,8 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
         data.setValueTextColor(Color.BLACK);
         mChart.setData(data);
         mChart.highlightValues(null);
-        mChart.invalidate();
         mChart.animateXY(500, 500);
-        mChart.notifyDataSetChanged();
+        mChart.invalidate();
     }
 
     /**

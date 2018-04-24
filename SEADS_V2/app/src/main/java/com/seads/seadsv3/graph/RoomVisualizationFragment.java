@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -49,6 +50,7 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
     private int indexCount;
     private String panel;
     public HashMap<Integer, String> data_point_date_map;
+    private ProgressBar progressBar;
 
     /**
      * Populate the layout with the chart and instantiate data aggregation
@@ -60,12 +62,12 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_fragment_5, container, false);
         mChart = (LineChart) v.findViewById(R.id.chart1);
-        panel = getArguments().getString("device");
+        panel = getArguments().getString("Panel");
         data_point_date_map = new HashMap<>();
+        progressBar = v.findViewById(R.id.daily_progress);
 
         // enable description text
         mChart.getDescription().setEnabled(false);
-        setUpSpinner(v);
 
         // enable touch gestures
         mChart.setTouchEnabled(true);
@@ -83,7 +85,6 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
 
         LineData data = new LineData();
         data.setValueTextColor(Color.BLACK);
-
         // add empty data
         mChart.setData(data);
         YAxis rightAxis = mChart.getAxisRight();
@@ -94,7 +95,7 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
         //set button
 
         webInterfacer = new WebInterfacer(this);
-
+        getData();
         //test.getJSONObject();
 
         return v;
@@ -140,110 +141,27 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
         }
     }
 
-    /**
-     * Sets up drop down menu for selecting the data set to be analyzed
-     * @param v View which we want to put the drop down menu in
-     */
-    public void setUpSpinner(View v){
-        mSpinner = (Spinner) v.findViewById(R.id.select_time_spinner);
-        ArrayAdapter<CharSequence> adapter= ArrayAdapter.createFromResource(
-                getContext(),
-                R.array.time_selection,
-                android.R.layout.simple_spinner_item
+    public void getData(){
+        long current_time = System.currentTimeMillis();
+
+        webInterfacer.getJSONObject(
+                (current_time-current_time%DAY_INT-DAY_INT)/1000,
+                (current_time-current_time%DAY_INT)/1000,
+                "energy",
+                60/**/,
+                panel,
+                "P"
         );
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        indexCount = 24*60;
 
-        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                long current_time = System.currentTimeMillis();
-                switch (position){
-                    case 0:
-                        webInterfacer.getJSONObject(
-                                (current_time-current_time%DAY_INT-DAY_INT)/1000,
-                                (current_time-current_time%DAY_INT)/1000,
-                                "energy",
-                                60/**/,
-                                panel,
-                                "P"
-                                );
-                        indexCount = 24*60;
-
-                        fillXAxis(
-                                (current_time-current_time%DAY_INT-DAY_INT),
-                                (current_time-current_time%DAY_INT),
-                                60,
-                                indexCount,
-                                0
-                        );
-
-                        break;
-                    case 1:
-                        Log.d("Selected:", parent.getItemAtPosition(position).toString());
-                        webInterfacer.getJSONObject(
-                                (current_time-current_time%DAY_INT-7*DAY_INT)/1000,
-                                (current_time-current_time%DAY_INT)/1000,
-                                "energy",
-                                60*60*3,
-                                panel,
-                                "P"
-                        );
-                        indexCount = 48;
-                        fillXAxis(
-                                (current_time-current_time%DAY_INT-7*DAY_INT),
-                                (current_time-current_time%DAY_INT),
-                                60*60*3,
-                                indexCount,
-                                1
-                        );
-                        break;
-                    case 2:
-                        Log.d("Selected:", parent.getItemAtPosition(position).toString());
-                        webInterfacer.getJSONObject(
-                                (current_time-current_time%DAY_INT-31*DAY_INT)/1000,
-                                (current_time-current_time%DAY_INT)/1000,
-                                "energy",
-                                60*60*3*2*2*2,
-                                panel,
-                                "P"
-                        );
-                        indexCount = 28;
-                        fillXAxis(
-                                (current_time-current_time%DAY_INT-31*DAY_INT)/1000,
-                                (current_time-current_time%DAY_INT),
-                                60*60*3*2*2*2,
-                                indexCount,
-                                2
-                        );
-                        break;
-                    case 3:
-                        Log.d("Selected:", parent.getItemAtPosition(position).toString());
-                        webInterfacer.getJSONObject(
-                                (current_time-current_time%DAY_INT-365*DAY_INT)/1000,
-                                (current_time-current_time%DAY_INT)/1000,
-                                "energy",
-                                60*60*3*2*2*2*7,
-                                "Panel3",
-                                "P"
-                        );
-                        indexCount = 50;
-
-                        break;
-                    case 4:
-                        Log.d("Selected:", parent.getItemAtPosition(position).toString());
-                        break;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        mSpinner.setAdapter(adapter);
-
+        fillXAxis(
+                (current_time-current_time%DAY_INT-DAY_INT),
+                (current_time-current_time%DAY_INT),
+                60,
+                indexCount,
+                0
+        );
     }
-
 
     /**
      * What to do when we get a response from the server
@@ -287,6 +205,7 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
                 }
             });
             mChart.moveViewToX(lineData.getEntryCount());
+            progressBar.setVisibility(View.INVISIBLE);
 
         }catch (Exception e){
             e.printStackTrace();
