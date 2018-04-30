@@ -4,52 +4,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/monthly_layout"
+    android:background="#FFFFFF"
     >
 
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/MonthlyStatsChart"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        >
-    </com.github.mikephil.charting.charts.BarChart>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="168dp"
-        android:layout_alignRight="@+id/LastWeekCost"
-        android:layout_alignEnd="@+id/LastWeekCost"
-        android:layout_above="@+id/MonthlyStatsChart"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:textColor="@color/gold"
-        android:id="@+id/DailyCost"
-        android:background="@color/orange"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="84dp"
-        android:layout_above="@+id/MonthlyStatsChart"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/LastWeekCost"
+            <TextView
+                android:id="@+id/DailyCost"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@color/orange"
+                android:textColor="@color/gold"
+                android:layout_weight="2"
+                />
 
-        android:background="@color/gold"
-        />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:orientation="vertical">
 
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="84dp"
-        android:layout_above="@+id/LastWeekCost"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/YesterdayCost"
-        android:background="@color/green"
-        />
+                <TextView
+                    android:id="@+id/YesterdayCost"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@color/green" />
+
+                <TextView
+                    android:id="@+id/LastWeekCost"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@color/gold"
+                  />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/MonthlyStatsChart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+
+            >
+
+        </com.github.mikephil.charting.charts.BarChart>
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/weekly_progress"

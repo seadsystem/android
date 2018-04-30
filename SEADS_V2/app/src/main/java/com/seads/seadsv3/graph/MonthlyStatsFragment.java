@@ -251,6 +251,8 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface, OnCh
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.monthly_layout, fragment);
         mBarChart.clear();
+        fragmentTransaction.addToBackStack(null);
+
         fragmentTransaction.commit();
     }
 

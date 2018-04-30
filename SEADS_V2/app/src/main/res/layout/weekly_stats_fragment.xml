@@ -4,60 +4,78 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/weekly_layout"
+    android:background="#FFFFFF"
+
     >
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/WeeklyStatsChart"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        >
-    </com.github.mikephil.charting.charts.BarChart>
-
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="168dp"
-        android:layout_alignRight="@+id/wLastWeekCost"
-        android:layout_alignEnd="@+id/wLastWeekCost"
-        android:layout_above="@+id/WeeklyStatsChart"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:textColor="@color/gold"
-        android:id="@+id/wDailyCost"
-        android:background="@color/orange"
-        />
-
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="84dp"
-        android:layout_above="@+id/WeeklyStatsChart"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/wLastWeekCost"
-
-        android:background="@color/gold"
-        />
-
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="84dp"
-        android:layout_above="@+id/wLastWeekCost"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/wYesterdayCost"
-        android:background="@color/green"
-        />
-
-    <ProgressBar
-        android:id="@+id/wWeekly_progress"
-        style="?android:attr/progressBarStyle"
-        android:layout_centerInParent="true"
-        android:visibility="visible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-</RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/wDailyCost"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/orange"
+                    android:textColor="@color/gold"
+                    android:layout_weight="2"
+                    />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/wYesterdayCost"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@color/green" />
+
+                    <TextView
+                        android:id="@+id/wLastWeekCost"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@color/gold"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/WeeklyStatsChart"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+
+                >
+
+            </com.github.mikephil.charting.charts.BarChart>
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/wWeekly_progress"
+            style="?android:attr/progressBarStyle"
+            android:layout_centerInParent="true"
+            android:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
+    </RelativeLayout>
+
+

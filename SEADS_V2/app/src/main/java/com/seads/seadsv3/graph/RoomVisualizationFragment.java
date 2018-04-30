@@ -14,6 +14,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextClock;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -32,6 +34,7 @@ import com.seads.seadsv3.http.WebInterfacer;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -51,6 +54,8 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
     private String panel;
     public HashMap<Integer, String> data_point_date_map;
     private ProgressBar progressBar;
+    private TextView avg_energy;
+    private TextView max_energy;
 
     /**
      * Populate the layout with the chart and instantiate data aggregation
@@ -65,6 +70,8 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
         panel = getArguments().getString("Panel");
         data_point_date_map = new HashMap<>();
         progressBar = v.findViewById(R.id.daily_progress);
+        max_energy = v.findViewById(R.id.today_max_energy);
+        avg_energy = v.findViewById(R.id.today_avg_energy);
 
         // enable description text
         mChart.getDescription().setEnabled(false);
@@ -173,8 +180,9 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
     public void onJSONRetrieved(JSONObject result){
         try{
             JSONArray data= result.getJSONArray("data");
+            Log.d("JSON", ""+data.length());
             JSONObject index0 = data.getJSONObject(0);
-            Float energy_values[] = new Float[indexCount];
+            Float energy_values[] = new Float[data.length()];
             LineData lineData = mChart.getData();
             lineData.removeDataSet(0);
             ILineDataSet iLineDataSet = lineData.getDataSetByIndex(0);
@@ -192,7 +200,18 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
                     peak = energy_values[i];
                 average += energy_values[i];
             }
-            average = average/indexCount;
+            average = average/energy_values.length;
+            avg_energy.setTextColor(Color.WHITE);
+            max_energy.setTextColor(Color.WHITE);
+            //"\n\n\n          Daily Cost\n          "+"$"+new DecimalFormat("#0.00").format(CostCalculator.energyCost(avg_cost/24.0));
+            avg_energy.setTextSize(20f);
+            max_energy.setTextSize(20f);
+            String avg = "\n    Average energy\n    "+new DecimalFormat("#0.00").format(average)+"kWh";
+            String max = "\n    Max energy\n    "+new DecimalFormat("#0.00").format(peak)+"kWh";
+            avg_energy.setText(avg);
+            max_energy.setText(max);
+            max_energy.invalidate();
+            avg_energy.invalidate();
             //textView_Peak.setText("Peak:\n"+truncate(""+peak)+"kW");
             //textView_Average.setText("Avg\n"+truncate(""+average)+"kW");
             lineData.notifyDataChanged();
@@ -210,7 +229,6 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
     /**

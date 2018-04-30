@@ -2,21 +2,54 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/weekly_layout"
+    android:background="#FFFFFF"
+
+    >
 
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/chart1"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        android:layout_alignParentBottom="true"
-        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-    </com.github.mikephil.charting.charts.LineChart>
+            <TextView
+                android:id="@+id/today_avg_energy"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@color/orange"
+                android:textColor="@color/gold"
+                android:layout_weight="1"
+                />
 
+                <TextView
+                    android:id="@+id/today_max_energy"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/green" />
+
+
+        </LinearLayout>
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            >
+
+        </com.github.mikephil.charting.charts.LineChart>
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/daily_progress"
@@ -25,4 +58,13 @@
         android:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+
+
 </RelativeLayout>
+
+
+
+
+
+

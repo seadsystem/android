@@ -220,6 +220,7 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.weekly_layout, fragment);
         mBarChart.clear();
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
