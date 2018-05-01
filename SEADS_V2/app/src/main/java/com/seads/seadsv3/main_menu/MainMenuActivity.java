@@ -79,35 +79,31 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements Navigati
                 if(dataSnapshot.exists()){
                     for(DataSnapshot issue : dataSnapshot.getChildren()){
                         try {
-                            Log.d("FirebaseD", issue.child("name").getValue().toString());
                             if(
+                                    !(issue.child("name").getValue() == null) &&
                                     !issue.child("name").getValue().toString().toLowerCase().contains("test") &&
                                     !issue.child("name").getValue().toString().toLowerCase().contains("fake")
                                     ) {
                                 Log.d("Firebase", issue.toString());
-                                seadsDevice = new SeadsDevice(dataSnapshot);
+                                seadsDevice = new SeadsDevice(issue);
                             }
-                        }catch (NullPointerException e){};
+                        }catch (NullPointerException e){
+                            e.printStackTrace();
+                        }
                     }
                 }
-            }
 
+                Log.d("ayy", "lmao");
+                ArrayList<SeadsRoom> rooms = seadsDevice.getRooms();
+                ArrayList<SeadsAppliance> apps = rooms.get(0).getApps();
+                for(SeadsAppliance app : apps){
+                    Log.d("APP", app.getTag());
+                }
+            }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
-
         });
-        /*
-        Log.d("ayy", "lmao");
-        ArrayList<SeadsRoom> rooms = this.seadsDevice.getRooms();
-        ArrayList<SeadsAppliance> apps = rooms.get(0).getApps();
-        for(SeadsAppliance app : apps){
-            Log.d("APP", app.getTag());
-        }
-        */
-
-
     }
 
     /**

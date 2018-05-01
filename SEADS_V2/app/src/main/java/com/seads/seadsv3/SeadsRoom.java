@@ -11,11 +11,15 @@ import java.util.HashMap;
 
 public class SeadsRoom {
     private ArrayList<SeadsAppliance> seadsApplianceArrayList;
+    private String room;
 
     public SeadsRoom(DataSnapshot dataSnapshot){
-        seadsApplianceArrayList = new ArrayList<>();
-        for(DataSnapshot data : dataSnapshot.getChildren()){
-            seadsApplianceArrayList.add(new SeadsAppliance(data));
+        this.room = dataSnapshot.getKey();
+        this.seadsApplianceArrayList = new ArrayList<>();
+        for(DataSnapshot data : dataSnapshot.child("appliances").getChildren()){
+            if(!data.toString().toLowerCase().contains("icon")){
+                seadsApplianceArrayList.add(new SeadsAppliance(data));
+            }
         }
     }
 
