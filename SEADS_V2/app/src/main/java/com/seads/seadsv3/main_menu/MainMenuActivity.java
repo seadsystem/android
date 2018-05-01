@@ -3,6 +3,7 @@ package com.seads.seadsv3.main_menu;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,16 +16,27 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.seads.seadsv3.AboutActivity;
 import com.seads.seadsv3.BaseActivityWithDrawer;
 import com.seads.seadsv3.R;
+import com.seads.seadsv3.SeadsAppliance;
+import com.seads.seadsv3.SeadsDevice;
+import com.seads.seadsv3.SeadsRoom;
 import com.seads.seadsv3.http.WebInterface;
 import com.seads.seadsv3.http.WebInterfacer;
 import com.seads.seadsv3.main_menu_pages.PagerAdapterSEADS;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 
 /**
@@ -38,6 +50,7 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements Navigati
     private FirebaseAuth mAuth;
 
     private TabLayout mTabLayout;
+    private SeadsDevice seadsDevice;
 
 
     /**
@@ -55,6 +68,45 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements Navigati
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        Log.d("FirebaseUser", firebaseUser.getDisplayName());
+        DatabaseReference reference = mDatabase.getDatabase().getReference();
+        Query query = reference.child("users").child(mAuth.getUid()).child("devices");
+        Log.d("Firebase", "querying firebase");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot issue : dataSnapshot.getChildren()){
+                        try {
+                            Log.d("FirebaseD", issue.child("name").getValue().toString());
+                            if(
+                                    !issue.child("name").getValue().toString().toLowerCase().contains("test") &&
+                                    !issue.child("name").getValue().toString().toLowerCase().contains("fake")
+                                    ) {
+                                Log.d("Firebase", issue.toString());
+                                seadsDevice = new SeadsDevice(dataSnapshot);
+                            }
+                        }catch (NullPointerException e){};
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+        /*
+        Log.d("ayy", "lmao");
+        ArrayList<SeadsRoom> rooms = this.seadsDevice.getRooms();
+        ArrayList<SeadsAppliance> apps = rooms.get(0).getApps();
+        for(SeadsAppliance app : apps){
+            Log.d("APP", app.getTag());
+        }
+        */
+
 
     }
 
