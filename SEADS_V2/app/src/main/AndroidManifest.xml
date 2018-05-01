@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.seads.seadsv3"
-    android:versionCode="1"
-    android:versionName="SEADS V1">
+    android:versionCode="2"
+    android:versionName="SEADS V1.01"
+    >
 
     <application
         android:allowBackup="true"
