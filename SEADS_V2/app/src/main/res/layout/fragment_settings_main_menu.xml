@@ -4,8 +4,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="settings fragment, refactor to preference layout"/>
+
 </LinearLayout>

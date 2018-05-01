@@ -21,7 +21,7 @@ android {
     }
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.seads.seadsv2"
+        applicationId "com.seads.seadsv3"
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 1
@@ -32,10 +32,17 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.configkey0
         }
         debug {
             signingConfig signingConfigs.configkey0
         }
+    }
+    lintOptions {
+        abortOnError false
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
     }
 }
 

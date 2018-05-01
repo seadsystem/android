@@ -5,8 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.seads.seadsv2.device_panel_page.DeviceAndRoomStatsActivity"
-    tools:showIn="@layout/activity_device_panel_main">
+    tools:context="com.seads.seadsv3.device_panel_page.DeviceAndRoomStatsActivity"
+    tools:showIn="@layout/activity_device_panel_main"
+    android:id="@+id/content_device_panel"
+    >
     <android.support.v4.view.ViewPager
         android:id="@+id/pager_rooms_and_devices"
         android:layout_width="match_parent"
@@ -17,7 +19,7 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs_rooms_and_devices"
         android:layout_width="match_parent"
-        android:layout_height="47dp"
+        android:layout_height="0dp"
         app:tabMode="fixed"
         android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize"

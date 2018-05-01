@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.seads.seadsv2.overview_page.Overview_Page">
+    tools:context="com.seads.seadsv3.overview_page.Overview_Page">
 
 </android.support.constraint.ConstraintLayout>
