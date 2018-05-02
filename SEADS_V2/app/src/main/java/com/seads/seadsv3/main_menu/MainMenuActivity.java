@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.github.mikephil.charting.charts.BubbleChart;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -58,13 +59,9 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements Navigati
      * @param savedInstanceState Android instance state
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-
-        setupViewPager();
-        setupToolBar();
-        setupNavigationDrawer();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -92,18 +89,17 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements Navigati
                         }
                     }
                 }
-
-                Log.d("ayy", "lmao");
-                ArrayList<SeadsRoom> rooms = seadsDevice.getRooms();
-                ArrayList<SeadsAppliance> apps = rooms.get(0).getApps();
-                for(SeadsAppliance app : apps){
-                    Log.d("APP", app.getTag());
-                }
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("seads", seadsDevice);
+                setupViewPager();
+                setupToolBar();
+                setupNavigationDrawer();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+
     }
 
     /**
@@ -121,9 +117,10 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements Navigati
      * Configure the ViewPager that handles the tabular layout
      */
     private void setupViewPager() {
+        while(seadsDevice == null){}
         mViewPager = (ViewPager) findViewById(R.id.pager_rooms_and_devices);
         PagerAdapterSEADS pagerAdapterSEADS = new PagerAdapterSEADS(getSupportFragmentManager(),
-                MainMenuActivity.this);
+                MainMenuActivity.this, seadsDevice);
         mViewPager.setAdapter(pagerAdapterSEADS);
 
         mTabLayout = (TabLayout) findViewById(R.id.tabs_main_menu);

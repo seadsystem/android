@@ -32,6 +32,7 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.seads.seadsv3.R;
+import com.seads.seadsv3.SeadsAppliance;
 import com.seads.seadsv3.http.WebInterface;
 import com.seads.seadsv3.http.WebInterfacer;
 
@@ -66,6 +67,7 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface, OnCh
     private TextView yesterday_cost;
     private TextView last_week_cost;
     private ProgressBar progressBar;
+    private SeadsAppliance seadsAppliance;
     /**
      * 1523923200
      * 86400
@@ -88,6 +90,7 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface, OnCh
         last_week_cost = v.findViewById(R.id.LastWeekCost);
         yesterday_cost = v.findViewById(R.id.YesterdayCost);
         panel = getArguments().getString("device");
+        seadsAppliance = getArguments().getParcelable("seads");
         mBarChart.setMaxVisibleValueCount(60);
         mBarChart.setDrawGridBackground(false);
         barEntryList = new ArrayList<>();
@@ -144,17 +147,18 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface, OnCh
         webInterfacer.getJSONObject(
                 end_time,
                 "energy",
-                panel,
-                "P"
+                this.seadsAppliance.getQueryId(),
+                "P",
+                this.seadsAppliance.getSeadsId()
         );
         start_time = (current_time-current_time%DAY_INT-21*DAY_INT)/1000;
         end_time = (current_time-current_time%DAY_INT-14*DAY_INT)/1000;
         webInterfacer.getJSONObject(
                 end_time,
                 "energy",
-
-                panel,
-                "P"
+                this.seadsAppliance.getQueryId(),
+                "P",
+                this.seadsAppliance.getSeadsId()
         );
 
         start_time = (current_time-current_time%DAY_INT-14*DAY_INT)/1000;
@@ -163,8 +167,9 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface, OnCh
                 end_time,
                 "energy",
 
-                panel,
-                "P"
+                this.seadsAppliance.getQueryId(),
+                "P",
+                this.seadsAppliance.getSeadsId()
         );
         start_time = (current_time-current_time%DAY_INT-7*DAY_INT)/1000;
         end_time = (current_time-current_time%DAY_INT)/1000;
@@ -172,8 +177,9 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface, OnCh
                 end_time,
                 "energy",
 
-                panel,
-                "P"
+                this.seadsAppliance.getQueryId(),
+                "P",
+                this.seadsAppliance.getSeadsId()
         );
     }
 
@@ -245,6 +251,7 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface, OnCh
         Bundle bundle = new Bundle();
         bundle.putString("Panel", panel);
         bundle.putString("Week", e.getX()+"");
+        bundle.putParcelable("seads", this.seadsAppliance);
         Fragment fragment = new WeeklyStatsFragment();
         fragment.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

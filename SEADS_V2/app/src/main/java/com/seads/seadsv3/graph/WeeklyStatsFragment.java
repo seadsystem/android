@@ -32,6 +32,7 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.seads.seadsv3.R;
+import com.seads.seadsv3.SeadsAppliance;
 import com.seads.seadsv3.http.WebInterface;
 import com.seads.seadsv3.http.WebInterfacer;
 
@@ -67,6 +68,7 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
     private TextView last_week_cost;
     private ProgressBar progressBar;
     private int week;
+    private SeadsAppliance seadsAppliance;
     /**
      * 1523923200
      * 86400
@@ -89,6 +91,7 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
         last_week_cost = v.findViewById(R.id.wLastWeekCost);
         yesterday_cost = v.findViewById(R.id.wYesterdayCost);
         panel = getArguments().getString("Panel");
+        seadsAppliance = getArguments().getParcelable("seads");
         week = (int)Float.parseFloat(getArguments().getString("Week"));
         mBarChart.setMaxVisibleValueCount(60);
         mBarChart.setDrawGridBackground(false);
@@ -138,8 +141,9 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
             webInterfacer.getJSONObject(
                     end_time,
                     "energy",
-                    panel,
-                    "P"
+                    this.seadsAppliance.getQueryId(),
+                    "P",
+                    this.seadsAppliance.getSeadsId()
             );
         }
 
@@ -214,6 +218,7 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
         Bundle bundle = new Bundle();
         bundle.putString("Panel", panel);
         bundle.putString("Day", e.getX()+"");
+        bundle.putParcelable("seads", this.seadsAppliance);
         Fragment fragment = new RoomVisualizationFragment();
         fragment.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

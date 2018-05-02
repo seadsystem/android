@@ -28,6 +28,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.seads.seadsv3.R;
+import com.seads.seadsv3.SeadsAppliance;
 import com.seads.seadsv3.http.WebInterface;
 import com.seads.seadsv3.http.WebInterfacer;
 
@@ -56,6 +57,7 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
     private ProgressBar progressBar;
     private TextView avg_energy;
     private TextView max_energy;
+    private SeadsAppliance seadsAppliance;
 
     /**
      * Populate the layout with the chart and instantiate data aggregation
@@ -68,6 +70,7 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
         View v = inflater.inflate(R.layout.tab_fragment_5, container, false);
         mChart = (LineChart) v.findViewById(R.id.chart1);
         panel = getArguments().getString("Panel");
+        seadsAppliance = getArguments().getParcelable("seads");
         data_point_date_map = new HashMap<>();
         progressBar = v.findViewById(R.id.daily_progress);
         max_energy = v.findViewById(R.id.today_max_energy);
@@ -156,8 +159,9 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
                 (current_time-current_time%DAY_INT)/1000,
                 "energy",
                 60/**/,
-                panel,
-                "P"
+                this.seadsAppliance.getQueryId(),
+                "P",
+                this.seadsAppliance.getSeadsId()
         );
         indexCount = 24*60;
 

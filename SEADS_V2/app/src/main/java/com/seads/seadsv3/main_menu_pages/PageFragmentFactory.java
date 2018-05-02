@@ -3,6 +3,7 @@ package com.seads.seadsv3.main_menu_pages;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +23,9 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.seads.seadsv3.R;
+import com.seads.seadsv3.SeadsAppliance;
+import com.seads.seadsv3.SeadsDevice;
+import com.seads.seadsv3.SeadsRoom;
 import com.seads.seadsv3.http.WebInterface;
 import com.seads.seadsv3.http.WebInterfacer;
 import com.seads.seadsv3.main_menu.EnumNavBarNames;
@@ -35,6 +39,7 @@ import com.seads.seadsv3.main_menu_pages.rooms_fragment.RoomViewInfo;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -47,16 +52,17 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
     Float power_data [];
     private ProgressBar progressBar;
     private PieChart mChart; // This is the holder for the overview activity's piechart, since it requires an activity
-
+    private SeadsDevice seadsDevice;
     /**
      * Method PageFramnentFactory
      * This method parses the arguments from the main class and initializes the factory
      * @param pageFragmentConfig Configuration settings for fragments
      * @return Fragment of specified tab
      */
-    public static PageFragmentFactory newInstance(PageFragmentConfig pageFragmentConfig) {
+    public static PageFragmentFactory newInstance(PageFragmentConfig pageFragmentConfig, SeadsDevice seadsDevice) {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, pageFragmentConfig.getPage());
+        args.putParcelable("seads", seadsDevice);
         PageFragmentFactory fragment = new PageFragmentFactory();
         fragment.setArguments(args);
         return fragment;
@@ -70,6 +76,7 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPage = getArguments().getInt(ARG_PAGE);
+        seadsDevice = getArguments().getParcelable("seads");
     }
 
     /**
@@ -107,6 +114,7 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
     @Override
     public void onActivityCreated (Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         if (mPage == EnumNavBarNames.DEVICES.getIndex()) {
             setupDevicesFragment();
         } else if (mPage == EnumNavBarNames.ROOMS.getIndex()) {
@@ -118,6 +126,7 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
             setupAwardsFragment();
         }
     }
+
 
     /**
      * Method for handling the overview graph fragment
@@ -296,16 +305,26 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
     private void setupDevicesFragment() {
         final Activity parent = getActivity();
         RecyclerView recyclerView = (RecyclerView) parent.findViewById(R.id.recycler_view_devices);
-        DeviceViewInfo[] dummyData = new DeviceViewInfo[5];
-        // TODO populate this with real data. Panel names should come from server
-        dummyData[0] = new DeviceViewInfo("Devices in Sample Room", true);
-        dummyData[1] = new DeviceViewInfo("Panel 1");
-        dummyData[2] = new DeviceViewInfo("Devices with no room assigned", true);
-        dummyData[3] = new DeviceViewInfo("Panel 2");
-        dummyData[4] = new DeviceViewInfo("Panel 3");
+        ArrayList<SeadsRoom> roomsList = seadsDevice.getRooms();
+        Log.d("WE HAVE", ""+roomsList.size()+" rooms");
+        ArrayList<SeadsAppliance> appliances = new ArrayList<>();
+        for(SeadsRoom room : roomsList){
+            appliances.addAll(room.getApps());
+        }
+        Log.d("WE HAVE", ""+appliances.size()+roomsList.size()+" apps");
 
+
+        DeviceViewInfo[] dummyData = new DeviceViewInfo[appliances.size()+roomsList.size()];
+        // TODO populate this with real data. Panel names should come from server
+        int j = 0;
+        for(int i = 0; i<roomsList.size();i++){
+            dummyData[j++] = new DeviceViewInfo("Appliances in "+roomsList.get(i).getRoomName(), true);
+            for(SeadsAppliance app : roomsList.get(i).getApps()){
+                dummyData[j++] = new DeviceViewInfo(app.getTag());
+            }
+        }
         AdapterRecyclerViewDevices adapterRecyclerViewDevices =
-                new AdapterRecyclerViewDevices(dummyData, this);
+                new AdapterRecyclerViewDevices(dummyData, this, seadsDevice);
 
         recyclerView.addItemDecoration(new RecyclerViewItemDecoration(parent));
         recyclerView.setAdapter(adapterRecyclerViewDevices);
