@@ -29,6 +29,5 @@ public class RoomBuilder {
         seads.child("name").setValue("testbed");
         seads.child("rooms").child("Solar").child("appliances").child("test").child("id").setValue("Solar");
         seads.child("rooms").child("Switches").child("appliances").child("test").child("id").setValue("Grid");
-
     }
 }
