@@ -118,6 +118,7 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements Navigati
      */
     private void setupViewPager() {
         mViewPager = (ViewPager) findViewById(R.id.pager_rooms_and_devices);
+        mViewPager.setOffscreenPageLimit(2);
         PagerAdapterSEADS pagerAdapterSEADS = new PagerAdapterSEADS(getSupportFragmentManager(),
                 MainMenuActivity.this, seadsDevice);
         mViewPager.setAdapter(pagerAdapterSEADS);

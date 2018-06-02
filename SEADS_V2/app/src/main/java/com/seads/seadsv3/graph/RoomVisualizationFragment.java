@@ -36,6 +36,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -75,7 +77,8 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
         progressBar = v.findViewById(R.id.daily_progress);
         max_energy = v.findViewById(R.id.today_max_energy);
         avg_energy = v.findViewById(R.id.today_avg_energy);
-
+        mChart.setNoDataText("");
+        mChart.setNoDataTextColor(Color.WHITE);
         // enable description text
         mChart.getDescription().setEnabled(false);
 
@@ -197,13 +200,14 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
             double average = 0;
             double peak = 0;
 
-            for(int i = 0; i<energy_values.length; i++) {
+            for(int i = energy_values.length-1; i>=0; i--) {
                 energy_values[i] = Float.parseFloat(data.getJSONObject(i).getString("energy"));
-                lineData.addEntry(new Entry(i, energy_values[i]), 0);
+                lineData.addEntry(new Entry(energy_values.length-i-1, energy_values[i]), 0);
                 if (energy_values[i] > peak)
                     peak = energy_values[i];
                 average += energy_values[i];
             }
+
             average = average/energy_values.length;
             avg_energy.setTextColor(Color.WHITE);
             max_energy.setTextColor(Color.WHITE);

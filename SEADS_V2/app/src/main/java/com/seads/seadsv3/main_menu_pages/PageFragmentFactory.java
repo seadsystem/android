@@ -157,6 +157,8 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
         final Activity parent = getActivity();
         Log.d("SFragment", "Set up overview");
         mChart = (PieChart) parent.findViewById(R.id.overview_chart);
+        mChart.setNoDataText("");
+        mChart.setNoDataTextColor(Color.WHITE);
         progressBar = parent.findViewById(R.id.overview_progress_bar);
         power_data = new Float[3];
 
