@@ -305,7 +305,13 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
     private void setupDevicesFragment() {
         final Activity parent = getActivity();
         RecyclerView recyclerView = (RecyclerView) parent.findViewById(R.id.recycler_view_devices);
-        ArrayList<SeadsRoom> roomsList = seadsDevice.getRooms();
+        ArrayList<SeadsRoom> roomsList;
+
+        if(seadsDevice == null){
+            roomsList = null;
+        }else {
+            roomsList = seadsDevice.getRooms();
+        }
         Log.d("WE HAVE", ""+roomsList.size()+" rooms");
         ArrayList<SeadsAppliance> appliances = new ArrayList<>();
         for(SeadsRoom room : roomsList){

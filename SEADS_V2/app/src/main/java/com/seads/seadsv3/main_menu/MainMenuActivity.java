@@ -117,7 +117,6 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements Navigati
      * Configure the ViewPager that handles the tabular layout
      */
     private void setupViewPager() {
-        while(seadsDevice == null){}
         mViewPager = (ViewPager) findViewById(R.id.pager_rooms_and_devices);
         PagerAdapterSEADS pagerAdapterSEADS = new PagerAdapterSEADS(getSupportFragmentManager(),
                 MainMenuActivity.this, seadsDevice);

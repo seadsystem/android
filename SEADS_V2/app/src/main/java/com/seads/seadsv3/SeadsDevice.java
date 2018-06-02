@@ -31,6 +31,10 @@ public class SeadsDevice implements Parcelable {
         }
     }
 
+    public SeadsDevice(){
+        this.id = "0";
+    }
+
 
 
     public ArrayList<SeadsRoom> getRooms(){
