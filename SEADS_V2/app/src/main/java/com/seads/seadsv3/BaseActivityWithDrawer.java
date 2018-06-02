@@ -95,9 +95,10 @@ public class BaseActivityWithDrawer extends AppCompatActivity implements Navigat
             case R.id.nav_device:
                 closeDrawer = handleDrawerOnPressWithPage(EnumNavBarNames.DEVICES.getIndex());
                 break;
+                /*
             case R.id.nav_rooms:
                 closeDrawer = handleDrawerOnPressWithPage(EnumNavBarNames.ROOMS.getIndex());
-                break;
+                break;*/
             case R.id.nav_overview:
                 closeDrawer = handleDrawerOnPressWithPage(EnumNavBarNames.OVERVIEW.getIndex());
                 break;

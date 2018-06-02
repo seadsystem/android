@@ -229,7 +229,7 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements Navigati
         Log.d("MainMenuActivity","In onActivityResult");
         if (requestCode == REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                int resultForPageIndex = data.getIntExtra(requestDataKey,EnumNavBarNames.ROOMS.getIndex());
+                int resultForPageIndex = data.getIntExtra(requestDataKey,EnumNavBarNames.DEVICES.getIndex());
                 Log.d("MainMenuActivity", "result:" + resultForPageIndex);
                 if (mViewPager != null) {
                     if (resultForPageIndex == ABOUT_CODE) {
@@ -262,9 +262,12 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements Navigati
     private void setNavigationViewToPage(int page) {
         if (page == EnumNavBarNames.DEVICES.getIndex()){
             mNavigationView.setCheckedItem(R.id.nav_device);
-        } else if (page == EnumNavBarNames.ROOMS.getIndex()) {
+        }
+        /*else if (page == EnumNavBarNames.ROOMS.getIndex()) {
             mNavigationView.setCheckedItem(R.id.nav_rooms);
-        } else if (page == EnumNavBarNames.OVERVIEW.getIndex()) {
+        }
+         */
+        else if (page == EnumNavBarNames.OVERVIEW.getIndex()) {
             mNavigationView.setCheckedItem(R.id.nav_overview);
         } else if (page == EnumNavBarNames.AWARDS.getIndex()) {
             mNavigationView.setCheckedItem(R.id.nav_awards);

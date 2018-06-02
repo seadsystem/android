@@ -92,17 +92,13 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
         View view;
         if(mPage == EnumNavBarNames.DEVICES.getIndex()) {
             view = inflater.inflate(EnumNavBarNames.DEVICES.getLayoutId(), container, false);
-        } else if (mPage == EnumNavBarNames.ROOMS.getIndex()) {
-            view = inflater.inflate(EnumNavBarNames.ROOMS.getLayoutId(), container, false);
-        } else if (mPage == EnumNavBarNames.OVERVIEW.getIndex()) {
+        }
+        else if (mPage == EnumNavBarNames.OVERVIEW.getIndex()) {
             view = inflater.inflate(EnumNavBarNames.OVERVIEW.getLayoutId(), container, false);
         }else if (mPage == EnumNavBarNames.AWARDS.getIndex()) {
             view = inflater.inflate(EnumNavBarNames.AWARDS.getLayoutId(), container, false);
-        }else if (mPage == EnumNavBarNames.SETTINGS.getIndex()) {
+        }else{
             view = inflater.inflate(EnumNavBarNames.SETTINGS.getLayoutId(), container, false);
-        } else {
-            // TODO replace with error view
-            view = inflater.inflate(EnumNavBarNames.ROOMS.getLayoutId(), container, false);
         }
         return view;
     }
@@ -117,10 +113,12 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
 
         if (mPage == EnumNavBarNames.DEVICES.getIndex()) {
             setupDevicesFragment();
-        } else if (mPage == EnumNavBarNames.ROOMS.getIndex()) {
+        }
+        /*else if (mPage == EnumNavBarNames.ROOMS.getIndex()) {
             // Setup rooms fragment
             setupRoomsFragment();
-        } else if(mPage == EnumNavBarNames.OVERVIEW.getIndex()){
+        }*/
+        else if(mPage == EnumNavBarNames.OVERVIEW.getIndex()){
             setupOverviewFragment();
         } else if(mPage == EnumNavBarNames.AWARDS.getIndex()) {
             setupAwardsFragment();
