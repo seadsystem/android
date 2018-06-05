@@ -44,7 +44,7 @@ public class CostCalculator {
         for(DataPoint dataPoint : dataPoints){
             totalCost += hourlyCost[dataPoint.getTime()]*dataPoint.getEnergy();
         }
-        return totalCost;
+        return (totalCost+1);
     }
 
     protected static double avgEnergy(ArrayList<DataPoint> dataPoints){
