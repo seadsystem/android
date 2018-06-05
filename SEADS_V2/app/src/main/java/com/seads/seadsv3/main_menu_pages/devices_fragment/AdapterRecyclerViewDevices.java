@@ -131,8 +131,7 @@ public class AdapterRecyclerViewDevices extends RecyclerView.Adapter<AdapterRecy
 
             ((TextView) holder.mView.findViewById(R.id.text_view_device_name)).setText(
                     mDataset[position].getDeviceName());
-            ((TextView) holder.mView.findViewById(R.id.text_view_device_cost)).setText(
-                    mDataset[position].getCostInPastDay());
+
             holder.mView.setOnClickListener(holder);
         } else {
             ((TextView) holder.mView.findViewById(R.id.text_view_devices_item_title)).setText(

@@ -29,6 +29,7 @@ public class CostCalculator {
             0.25596 , 0.17918, 0.17918  // 9pm 10pm 11pm
     };
 
+    @Deprecated
     protected static double energyCost(double total_energy){
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.HOUR_OF_DAY;
@@ -41,9 +42,17 @@ public class CostCalculator {
     protected static double energyCost(ArrayList<DataPoint> dataPoints){
         double totalCost = 0;
         for(DataPoint dataPoint : dataPoints){
-            totalCost+=hourlyCost[dataPoint.getTime()]*dataPoint.getEnergy();
+            totalCost += hourlyCost[dataPoint.getTime()]*dataPoint.getEnergy();
         }
         return totalCost;
+    }
+
+    protected static double avgEnergy(ArrayList<DataPoint> dataPoints){
+        double avgEnergy = 0;
+        for(DataPoint dataPoint : dataPoints){
+            avgEnergy += dataPoint.getEnergy();
+        }
+        return avgEnergy;
     }
 
     protected static long getFirstDayMonth(){

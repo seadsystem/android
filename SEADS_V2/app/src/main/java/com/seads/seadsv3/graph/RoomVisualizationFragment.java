@@ -35,11 +35,14 @@ import com.seads.seadsv3.http.WebInterfacer;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 
 /**
@@ -50,7 +53,7 @@ import java.util.HashMap;
 public class RoomVisualizationFragment extends Fragment implements WebInterface {
 
     private LineChart mChart;
-    private final long DAY_INT = 86400000;
+    private final long DAY_INT = 86400;
     private Spinner mSpinner;
     private WebInterfacer webInterfacer;
     private int indexCount;
@@ -60,7 +63,8 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
     private TextView avg_energy;
     private TextView max_energy;
     private SeadsAppliance seadsAppliance;
-
+    int day;
+    long startTime;
     /**
      * Populate the layout with the chart and instantiate data aggregation
      * @param inflater Base layout
@@ -73,10 +77,9 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
         mChart = (LineChart) v.findViewById(R.id.chart1);
         panel = getArguments().getString("Panel");
         seadsAppliance = getArguments().getParcelable("seads");
+        day = getArguments().getInt("Day");
         data_point_date_map = new HashMap<>();
         progressBar = v.findViewById(R.id.daily_progress);
-        max_energy = v.findViewById(R.id.today_max_energy);
-        avg_energy = v.findViewById(R.id.today_avg_energy);
         mChart.setNoDataText("");
         mChart.setNoDataTextColor(Color.WHITE);
         // enable description text
@@ -102,8 +105,11 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
         mChart.setData(data);
         YAxis rightAxis = mChart.getAxisRight();
         XAxis xAxis = mChart.getXAxis();
+        xAxis.setDrawGridLines(false);
+        rightAxis.setDrawGridLines(false);
+        mChart.getAxisLeft().setDrawGridLines(false);
         //xAxis.
-        rightAxis.setEnabled(false);
+        rightAxis.setEnabled(true);
 
         //set button
 
@@ -156,25 +162,18 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
 
     public void getData(){
         long current_time = System.currentTimeMillis();
+        startTime = CostCalculator.getFirstDayWeek()+DAY_INT*day;
 
         webInterfacer.getJSONObject(
-                (current_time-current_time%DAY_INT-DAY_INT)/1000,
-                (current_time-current_time%DAY_INT)/1000,
+                startTime,
+                startTime+DAY_INT>current_time?current_time:startTime+DAY_INT,
                 "energy",
                 60/**/,
                 this.seadsAppliance.getQueryId(),
                 "P",
                 this.seadsAppliance.getSeadsId()
         );
-        indexCount = 24*60;
 
-        fillXAxis(
-                (current_time-current_time%DAY_INT-DAY_INT),
-                (current_time-current_time%DAY_INT),
-                60,
-                indexCount,
-                0
-        );
     }
 
     /**
@@ -186,7 +185,7 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
     @Override
     public void onJSONRetrieved(JSONObject result){
         try{
-            JSONArray data= result.getJSONArray("data");
+            final JSONArray data= result.getJSONArray("data");
             Log.d("JSON", ""+data.length());
             JSONObject index0 = data.getJSONObject(0);
             Float energy_values[] = new Float[data.length()];
@@ -208,18 +207,6 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
                 average += energy_values[i];
             }
 
-            average = average/energy_values.length;
-            avg_energy.setTextColor(Color.WHITE);
-            max_energy.setTextColor(Color.WHITE);
-            //"\n\n\n          Daily Cost\n          "+"$"+new DecimalFormat("#0.00").format(CostCalculator.energyCost(avg_cost/24.0));
-            avg_energy.setTextSize(20f);
-            max_energy.setTextSize(20f);
-            String avg = "\n    Average energy\n    "+new DecimalFormat("#0.00").format(average)+"kWh";
-            String max = "\n    Max energy\n    "+new DecimalFormat("#0.00").format(peak)+"kWh";
-            avg_energy.setText(avg);
-            max_energy.setText(max);
-            max_energy.invalidate();
-            avg_energy.invalidate();
             //textView_Peak.setText("Peak:\n"+truncate(""+peak)+"kW");
             //textView_Average.setText("Avg\n"+truncate(""+average)+"kW");
             lineData.notifyDataChanged();
@@ -228,7 +215,8 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
             mChart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
                 @Override
                 public String getFormattedValue(float value, AxisBase axis) {
-                    return data_point_date_map.get((int)value);
+                    DateFormat dateFormat = new SimpleDateFormat("hh:mm", Locale.getDefault());
+                    return dateFormat.format(new Date(startTime+(long)value));
                 }
             });
             mChart.moveViewToX(lineData.getEntryCount());
@@ -277,7 +265,7 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
     public LineDataSet createSet() {
         LineDataSet set = new LineDataSet(null, "Energy Usage");
         set.setAxisDependency(AxisDependency.LEFT);
-        set.setColor(Color.RED);
+        set.setColor(Color.GREEN);
         set.setDrawCircles(false);
         set.setLineWidth(0.5f);
         set.setHighLightColor(Color.rgb(0, 0, 0));

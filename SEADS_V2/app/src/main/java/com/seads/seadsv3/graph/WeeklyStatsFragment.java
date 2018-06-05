@@ -27,10 +27,12 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.seads.seadsv3.R;
 import com.seads.seadsv3.SeadsAppliance;
 import com.seads.seadsv3.http.WebInterface;
@@ -72,7 +74,7 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
     private SeadsAppliance seadsAppliance;
     private int mRequestCount=0;
     private ArrayList<Double> energyPoints;
-    private  double cost1, cost2, cost3;
+    private  double cost1, cost2, cost3, energy1;
     /**
      * 1523923200
      * 86400
@@ -91,15 +93,13 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.weekly_stats_fragment, container, false);
         mBarChart =  v.findViewById(R.id.WeeklyStatsChart);
-        daily_cost = v.findViewById(R.id.wDailyCost);
-        last_week_cost = v.findViewById(R.id.wLastWeekCost);
-        yesterday_cost = v.findViewById(R.id.wYesterdayCost);
         panel = getArguments().getString("Panel");
         seadsAppliance = getArguments().getParcelable("seads");
         week = (int)Float.parseFloat(getArguments().getString("Week"));
         cost1 = getArguments().getDouble("cost1");
         cost2 = getArguments().getDouble("cost2");
         cost3 = getArguments().getDouble("cost3");
+        energy1 = getArguments().getDouble("energy1");
         mBarChart.setMaxVisibleValueCount(60);
         mBarChart.setDrawGridBackground(false);
         barEntryList = new ArrayList<>();
@@ -113,15 +113,26 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
         mBarChart.setNoDataTextColor(Color.WHITE);
         energyPoints = new ArrayList<>();
 
-        //test.getJSONObject();
-        //mBarChart.setOnChartValueSelectedListener(this);
         mBarChart.setDrawBarShadow(true);
         mBarChart.getDescription().setEnabled(false);
+
+        mBarChart.getAxisLeft().setTextSize(14f);
+        mBarChart.getAxisRight().setTextSize(14f);
+        mBarChart.getAxisRight().setDrawGridLines(false);
+        mBarChart.getAxisLeft().setDrawGridLines(false);
+        mBarChart.getAxisLeft().setDrawAxisLine(false);
+        mBarChart.getAxisRight().setDrawAxisLine(false);
 
         XAxis xAxis = mBarChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1);
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return "Day "+(int)(value+1);
+            }
+        });
 
         setUpQuery();
 
@@ -216,7 +227,6 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
                 }
                 Collections.reverse(weekly_values);
 
-
                 //d.invalidate();
 
                 IBarDataSet iBarDataSet = new BarDataSet(barEntryList, "Power Data");
@@ -224,6 +234,13 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
                 ArrayList<IBarDataSet> dataSets = new ArrayList<>();
                 dataSets.add(iBarDataSet);
                 BarData barData = new BarData(dataSets);
+                barData.setValueFormatter(new IValueFormatter() {
+                    @Override
+                    public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+                        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+                        return decimalFormat.format(value)+" kWh";
+                    }
+                });
                 barData.setValueTextSize(14f);
                 mBarChart.setData(barData);
                 BarDataSet barDataSet = (BarDataSet) mBarChart.getData().getDataSetByIndex(0);
@@ -233,23 +250,9 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
                 mBarChart.setHighlightFullBarEnabled(false);
                 mBarChart.invalidate();
                 mBarChart.setClickable(true);
-
-                String daily_cost_string = "\n\n\n          Daily Cost\n          "+
-                        "$"+new DecimalFormat("#0.00").format(cost1);
-                daily_cost.setTextSize(20f);
-                daily_cost.setTextColor(Color.WHITE);
-                daily_cost.setText(daily_cost_string);
-                String last_week_cost_String = "\n    Last week Cost\n    "+
-                        "$"+new DecimalFormat("#0.00").format(cost2);
-                last_week_cost.setTextSize(14f);
-                last_week_cost.setTextColor(Color.WHITE);
-                last_week_cost.setText(last_week_cost_String);
-                String yesterday_cost_string = "\n    Yesterday Cost\n    "+
-                        "$"+new DecimalFormat("#0.00").format(cost3);
-                yesterday_cost.setTextSize(14f);
-                yesterday_cost.setTextColor(Color.WHITE);
-                yesterday_cost.setText(yesterday_cost_string);
                 progressBar.setVisibility(View.INVISIBLE);
+
+
             }
             Log.d("JSONRET", "done");
         }catch (Exception e){
@@ -263,7 +266,7 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
         Log.d("Position", ""+e.getX());
         Bundle bundle = new Bundle();
         bundle.putString("Panel", panel);
-        bundle.putString("Day", e.getX()+"");
+        bundle.putInt("Day", (int)e.getX());
         bundle.putParcelable("seads", this.seadsAppliance);
         Fragment fragment = new RoomVisualizationFragment();
         fragment.setArguments(bundle);

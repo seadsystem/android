@@ -15,16 +15,9 @@ import java.util.Locale;
  */
 
 public class TimeAxisFormatter implements IAxisValueFormatter{
-
     @Override
     public String getFormattedValue(float value, AxisBase axis) {
         Log.d("VALUE", value+"");
-        try{
-            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd", Locale.getDefault());
-            return sdf.format(new Date((long)value));
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
+        return "Week "+(int)(value+1);
     }
 }

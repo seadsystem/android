@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -27,10 +29,12 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.seads.seadsv3.R;
 import com.seads.seadsv3.SeadsAppliance;
 import com.seads.seadsv3.http.WebInterface;
@@ -71,7 +75,7 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface, OnCh
     private SeadsAppliance seadsAppliance;
     private ArrayList<Double> energyPoints;
     private int mRequestCount=0;
-    private double cost1, cost2, cost3;
+    private double cost1, cost2, cost3, energy1;
     /**
      * 1523923200
      * 86400
@@ -117,10 +121,31 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface, OnCh
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1);
         xAxis.setValueFormatter(new TimeAxisFormatter());
-        xAxis.setCenterAxisLabels(true);
+        xAxis.setTextSize(16f);
+
+        mBarChart.getAxisLeft().setTextSize(14f);
+        mBarChart.getAxisRight().setTextSize(14f);
+        mBarChart.getAxisRight().setDrawGridLines(false);
+        mBarChart.getAxisLeft().setDrawGridLines(false);
+        mBarChart.getAxisLeft().setDrawAxisLine(false);
+        mBarChart.getAxisRight().setDrawAxisLine(false);
+
         mBarChart.invalidate();
 
         setUpQuery();
+
+        Legend legend = mBarChart.getLegend();
+        legend.setEnabled(true);
+        legend.setTextColor(Color.BLACK);
+        LegendEntry[] legendEntries = legend.getEntries();
+        ArrayList<LegendEntry> legendEntryArrayList = new ArrayList<>();
+        for(int i = 0; i< legendEntries.length; i++){
+            LegendEntry legendEntry = legendEntries[i];
+            legendEntry.formColor = Color.WHITE;
+            legendEntry.label = "SDFA";
+            legendEntryArrayList.add(legendEntry);
+        }
+        legend.setEntries(legendEntryArrayList);
 
         return v;
     }
@@ -186,7 +211,7 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface, OnCh
             Log.d("MonthlyStatsFragment", "Sent:"+mRequestCount);
         }
         webInterfacer.getJSONObject(
-                CostCalculator.getFirstDayMonth(),
+                CostCalculator.getFirstDayWeek()==(current_time-current_time%DAY_INT)?CostCalculator.getFirstDayWeek()-7*DAY_INT:CostCalculator.getFirstDayWeek(),
                 current_time-current_time%DAY_INT,
                 "energy",
                 60*60,
@@ -230,19 +255,28 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface, OnCh
                     BarEntry barEntry = new BarEntry(weekly_values.indexOf(value), value);
                     //barEntry.setX(CostCalculator.getFirstDayMonth());
                     barEntryList.add(barEntry);
-
                 }
                 Collections.reverse(weekly_values);
 
-
                 //d.invalidate();
-
                 IBarDataSet iBarDataSet = new BarDataSet(barEntryList, "Power Data");
                 iBarDataSet.setDrawIcons(false);
                 ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+                iBarDataSet.setLabel("Energy Data");
+                iBarDataSet.setValueTextColor(Color.BLACK);
+                iBarDataSet.setDrawIcons(false);
+                iBarDataSet.setValueTextSize(18f);
+
                 dataSets.add(iBarDataSet);
                 BarData barData = new BarData(dataSets);
-                barData.setValueTextSize(14f);
+                barData.setValueTextSize(18f);
+                barData.setValueFormatter(new IValueFormatter() {
+                    @Override
+                    public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+                        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+                        return decimalFormat.format(value)+" kWh";
+                    }
+                });
                 mBarChart.setData(barData);
                 BarDataSet barDataSet = (BarDataSet) mBarChart.getData().getDataSetByIndex(0);
                 barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
@@ -260,34 +294,37 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface, OnCh
                     int hour = CostCalculator.getHourFromDateTime(dataPoint.getString("time"));
                     mDataPoints.add(new DataPoint(hour, dataPoint.getDouble("energy")));
                 }
-                for(int i = 24*7>data.length()?0:data.length()-24*7;i<data.length();i++){
+                for(int i = 0;i<data.length();i++){
                     JSONObject dataPoint = data.getJSONObject(i);
                     int hour = CostCalculator.getHourFromDateTime(dataPoint.getString("time"));
                     mWeekPoints.add(new DataPoint(hour, dataPoint.getDouble("energy")));
                 }
-                for(int i = 24>data.length()?0:data.length()-24;i<data.length();i++){
+                for(int i = 0;i<24;i++){
                     JSONObject dataPoint = data.getJSONObject(i);
                     int hour = CostCalculator.getHourFromDateTime(dataPoint.getString("time"));
                     mYstrPoints.add(new DataPoint(hour, dataPoint.getDouble("energy")));
                 }
 
 
-                String daily_cost_string = "\n\n\n          Daily Cost\n          "+
-                        "$"+new DecimalFormat("#0.00").format(CostCalculator.energyCost(mDataPoints)/(double)mDataPoints.size());
-                cost1 = CostCalculator.energyCost(mDataPoints)/(double)mDataPoints.size();
-                daily_cost.setTextSize(20f);
+                String daily_cost_string = "\n  Daily Usage\n\n  "+
+                        new DecimalFormat("$#0").format(CostCalculator.energyCost(mDataPoints)/7.0)+
+                        "\n\n               "+
+                        new DecimalFormat("#0.00 kWh").format(CostCalculator.avgEnergy(mDataPoints)/7.0);
+                cost1 = CostCalculator.energyCost(mDataPoints);
+                energy1 = CostCalculator.avgEnergy(mDataPoints)/7.0;
+                daily_cost.setTextSize(22f);
                 daily_cost.setTextColor(Color.WHITE);
                 daily_cost.setText(daily_cost_string);
-                String last_week_cost_String = "\n    Last week Cost\n    "+
-                        "$"+new DecimalFormat("#0.00").format(CostCalculator.energyCost(mWeekPoints)/(double)mWeekPoints.size());
-                cost2 = CostCalculator.energyCost(mWeekPoints)/(double)mWeekPoints.size();
+                String last_week_cost_String = "\n    Last week\n\n    "+
+                        new DecimalFormat("$#0").format(CostCalculator.energyCost(mWeekPoints));
+                cost2 = CostCalculator.energyCost(mWeekPoints);
 
                 last_week_cost.setTextSize(14f);
                 last_week_cost.setTextColor(Color.WHITE);
                 last_week_cost.setText(last_week_cost_String);
-                String yesterday_cost_string = "\n    Yesterday Cost\n    "+
-                        "$"+new DecimalFormat("#0.00").format(CostCalculator.energyCost(mYstrPoints)/(double)mYstrPoints.size());
-                cost3 = CostCalculator.energyCost(mYstrPoints)/(double)mYstrPoints.size();
+                String yesterday_cost_string = "\n    Yesterday\n\n    "
+                        +new DecimalFormat("$#0").format(CostCalculator.energyCost(mYstrPoints));
+                cost3 = CostCalculator.energyCost(mYstrPoints);
 
                 yesterday_cost.setTextSize(14f);
                 yesterday_cost.setTextColor(Color.WHITE);
@@ -317,6 +354,7 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface, OnCh
         bundle.putDouble("cost1",cost1);
         bundle.putDouble("cost2",cost2);
         bundle.putDouble("cost3",cost3);
+        bundle.putDouble("energy1", energy1);
         bundle.putParcelable("seads", this.seadsAppliance);
         Fragment fragment = new WeeklyStatsFragment();
         fragment.setArguments(bundle);
