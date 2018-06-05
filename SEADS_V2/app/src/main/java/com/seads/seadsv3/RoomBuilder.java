@@ -22,8 +22,8 @@ public class RoomBuilder {
         seads.child("name").setValue("Real Device");
         seads.child("rooms").child("Kitchen").child("appliances").child("Oven").child("id").setValue("Panel1");
         seads.child("rooms").child("Kitchen").child("appliances").child("Refrigerator").child("id").setValue("Panel2");
-        seads.child("rooms").child("Living Room").child("appliances").child("Solar Panel").child("id").setValue("Panel3");
-        seads.child("rooms").child("Living Room").child("appliances").child("Television").child("id").setValue("PowerS");
+        seads.child("rooms").child("Living Room").child("appliances").child("Solar Panel").child("id").setValue("PanelS");
+        seads.child("rooms").child("Living Room").child("appliances").child("Television").child("id").setValue("Power3");
 
         seads = mSnapshot.child("2038532776");
         seads.child("name").setValue("testbed");

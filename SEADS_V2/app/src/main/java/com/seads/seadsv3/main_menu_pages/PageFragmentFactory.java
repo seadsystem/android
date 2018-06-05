@@ -249,9 +249,10 @@ public class PageFragmentFactory extends Fragment implements WebInterface{
         }
         counter = 0;
         ArrayList<PieEntry> entries = new ArrayList<>();
+        String apps[] = {"Oven", "Refrigerator", "Television"};
 
         for(int i = 0; i<power_data.length; i++){
-            entries.add(new PieEntry(power_data[i], "Room "+ (i+1) ));
+            entries.add(new PieEntry(power_data[i], apps[i] ));
         }
         PieDataSet dataSet = new PieDataSet(entries, "% Power Usage");
         dataSet.setDrawIcons(false);

@@ -84,6 +84,8 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
         mChart.setNoDataTextColor(Color.WHITE);
         // enable description text
         mChart.getDescription().setEnabled(false);
+        startTime = CostCalculator.getFirstDayWeek()+DAY_INT*day;
+
 
         // enable touch gestures
         mChart.setTouchEnabled(true);
@@ -95,9 +97,11 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
 
         // if disabled, scaling can be done on x- and y-axis separately
         mChart.setPinchZoom(true);
-
+        mChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        IAxisValueFormatter iAxisValueFormatter = new HourAxisFormatter(startTime);
         // set an alternative background color
         mChart.setBackgroundColor(Color.WHITE);
+        mChart.getXAxis().setValueFormatter(iAxisValueFormatter);
 
         LineData data = new LineData();
         data.setValueTextColor(Color.BLACK);
@@ -162,7 +166,6 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
 
     public void getData(){
         long current_time = System.currentTimeMillis();
-        startTime = CostCalculator.getFirstDayWeek()+DAY_INT*day;
 
         webInterfacer.getJSONObject(
                 startTime,
@@ -211,14 +214,17 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
             //textView_Average.setText("Avg\n"+truncate(""+average)+"kW");
             lineData.notifyDataChanged();
             mChart.notifyDataSetChanged();
-            mChart.setVisibleXRangeMaximum(1500);
+            mChart.setVisibleXRangeMaximum(2000);
+            /*
             mChart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
                 @Override
                 public String getFormattedValue(float value, AxisBase axis) {
                     DateFormat dateFormat = new SimpleDateFormat("hh:mm", Locale.getDefault());
+                    Log.d("FORMAT", startTime+":"+value);
                     return dateFormat.format(new Date(startTime+(long)value));
                 }
             });
+            */
             mChart.moveViewToX(lineData.getEntryCount());
             progressBar.setVisibility(View.INVISIBLE);
 
