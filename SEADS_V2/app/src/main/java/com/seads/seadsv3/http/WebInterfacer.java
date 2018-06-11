@@ -42,25 +42,54 @@ public class WebInterfacer implements HTTPGetRequestAsyncTask.HTTPResponse {
      * @return URL necessary to get the json object
      */
     private URL getURL(long startTime, long endTime, String listFormat,
-                                         int granularity, String device, String type) {
+                                         int granularity, String device, String type, String seadsId) {
         try {
-            Log.d("WebInterface", "http://db.sead.systems:8080/466419818?start_time="+startTime+"&"
+            Log.d("WebInterface", "http://db.sead.systems:8080/"+seadsId+"?start_time="+startTime+"&"
                     + "end_time="+endTime+"&list_format=" + listFormat +
                     "&granularity="+granularity+"&device="+device+"&type="+type);
-            return new URL("http://db.sead.systems:8080/466419818?start_time="+startTime+"&"
+            return new URL("http://db.sead.systems:8080/"+seadsId+"?start_time="+startTime+"&"
                     + "end_time="+endTime+"&list_format=" + listFormat +
                     "&granularity="+granularity+"&device="+device+"&type="+type);
+        } catch (Exception e) {
+            // Insert appropriate toast here
+            return null;
+        }
+    }
+    private URL getURL(long startTime, long endTime, String listFormat,
+                       int granularity, String device, String type) {
+        String seadsId = 466419818+"";
+        try {
+            Log.d("WebInterface", "http://db.sead.systems:8080/"+seadsId+"?start_time="+startTime+"&"
+                    + "end_time="+endTime+"&list_format=" + listFormat +
+                    "&granularity="+granularity+"&device="+device+"&type="+type);
+            return new URL("http://db.sead.systems:8080/"+seadsId+"?start_time="+startTime+"&"
+                    + "end_time="+endTime+"&list_format=" + listFormat +
+                    "&granularity="+granularity+"&device="+device+"&type="+type);
+        } catch (Exception e) {
+            // Insert appropriate toast here
+            return null;
+        }
+    }
+    private URL getURL(long endTime, String listFormat, String device, String type, String seadsId) {
+        try {
+            Log.d("WebInterface", "http://db.sead.systems:8080/"+seadsId+"?start_time="+endTime+"&"
+                    + "end_time="+endTime+"&list_format=" + listFormat +
+                    "&device="+device+"&type="+type);
+            return new URL("http://db.sead.systems:8080/"+seadsId+"?start_time="+endTime+"&"
+                    + "end_time="+endTime+"&list_format=" + listFormat +
+                    "&device="+device+"&type="+type);
         } catch (Exception e) {
             // Insert appropriate toast here
             return null;
         }
     }
     private URL getURL(long endTime, String listFormat, String device, String type) {
+        String seadsId = 466419818+"";
         try {
-            Log.d("WebInterface", "http://db.sead.systems:8080/466419818?start_time="+endTime+"&"
+            Log.d("WebInterface", "http://db.sead.systems:8080/"+seadsId+"?start_time="+endTime+"&"
                     + "end_time="+endTime+"&list_format=" + listFormat +
                     "&device="+device+"&type="+type);
-            return new URL("http://db.sead.systems:8080/466419818?start_time="+endTime+"&"
+            return new URL("http://db.sead.systems:8080/"+seadsId+"?start_time="+endTime+"&"
                     + "end_time="+endTime+"&list_format=" + listFormat +
                     "&device="+device+"&type="+type);
         } catch (Exception e) {
@@ -68,7 +97,6 @@ public class WebInterfacer implements HTTPGetRequestAsyncTask.HTTPResponse {
             return null;
         }
     }
-
 
     /**
      * retrieves the json object in httpResponseFinished
@@ -80,15 +108,21 @@ public class WebInterfacer implements HTTPGetRequestAsyncTask.HTTPResponse {
      * @param type "P"
      */
     public void getJSONObject(long startTime, long endTime, String listFormat,
+                              int granularity, String device, String type, String seadsId) {
+        URL url = getURL(startTime, endTime, listFormat, granularity, device, type, seadsId);
+        new HTTPGetRequestAsyncTask(this).execute(url);
+    }
+    public void getJSONObject(long startTime, long endTime, String listFormat,
                               int granularity, String device, String type) {
         URL url = getURL(startTime, endTime, listFormat, granularity, device, type);
         new HTTPGetRequestAsyncTask(this).execute(url);
     }
     public void getJSONObject(long endTime, String listFormat,
-                               String device, String type) {
-        URL url = getURL(endTime,listFormat, device, type);
+                               String device, String type, String seadsId) {
+        URL url = getURL(endTime,listFormat, device, type, seadsId);
         new HTTPGetRequestAsyncTask(this).execute(url);
     }
+
 
     /**
      * Called when we receive a message from the server.

@@ -57,13 +57,6 @@
                 android:text="Devices: N/A"
                 android:textColor="@color/text_body"
                 android:textSize="14sp"/>
-            <TextView
-                android:id="@+id/text_view_room_cost"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cost in the past day: N/A"
-                android:textColor="@color/text_body"
-                android:textSize="14sp"/>
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

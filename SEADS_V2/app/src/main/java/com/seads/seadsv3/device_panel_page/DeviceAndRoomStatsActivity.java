@@ -14,6 +14,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.seads.seadsv3.BaseActivityWithDrawer;
 import com.seads.seadsv3.R;
+import com.seads.seadsv3.SeadsAppliance;
+import com.seads.seadsv3.SeadsDevice;
+import com.seads.seadsv3.SeadsRoom;
 
 /**
  * Handle the Device and room page
@@ -24,6 +27,7 @@ public class DeviceAndRoomStatsActivity extends BaseActivityWithDrawer implement
     private FirebaseAuth mAuth;
     private TabLayout mTabLayout;
     private String room;
+    private SeadsAppliance seadsAppliance;
 
     /**
      * Setup the views and nav drawer
@@ -34,7 +38,7 @@ public class DeviceAndRoomStatsActivity extends BaseActivityWithDrawer implement
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_panel_main);
         room = getIntent().getExtras().getString("Device");
-
+        seadsAppliance = getIntent().getExtras().getParcelable("seads");
         setupViewPager();
         setupNavigationDrawer();
         setupToolBar();
@@ -52,7 +56,7 @@ public class DeviceAndRoomStatsActivity extends BaseActivityWithDrawer implement
     private void setupViewPager() {
         mViewPager = (ViewPager) findViewById(R.id.pager_rooms_and_devices);
         Device_pager_adapter device_pager_adapter = new Device_pager_adapter(getSupportFragmentManager(),
-                DeviceAndRoomStatsActivity.this, this.room);
+                DeviceAndRoomStatsActivity.this, this.room, this.seadsAppliance);
         mViewPager.setAdapter(device_pager_adapter);
 
     }

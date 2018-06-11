@@ -2,6 +2,7 @@ package com.seads.seadsv3.main_menu_pages;
 
 import android.content.Context;
 import com.seads.seadsv3.R;
+import com.seads.seadsv3.SeadsDevice;
 import com.seads.seadsv3.main_menu.EnumNavBarNames;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,13 +18,14 @@ public class PagerAdapterSEADS extends FragmentPagerAdapter {
     private String tabTitles[];// = new String[] { "Devices", "Rooms", "Overview" };
     private int tabIcons[]; // = new int[] {R.drawable.home, R.drawable.device, etc};
     private Context mContext;
+    private SeadsDevice seadsDevice;
 
     /**
      * Adapter for fragment manager, pass in the Activity context to instantiate the factory
      * @param fm
      * @param context
      */
-    public PagerAdapterSEADS(FragmentManager fm, Context context) {
+    public PagerAdapterSEADS(FragmentManager fm, Context context, SeadsDevice seadsDevice) {
         super(fm);
         this.PAGE_COUNT = EnumNavBarNames.values().length;
         this.tabTitles = new String[this.PAGE_COUNT];
@@ -35,6 +37,7 @@ public class PagerAdapterSEADS extends FragmentPagerAdapter {
             index++;
         }
         this.mContext = context;
+        this.seadsDevice = seadsDevice;
     }
 
     @Override
@@ -46,7 +49,7 @@ public class PagerAdapterSEADS extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
 
         PageFragmentConfig pageFragmentConfig = new PageFragmentConfig(position);
-        return PageFragmentFactory.newInstance(pageFragmentConfig);
+        return PageFragmentFactory.newInstance(pageFragmentConfig, seadsDevice);
     }
 
 

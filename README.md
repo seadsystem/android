@@ -1,5 +1,5 @@
 ## SEADS Android App
-CMPS115 Fall 2016
+CMPS117 Spring 2018
 
 ## Build Status
 | Branch | Jenkins Builder | 
@@ -15,8 +15,8 @@ CMPS115 Fall 2016
 ## Github how-to
 ### Setup
 1. Fork the repo from https://github.com/seadsystem/android into your account
-3. mkdir CMPS116
-4. cd CMPS116
+3. mkdir CMPS117
+4. cd CMPS117
 5. git clone (URL of your forked repo)
 6. cd android
 7. git remote add upstream https://github.com/seadsystem/android

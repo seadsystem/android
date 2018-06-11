@@ -73,8 +73,7 @@ public class AdapterRecyclerViewRooms extends RecyclerView.Adapter<AdapterRecycl
                 mDataset[position].getTitle());
         ((TextView) holder.mView.findViewById(R.id.text_view_number_of_devices)).setText(
                 "Devices: " + mDataset[position].getDevicesInRoom());
-        ((TextView) holder.mView.findViewById(R.id.text_view_room_cost)).setText(
-                mDataset[position].getCostInPastDay());
+
         holder.mView.setOnClickListener(holder);
     }
 

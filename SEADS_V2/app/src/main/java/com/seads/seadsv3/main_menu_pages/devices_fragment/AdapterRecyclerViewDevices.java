@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import com.seads.seadsv3.BaseActivityWithDrawer;
 import com.seads.seadsv3.R;
+import com.seads.seadsv3.SeadsDevice;
 import com.seads.seadsv3.device_panel_page.DeviceAndRoomStatsActivity;
+
+import android.os.Parcel;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -24,6 +27,7 @@ public class AdapterRecyclerViewDevices extends RecyclerView.Adapter<AdapterRecy
     private DeviceViewInfo[] mDataset;
     private Fragment mFragment;
     private HashMap<String, String> room_map;
+    private SeadsDevice seadsDevice;
     /**
      * Provide a reference to the views for each data item
      * Complex data items may need more than one view per item, and
@@ -38,25 +42,28 @@ public class AdapterRecyclerViewDevices extends RecyclerView.Adapter<AdapterRecy
             this.mView = v;
             mContext = v.getContext();
         }
+
         @Override
         public void onClick(View v) {
             Log.d("Devices", "onClick " + getLayoutPosition());
+            int y = getLayoutPosition();
             Intent intent = new Intent(mContext, DeviceAndRoomStatsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             intent.putExtra("Device", room_map.get(""+getLayoutPosition()));
+            intent.putExtra("seads", seadsDevice.getDevice(mDataset[getLayoutPosition()].getDeviceName()));
             Log.d("Devices", room_map.toString());
             Log.d("Devices",mFragment.getActivity().getLocalClassName());
             mFragment.getActivity().startActivityForResult(intent, BaseActivityWithDrawer.REQUEST_CODE);
         }
-
     }
 
     /**
      * Recycler for main menu's devices list
      * @param dataset takes in a dataset to use to populate the reyclerview
      */
-    public AdapterRecyclerViewDevices(DeviceViewInfo[] dataset, Fragment fragment) {
+    public AdapterRecyclerViewDevices(DeviceViewInfo[] dataset, Fragment fragment, SeadsDevice seadsDevice) {
         mDataset = dataset;
         mFragment = fragment;
+        this.seadsDevice = seadsDevice;
     }
 
     /**
@@ -124,8 +131,7 @@ public class AdapterRecyclerViewDevices extends RecyclerView.Adapter<AdapterRecy
 
             ((TextView) holder.mView.findViewById(R.id.text_view_device_name)).setText(
                     mDataset[position].getDeviceName());
-            ((TextView) holder.mView.findViewById(R.id.text_view_device_cost)).setText(
-                    mDataset[position].getCostInPastDay());
+
             holder.mView.setOnClickListener(holder);
         } else {
             ((TextView) holder.mView.findViewById(R.id.text_view_devices_item_title)).setText(

@@ -39,9 +39,7 @@ public class DeviceViewInfoTest {
     @Test
     public void deviceViewInfoTestNulls() {
         DeviceViewInfo testDeviceViewInfo = new DeviceViewInfo();
-        if (testDeviceViewInfo.getCostInPastDay()==null) {
-            fail();
-        }
+
         if (testDeviceViewInfo.getDeviceName()==null) {
             fail();
         }
@@ -50,9 +48,7 @@ public class DeviceViewInfoTest {
         }
 
         testDeviceViewInfo = new DeviceViewInfo("x");
-        if (testDeviceViewInfo.getCostInPastDay()==null) {
-            fail();
-        }
+
         if (testDeviceViewInfo.getDeviceName()==null) {
             fail();
         }
@@ -61,9 +57,7 @@ public class DeviceViewInfoTest {
         }
 
         testDeviceViewInfo = new DeviceViewInfo("x",true);
-        if (!(testDeviceViewInfo.getCostInPastDay()==null)) {
-            fail();
-        }
+
         if (!(testDeviceViewInfo.getDeviceName()==null)) {
             fail();
         }

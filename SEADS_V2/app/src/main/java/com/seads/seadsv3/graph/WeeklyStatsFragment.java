@@ -27,11 +27,14 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.seads.seadsv3.R;
+import com.seads.seadsv3.SeadsAppliance;
 import com.seads.seadsv3.http.WebInterface;
 import com.seads.seadsv3.http.WebInterfacer;
 
@@ -41,6 +44,7 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -54,7 +58,7 @@ import java.util.ListIterator;
 public class WeeklyStatsFragment extends Fragment implements WebInterface, OnChartValueSelectedListener {
 
     private BarChart mBarChart;
-    private final long DAY_INT = 86400000;
+    private final long DAY_INT = 86400;
     private WebInterfacer webInterfacer;
     private int indexCount;
     private String panel;
@@ -67,6 +71,10 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
     private TextView last_week_cost;
     private ProgressBar progressBar;
     private int week;
+    private SeadsAppliance seadsAppliance;
+    private int mRequestCount=0;
+    private ArrayList<Double> energyPoints;
+    private  double cost1, cost2, cost3, energy1;
     /**
      * 1523923200
      * 86400
@@ -85,11 +93,13 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.weekly_stats_fragment, container, false);
         mBarChart =  v.findViewById(R.id.WeeklyStatsChart);
-        daily_cost = v.findViewById(R.id.wDailyCost);
-        last_week_cost = v.findViewById(R.id.wLastWeekCost);
-        yesterday_cost = v.findViewById(R.id.wYesterdayCost);
         panel = getArguments().getString("Panel");
-        week = (int)Float.parseFloat(getArguments().getString("Week"));
+        seadsAppliance = getArguments().getParcelable("seads");
+        week = getArguments().getInt("Week");
+        cost1 = getArguments().getDouble("cost1");
+        cost2 = getArguments().getDouble("cost2");
+        cost3 = getArguments().getDouble("cost3");
+        energy1 = getArguments().getDouble("energy1");
         mBarChart.setMaxVisibleValueCount(60);
         mBarChart.setDrawGridBackground(false);
         barEntryList = new ArrayList<>();
@@ -99,17 +109,33 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
         progressBar.setVisibility(View.VISIBLE);
         week_data = new double[7];
         mBarChart.setOnChartValueSelectedListener(this);
+        mBarChart.setNoDataText("");
+        mBarChart.setNoDataTextColor(Color.WHITE);
+        energyPoints = new ArrayList<>();
 
-
-        //test.getJSONObject();
-        //mBarChart.setOnChartValueSelectedListener(this);
         mBarChart.setDrawBarShadow(true);
         mBarChart.getDescription().setEnabled(false);
+
+        mBarChart.getAxisLeft().setTextSize(14f);
+        mBarChart.getAxisRight().setTextSize(14f);
+        mBarChart.getAxisRight().setDrawGridLines(false);
+        mBarChart.getAxisLeft().setDrawGridLines(false);
+        mBarChart.getAxisLeft().setDrawAxisLine(false);
+        mBarChart.getAxisRight().setDrawAxisLine(false);
 
         XAxis xAxis = mBarChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1);
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return "Day "+(int)(value+1);
+            }
+        });
+
+
+
 
         setUpQuery();
 
@@ -130,19 +156,46 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
      * Sets up drop down menu for selecting the data set to be analyzed
      */
     public void setUpQuery(){
-        long current_time = System.currentTimeMillis();
+        long current_time = System.currentTimeMillis()/1000;
+        long start_time = CostCalculator.getFirstDayWeek(week);
+        long end_time = (current_time-current_time%DAY_INT-21)/1000;
+        boolean stillInPresent = true;
+        IAxisValueFormatter iAxisValueFormatter = new DayAxisFormatter(start_time);
+        mBarChart.getXAxis().setValueFormatter(iAxisValueFormatter);
 
-        for(int i = 6; i>=0;i--){
-            long end_time = (current_time-current_time%DAY_INT-(4-week)*i*DAY_INT)/1000;
-            Log.d("Timing", "end_time="+end_time);
+
+        /*
+        Get base energy for start of month
+         */
+        webInterfacer.getJSONObject(
+                start_time,
+                "energy",
+                this.seadsAppliance.getQueryId(),
+                "P",
+                this.seadsAppliance.getSeadsId()
+        );
+        mRequestCount++;
+        /*
+        Generate requests for weeks until reach present time
+         */
+        while(stillInPresent && start_time<CostCalculator.getFirstDayWeek(week+1)){
+            if(current_time < start_time+DAY_INT){
+                end_time = current_time-60;
+                stillInPresent = false;
+            }else{
+                end_time = start_time+DAY_INT;
+            }
             webInterfacer.getJSONObject(
                     end_time,
                     "energy",
-                    panel,
-                    "P"
+                    this.seadsAppliance.getQueryId(),
+                    "P",
+                    this.seadsAppliance.getSeadsId()
             );
+            start_time = end_time;
+            mRequestCount++;
+            Log.d("WeeklyStatsFragment", "Sent:"+mRequestCount);
         }
-
     }
 
     /**
@@ -157,38 +210,43 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
             JSONArray data = result.getJSONArray("data");
             JSONObject index0 = data.getJSONObject(0);
             Log.d("Got:", ""+index0);
-            double total_energy = index0.getDouble("energy");
-            week_data[recv++] = total_energy;
 
-            if(recv==7) {
+            if(mRequestCount!=-1) {
+                double total_energy = index0.getDouble("energy");
+                energyPoints.add(total_energy);
+            }
+            recv++;
+
+            if(recv==mRequestCount) {
+
+                mRequestCount =-1;
                 ArrayList<Float> weekly_values= new ArrayList<>();
-                for (int i = 0; i< 6; i++) {
-                    weekly_values.add((float) (Math.abs(week_data[7 - i - 1] - week_data[7 - i - 2]) / (1000.0 * 60 * 60)));
+                double basePoint = energyPoints.get(0);
+                for(int i = 1; i< energyPoints.size();i++){
+                    double energyValue = Math.abs(basePoint-energyPoints.get(i));
+                    basePoint = energyPoints.get(i);
+                    weekly_values.add((float)(energyValue/(3600*1000.0)));
+                    Log.d("WeeklyStatsFragment", "Energy:"+energyValue/(3600*1000.0));
                 }
-                float avg_cost = 0;
                 for(float value : weekly_values){
                     barEntryList.add(new BarEntry(weekly_values.indexOf(value), value));
-                    avg_cost += value;
                 }
-                String daily_cost_string = "\n\n\n          Daily Cost\n          "+"$"+new DecimalFormat("#0.00").format(CostCalculator.energyCost(avg_cost/24.0));
-                daily_cost.setTextSize(20f);
-                daily_cost.setTextColor(Color.WHITE);
-                daily_cost.setText(daily_cost_string);
-                String last_week_cost_String = "\n    Last week Cost\n    "+"$"+new DecimalFormat("#0.00").format(CostCalculator.energyCost(avg_cost/3.0));
-                last_week_cost.setTextSize(14f);
-                last_week_cost.setTextColor(Color.WHITE);
-                last_week_cost.setText(last_week_cost_String);
-                String yesterday_cost_string = "\n    Yesterday Cost\n    "+"$"+new DecimalFormat("#0.00").format(CostCalculator.energyCost(avg_cost/31.0));
-                yesterday_cost.setTextSize(14f);
-                yesterday_cost.setTextColor(Color.WHITE);
-                yesterday_cost.setText(yesterday_cost_string);
+                Collections.reverse(weekly_values);
+
                 //d.invalidate();
 
-                IBarDataSet iBarDataSet = new BarDataSet(barEntryList, "Test");
+                IBarDataSet iBarDataSet = new BarDataSet(barEntryList, "Power Data");
                 iBarDataSet.setDrawIcons(false);
                 ArrayList<IBarDataSet> dataSets = new ArrayList<>();
                 dataSets.add(iBarDataSet);
                 BarData barData = new BarData(dataSets);
+                barData.setValueFormatter(new IValueFormatter() {
+                    @Override
+                    public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+                        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+                        return decimalFormat.format(value)+" kWh";
+                    }
+                });
                 barData.setValueTextSize(14f);
                 mBarChart.setData(barData);
                 BarDataSet barDataSet = (BarDataSet) mBarChart.getData().getDataSetByIndex(0);
@@ -197,10 +255,11 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
                 mBarChart.setDrawBarShadow(false);
                 mBarChart.setHighlightFullBarEnabled(false);
                 mBarChart.invalidate();
+                mBarChart.setClickable(true);
                 progressBar.setVisibility(View.INVISIBLE);
+
+
             }
-            //textView_Peak.setText("Peak:\n"+truncate(""+peak)+"kW");
-            //textView_Average.setText("Avg\n"+truncate(""+average)+"kW");
             Log.d("JSONRET", "done");
         }catch (Exception e){
             e.printStackTrace();
@@ -213,7 +272,9 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
         Log.d("Position", ""+e.getX());
         Bundle bundle = new Bundle();
         bundle.putString("Panel", panel);
-        bundle.putString("Day", e.getX()+"");
+        bundle.putInt("Day", (int)e.getX());
+        bundle.putInt("Week", week);
+        bundle.putParcelable("seads", this.seadsAppliance);
         Fragment fragment = new RoomVisualizationFragment();
         fragment.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

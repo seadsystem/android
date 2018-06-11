@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.github.mikephil.charting.charts.BubbleChart;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -58,13 +59,9 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements Navigati
      * @param savedInstanceState Android instance state
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-
-        setupViewPager();
-        setupToolBar();
-        setupNavigationDrawer();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -79,34 +76,29 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements Navigati
                 if(dataSnapshot.exists()){
                     for(DataSnapshot issue : dataSnapshot.getChildren()){
                         try {
-                            Log.d("FirebaseD", issue.child("name").getValue().toString());
                             if(
+                                    !(issue.child("name").getValue() == null) &&
                                     !issue.child("name").getValue().toString().toLowerCase().contains("test") &&
                                     !issue.child("name").getValue().toString().toLowerCase().contains("fake")
                                     ) {
                                 Log.d("Firebase", issue.toString());
-                                seadsDevice = new SeadsDevice(dataSnapshot);
+                                seadsDevice = new SeadsDevice(issue);
                             }
-                        }catch (NullPointerException e){};
+                        }catch (NullPointerException e){
+                            e.printStackTrace();
+                        }
                     }
                 }
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("seads", seadsDevice);
+                setupViewPager();
+                setupToolBar();
+                setupNavigationDrawer();
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
-
         });
-        /*
-        Log.d("ayy", "lmao");
-        ArrayList<SeadsRoom> rooms = this.seadsDevice.getRooms();
-        ArrayList<SeadsAppliance> apps = rooms.get(0).getApps();
-        for(SeadsAppliance app : apps){
-            Log.d("APP", app.getTag());
-        }
-        */
-
 
     }
 
@@ -126,8 +118,9 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements Navigati
      */
     private void setupViewPager() {
         mViewPager = (ViewPager) findViewById(R.id.pager_rooms_and_devices);
+        mViewPager.setOffscreenPageLimit(2);
         PagerAdapterSEADS pagerAdapterSEADS = new PagerAdapterSEADS(getSupportFragmentManager(),
-                MainMenuActivity.this);
+                MainMenuActivity.this, seadsDevice);
         mViewPager.setAdapter(pagerAdapterSEADS);
 
         mTabLayout = (TabLayout) findViewById(R.id.tabs_main_menu);
@@ -237,7 +230,7 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements Navigati
         Log.d("MainMenuActivity","In onActivityResult");
         if (requestCode == REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                int resultForPageIndex = data.getIntExtra(requestDataKey,EnumNavBarNames.ROOMS.getIndex());
+                int resultForPageIndex = data.getIntExtra(requestDataKey,EnumNavBarNames.DEVICES.getIndex());
                 Log.d("MainMenuActivity", "result:" + resultForPageIndex);
                 if (mViewPager != null) {
                     if (resultForPageIndex == ABOUT_CODE) {
@@ -270,9 +263,12 @@ public class MainMenuActivity extends BaseActivityWithDrawer implements Navigati
     private void setNavigationViewToPage(int page) {
         if (page == EnumNavBarNames.DEVICES.getIndex()){
             mNavigationView.setCheckedItem(R.id.nav_device);
-        } else if (page == EnumNavBarNames.ROOMS.getIndex()) {
+        }
+        /*else if (page == EnumNavBarNames.ROOMS.getIndex()) {
             mNavigationView.setCheckedItem(R.id.nav_rooms);
-        } else if (page == EnumNavBarNames.OVERVIEW.getIndex()) {
+        }
+         */
+        else if (page == EnumNavBarNames.OVERVIEW.getIndex()) {
             mNavigationView.setCheckedItem(R.id.nav_overview);
         } else if (page == EnumNavBarNames.AWARDS.getIndex()) {
             mNavigationView.setCheckedItem(R.id.nav_awards);

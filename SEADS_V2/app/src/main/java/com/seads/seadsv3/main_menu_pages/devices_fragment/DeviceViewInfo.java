@@ -5,7 +5,6 @@ package com.seads.seadsv3.main_menu_pages.devices_fragment;
  */
 public class DeviceViewInfo {
     private String mDeviceName;
-    private String mCostInPastDay;
     private boolean header;
     private String mTitle;
     // Reference to bitmap?
@@ -25,7 +24,6 @@ public class DeviceViewInfo {
      */
     public DeviceViewInfo() {
         mDeviceName = "Device Name Unknown";
-        mCostInPastDay = "Cost in the past day: N/A";
         this.header = false;
     }
 
@@ -34,7 +32,6 @@ public class DeviceViewInfo {
      */
     public DeviceViewInfo(String deviceName) {
         mDeviceName = deviceName;
-        mCostInPastDay = "Cost in the past day: N/A";
         this.header = false;
     }
 
@@ -44,7 +41,6 @@ public class DeviceViewInfo {
      */
     public DeviceViewInfo(String deviceName, String costInPastDay) {
         mDeviceName = deviceName;
-        mCostInPastDay = costInPastDay;
         this.header = false;
     }
 
@@ -60,9 +56,6 @@ public class DeviceViewInfo {
      * getter for cost in past day
      * @return the amount of money the device has used in the past 24 hours
      */
-    public String getCostInPastDay() {
-        return mCostInPastDay;
-    }
 
     /**
      * getter for header title

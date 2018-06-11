@@ -15,19 +15,14 @@ public class RoomViewInfoTest {
     @Test
     public void roomViewInfoTestNulls() {
         RoomViewInfo roomDeviceViewInfo = new RoomViewInfo("",2);
-        if (roomDeviceViewInfo.getCostInPastDay()==null) {
-            fail();
-        }
+
         if (roomDeviceViewInfo.getDevicesInRoom()!=2) {
             fail();
         }
         if (roomDeviceViewInfo.getTitle()==null) {
             fail();
         }
-        roomDeviceViewInfo = new RoomViewInfo("",2, "123");
-        if (roomDeviceViewInfo.getCostInPastDay()==null) {
-            fail();
-        }
+
         if (roomDeviceViewInfo.getDevicesInRoom()!=2) {
             fail();
         }

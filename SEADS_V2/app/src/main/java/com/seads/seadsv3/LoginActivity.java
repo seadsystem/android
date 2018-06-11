@@ -1,11 +1,16 @@
 package com.seads.seadsv3;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextSwitcher;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -20,8 +25,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.seads.seadsv3.http.WebInterface;
+import com.seads.seadsv3.http.WebInterfacer;
 import com.seads.seadsv3.main_menu.MainMenuActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -31,13 +43,17 @@ import com.seads.seadsv3.main_menu.MainMenuActivity;
  */
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity{
 
     private FirebaseAuth mAuth;
     public int RC_SIGN_IN = 5;
     private GoogleSignInClient mGoogleSignInClient;
     private String TAG = "testactivity";
-
+    private String id = "";
+    private String appliance = "";
+    private boolean valid_id = false;
+    private final long DAY_INT = 86400000;
+    private FirebaseUser mUser;
 
 
     @Override
@@ -100,7 +116,13 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            mUser = user;
+                            boolean isNew = task.getResult().getAdditionalUserInfo().isNewUser();
+                            if(isNew){
+                                createSeads();
+                            }
                             successfulLogin();
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -108,6 +130,9 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+    protected void createSeads(){
+        RoomBuilder.initSeads(mUser, mAuth);
     }
 
 
