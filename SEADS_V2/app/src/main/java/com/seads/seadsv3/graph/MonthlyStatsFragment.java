@@ -177,6 +177,8 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface, OnCh
         Log.d("Timing", "end_time="+end_time);
         Log.d("Timing", "granularity="+(end_time-start_time)/2);
         boolean stillInPresent = true;
+        IAxisValueFormatter iAxisValueFormatter = new MonthAxisFormatter(start_time);
+        mBarChart.getXAxis().setValueFormatter(iAxisValueFormatter);
 
         /*
         Get base energy for start of month
@@ -350,7 +352,7 @@ public class MonthlyStatsFragment extends Fragment implements WebInterface, OnCh
         Log.d("Position", ""+e.getX());
         Bundle bundle = new Bundle();
         bundle.putString("Panel", panel);
-        bundle.putString("Week", e.getX()+"");
+        bundle.putInt("Week", (int)e.getX());
         bundle.putDouble("cost1",cost1);
         bundle.putDouble("cost2",cost2);
         bundle.putDouble("cost3",cost3);

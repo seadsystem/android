@@ -85,4 +85,15 @@ public class CostCalculator {
         }
         return 0;
     }
+
+    protected static long getFirstDayWeek(int weekNumber){
+        long baseMonth = CostCalculator.getFirstDayMonth();
+        return baseMonth+DAY_INT*weekNumber*7;
+
+    }
+
+    protected static long getDay(int weekNumber, int dayNumber){
+        long baseMonth = CostCalculator.getFirstDayMonth();
+        return baseMonth+DAY_INT*weekNumber*7+dayNumber*DAY_INT;
+    }
 }

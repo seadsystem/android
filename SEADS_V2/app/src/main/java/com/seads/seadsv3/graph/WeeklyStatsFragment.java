@@ -95,7 +95,7 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
         mBarChart =  v.findViewById(R.id.WeeklyStatsChart);
         panel = getArguments().getString("Panel");
         seadsAppliance = getArguments().getParcelable("seads");
-        week = (int)Float.parseFloat(getArguments().getString("Week"));
+        week = getArguments().getInt("Week");
         cost1 = getArguments().getDouble("cost1");
         cost2 = getArguments().getDouble("cost2");
         cost3 = getArguments().getDouble("cost3");
@@ -134,6 +134,9 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
             }
         });
 
+
+
+
         setUpQuery();
 
         return v;
@@ -154,9 +157,12 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
      */
     public void setUpQuery(){
         long current_time = System.currentTimeMillis()/1000;
-        long start_time = CostCalculator.getFirstDayWeek()>CostCalculator.getFirstDayMonth()?CostCalculator.getFirstDayWeek():CostCalculator.getFirstDayMonth();
+        long start_time = CostCalculator.getFirstDayWeek(week);
         long end_time = (current_time-current_time%DAY_INT-21)/1000;
         boolean stillInPresent = true;
+        IAxisValueFormatter iAxisValueFormatter = new DayAxisFormatter(start_time);
+        mBarChart.getXAxis().setValueFormatter(iAxisValueFormatter);
+
 
         /*
         Get base energy for start of month
@@ -172,7 +178,7 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
         /*
         Generate requests for weeks until reach present time
          */
-        while(stillInPresent){
+        while(stillInPresent && start_time<CostCalculator.getFirstDayWeek(week+1)){
             if(current_time < start_time+DAY_INT){
                 end_time = current_time-60;
                 stillInPresent = false;
@@ -267,6 +273,7 @@ public class WeeklyStatsFragment extends Fragment implements WebInterface, OnCha
         Bundle bundle = new Bundle();
         bundle.putString("Panel", panel);
         bundle.putInt("Day", (int)e.getX());
+        bundle.putInt("Week", week);
         bundle.putParcelable("seads", this.seadsAppliance);
         Fragment fragment = new RoomVisualizationFragment();
         fragment.setArguments(bundle);

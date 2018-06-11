@@ -63,7 +63,7 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
     private TextView avg_energy;
     private TextView max_energy;
     private SeadsAppliance seadsAppliance;
-    int day;
+    int day, week;
     long startTime;
     /**
      * Populate the layout with the chart and instantiate data aggregation
@@ -78,13 +78,14 @@ public class RoomVisualizationFragment extends Fragment implements WebInterface 
         panel = getArguments().getString("Panel");
         seadsAppliance = getArguments().getParcelable("seads");
         day = getArguments().getInt("Day");
+        week = getArguments().getInt("Week");
         data_point_date_map = new HashMap<>();
         progressBar = v.findViewById(R.id.daily_progress);
         mChart.setNoDataText("");
         mChart.setNoDataTextColor(Color.WHITE);
         // enable description text
         mChart.getDescription().setEnabled(false);
-        startTime = CostCalculator.getFirstDayWeek()+DAY_INT*day;
+        startTime = CostCalculator.getDay(week, day);
 
 
         // enable touch gestures
